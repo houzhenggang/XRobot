@@ -32,8 +32,8 @@
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
-    <!-- 百度地图 -->
 
+    <!-- 百度地图 -->
     <application
         android:name=".app.CustomApplication"
         android:icon="@drawable/ic_launcher"
@@ -52,7 +52,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity android:name="org.ros.android.MasterChooser"/>-->
+        <!-- <activity android:name="org.ros.android.MasterChooser"/> -->
         <activity
             android:name=".core.software.zxing.ScanCodeActivity"
             android:launchMode="singleTask"
@@ -65,65 +65,58 @@
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" />
 
         <!-- ########################################################Service################################################################# -->
-        <!--<service android:name="org.ros.android.NodeMainExecutorService">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="org.ros.android.NodeMainExecutorService" />-->
-            <!--</intent-filter>-->
-        <!--</service>-->
-        <service android:name="com.robot.et.core.software.system.AlarmClockService"></service>
-        <service android:name="com.robot.et.core.software.system.MusicPlayerService"></service>
-        <service android:name="com.robot.et.core.software.iflytek.IflySpeakService"></service>
-        <service android:name="com.robot.et.core.software.iflytek.IflyVoiceToTextService"></service>
-        <service android:name="com.robot.et.core.software.iflytek.IflyTextUnderstanderService"></service>
-        <service android:name="com.robot.et.core.software.turing.TuRingService" ></service>
+        <!-- <service android:name="org.ros.android.NodeMainExecutorService"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="org.ros.android.NodeMainExecutorService" /> -->
+        <!-- </intent-filter> -->
+        <!-- </service> -->
+        <service android:name=".core.software.system.AlarmClockService" />
+        <service android:name=".core.software.system.MusicPlayerService" />
+        <service android:name=".core.software.iflytek.IflySpeakService" />
+        <service android:name=".core.software.iflytek.IflyVoiceToTextService" />
+        <service android:name=".core.software.iflytek.IflyTextUnderstanderService" />
+        <service android:name=".core.software.turing.TuRingService" />
 
         <!-- 网络连接状态监控 -->
         <service
             android:name=".core.software.system.network.NetWorkConnectService"
-            android:launchMode="singleInstance">
-        </service>
+            android:launchMode="singleInstance"></service>
         <!-- 网络流量状态监控 -->
         <service
-            android:name="com.robot.et.core.software.system.network.NetWorkTrafficService"
-            android:launchMode="singleInstance" >
-        </service>
+            android:name=".core.software.system.network.NetWorkTrafficService"
+            android:launchMode="singleInstance"></service>
         <!-- 串口服务 -->
         <service
-            android:name="com.robot.et.core.hardware.serialport.SerialPortService"
-            android:launchMode="singleInstance" >
-        </service>
+            android:name=".core.hardware.serialport.SerialPortService"
+            android:launchMode="singleInstance"></service>
         <!-- 唤醒服务 -->
         <service
-            android:name="com.robot.et.core.hardware.wakeup.WakeUpServices"
-            android:launchMode="singleInstance">
-        </service>
+            android:name=".core.hardware.wakeup.WakeUpServices"
+            android:launchMode="singleInstance"></service>
 
         <!-- 控制机器人运动 -->
         <service
-            android:name="com.robot.et.core.hardware.motor.ControlMoveService"
-            android:launchMode="singleInstance">
-        </service>
+            android:name=".core.hardware.motor.ControlMoveService"
+            android:launchMode="singleInstance"></service>
         <!-- Netty 服务 -->
         <service
-            android:name="com.robot.et.core.software.netty.NettyService"
-            android:launchMode="singleInstance" >
-        </service>
+            android:name=".core.software.netty.NettyService"
+            android:launchMode="singleInstance"></service>
         <!-- 表情控制服务 -->
         <service
-            android:name="com.robot.et.core.hardware.emotion.EmotionService"
-            android:launchMode="singleInstance" >
-        </service>
+            android:name=".core.hardware.emotion.EmotionService"
+            android:launchMode="singleInstance"></service>
         <!-- 蓝牙Services -->
-        <service android:name="com.robot.et.core.software.agora.AgoraService"/>
+        <service android:name=".core.software.agora.AgoraService" />
         <!-- Agora -->
-        <service android:name="com.robot.et.core.software.baidumap.LocationService"/>
+        <service android:name=".core.software.baidumap.LocationService" />
         <!-- 百度地图定位  start -->
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v2.2"></action>
+                <action android:name="com.baidu.location.service_v2.2" />
             </intent-filter>
         </service>
 
@@ -133,8 +126,9 @@
         <!-- 将百度地图appId填写到此处 -->
         <!-- 百度地图定位   end -->
 
+
         <!-- ########################################################BroadcastReceiver################################################################# -->
-        <receiver android:name="com.robot.et.receiver.RemindAlamrReceiver" />
+        <receiver android:name=".receiver.RemindAlamrReceiver" />
         <!-- 机器人启动自启 -->
         <receiver android:name=".receiver.BootBroadcastReceiver">
             <intent-filter>
@@ -143,6 +137,8 @@
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
+
+        <activity android:name=".business.RosControler"></activity>
     </application>
 
 </manifest>
