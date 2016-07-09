@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 与action_command_value值一一对应 -->
+    <string-array name="action_name">
+        <item>向前</item>
+        <item>过来</item>
+        <item>前进</item>
+        <item>向后</item>
+        <item>后退</item>
+        <item>再退</item>
+        <item>向左</item>
+        <item>左转</item>
+        <item>向右</item>
+        <item>右转</item>
+        <item>停止</item>
+    </string-array>
+
+    <!-- 与action_command_name值一一对应 -->
+    <string-array name="action_value">
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>2</item>
+        <item>2</item>
+        <item>2</item>
+        <item>3</item>
+        <item>3</item>
+        <item>4</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    
+    <!-- 执行命令时的  -->
+    <string-array name="action_custorm_answer">
+        <item>收到</item>
+        <item>好的</item>
+    </string-array>    
+
+    <!-- 聊天的时候，没有内容的时候返回的自定义话语 -->
+    <string-array name="voice_custorm_chat">
+        <item>我好像没明白你的意思</item>
+        <item>我不太理解你的意思</item>
+        <item>我不太明白你的意思</item>
+    </string-array>
+
+    <!-- 天气的提示要与穿衣指数一一对应 -->
+    <string-array name="weather_tips">
+        <item>晴</item>
+        <item>多云</item>
+        <item>晴转多云</item>
+        <item>多云转晴</item>
+        <item>多云转阴</item>
+        <item>阴</item>
+        <item>小雨</item>
+        <item>中雨</item>
+        <item>大雨</item>
+        <item>大暴雨</item>
+        <item>特大暴雨</item>
+        <item>阵雨</item>
+        <item>雷阵雨</item>
+        <item>雨夹雪</item>
+        <item>小雪</item>
+        <item>中雪</item>
+        <item>大雪</item>
+        <item>暴雪</item>
+        <item>小雨转中雨</item>
+        <item>小雨转阵雨</item>
+        <item>小雨转雷阵雨</item>
+        <item>中雨转小雨</item>
+        <item>中雨转阵雨</item>
+        <item>中雨转雷阵雨</item>
+        <item>阵雨转小雨</item>
+        <item>阵雨转中雨</item>
+        <item>阵雨转雷阵雨</item>
+        <item>雷阵雨转小雨</item>
+        <item>雷阵雨转中雨</item>
+        <item>雷阵雨转阵雨</item>
+    </string-array>
+    
+    <!-- 穿衣指数 -->
+    <string-array name="weather_dress_tips">
+        <item>适宜外出户外运动</item>
+        <item>适宜外出户外运动</item>
+        <item>适宜外出户外运动</item>
+        <item>适宜外出户外运动</item>
+        <item>要记得带伞，以防下雨哦</item>
+        <item>要记得带伞，以防下雨哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带防雪护具哦</item>
+        <item>不适宜外出，外出记得带防雪护具哦</item>
+        <item>不适宜外出，外出记得带防雪护具哦</item>
+        <item>不适宜外出，外出记得带防雪护具哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+        <item>不适宜外出，外出记得带伞哦</item>
+    </string-array>
+    
+    <!-- 唤醒后说的话 -->
+    <string-array name="wake_up_speak_content">
+        <item>小的在!</item>
+        <item>本宝宝在此!</item>
+        <item>叫人家干嘛?</item>
+        <item>干嘛呀!</item>
+        <item>这呢?</item>
+        <item>我在这呢</item>
+        <item>有何吩咐</item>
+        <item>听候差遣</item>
+    </string-array>
+    
+    <!-- 执行命令的  问题 -->
+    <string-array name="command_question">
+        <item>笑一个</item>
+        <item>笑一笑</item>
+        <item>高兴</item>
+        <item>微笑</item>
+        <item>傻笑</item>
+        <item>兴奋</item>
+        <item>怒一个</item>
+        <item>愤怒</item>
+        <item>哀一个</item>
+        <item>哀愁</item>
+        <item>哀伤</item>
+        <item>忧愁</item>
+        <item>伤心</item>
+        <item>悲哀</item>
+        <item>乐一个</item>
+        <item>快乐</item>
+        <item>睡觉</item>
+    </string-array>
+    <!-- 执行命令的  回答 -->
+     <string-array name="command_answer">
+        <item>嘻嘻</item>
+        <item>嘿嘿</item>
+        <item>嘻嘻</item>
+        <item>嘻嘻</item>
+        <item>嘿嘿</item>
+        <item>嘿嘿</item>
+        <item>啊</item>
+        <item>啊</item>
+        <item>哎</item>
+        <item>欸</item>
+        <item>呜呜呜</item>
+        <item>呜呜呜</item>
+        <item>呜呜呜</item>
+        <item>呜呜呜</item>
+        <item>哈哈</item>
+        <item>哈哈</item>
+        <item>好的</item>
+    </string-array>
+    <!-- 执行命令的  动作 -->
+    <!-- 600000正常，600001喜，600002怒， 600003哀，600004乐，600005睡觉-->
+     <string-array name="command_action">
+          <item>600001</item>
+          <item>600001</item>
+          <item>600001</item>
+          <item>600001</item>
+          <item>600001</item>
+          <item>600001</item>
+          <item>600002</item>
+          <item>600002</item>
+          <item>600003</item>
+          <item>600003</item>
+          <item>600003</item>
+          <item>600003</item>
+          <item>600003</item>
+          <item>600003</item>
+          <item>600004</item>
+          <item>600004</item>
+          <item>600005</item>
+    </string-array>
+    
+    
+</resources>

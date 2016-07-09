@@ -1,0 +1,33 @@
+{
+    "scriptContent": "模拟剧本一",
+    "script": [
+        {
+            "actionType": 90101,
+            "content": "2"
+        },
+        {
+            "actionType": 90200,
+            "content": "好无聊呢，我来找你玩喽"
+        },
+        {
+            "actionType": 90603,
+            "content": ""
+        },
+        {
+            "actionType": 90400,
+            "content": "爸爸妈妈听我说"
+        },
+        {
+            "actionType": 90500,
+            "content": "1"
+        },
+        {
+            "actionType": 90802,
+            "content": ""
+        },
+        {
+            "actionType": 90900,
+            "content": ""
+        }
+    ]
+}

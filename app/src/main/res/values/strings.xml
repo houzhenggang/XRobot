@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">XRobot</string>
+
+    <string name="voice_tips_morning">主人，早上好</string>
+    <string name="voice_tips_noon">主人，中午好</string>
+    <string name="voice_tips_afternoon">主人，下午好</string>
+    <string name="voice_tips_night">主人，晚上好</string>
+
+    <!-- zxing -->
+    <string name="scan_text">将二维码放入框内, 即可自动扫描</string>
+</resources>
