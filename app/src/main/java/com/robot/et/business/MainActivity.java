@@ -27,7 +27,7 @@ import com.robot.et.core.software.netty.NettyService;
 import com.robot.et.core.software.system.AlarmClockService;
 import com.robot.et.core.software.system.network.NetWorkConnectService;
 import com.robot.et.core.software.system.network.NetWorkTrafficService;
-import com.robot.et.core.software.turing.TuRingService;
+//import com.robot.et.core.software.turing.TuRingService;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
 import com.robot.et.util.ScriptManager;
 import com.robot.et.util.SharedPreferencesKeys;
@@ -91,7 +91,7 @@ public class MainActivity extends BaseActivity {
 				// 极光推送
 //				startService(intent.setClass(context, JpushService.class));
 				//图灵
-				startService(intent.setClass(context, TuRingService.class));
+//				startService(intent.setClass(context, TuRingService.class));
 				// 百度定位
 				startService(intent.setClass(context, LocationService.class));
 				// Netty服务
@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity {
 				// 极光推送
 //				stopService(intent.setClass(context, JpushService.class));
 				//图灵
-				stopService(intent.setClass(context, TuRingService.class));
+//				stopService(intent.setClass(context, TuRingService.class));
 				// 百度定位
 				stopService(intent.setClass(context, LocationService.class));
 				// Netty服务
@@ -181,7 +181,7 @@ public class MainActivity extends BaseActivity {
 		stopService(new Intent(this, WakeUpServices.class));
 //		stopService(new Intent(this, JpushService.class));
 		stopService(new Intent(this, AgoraService.class));
-		stopService(new Intent(this, TuRingService.class));
+//		stopService(new Intent(this, TuRingService.class));
 		stopService(new Intent(this, NetWorkTrafficService.class));
 
 		//语种切换还原
