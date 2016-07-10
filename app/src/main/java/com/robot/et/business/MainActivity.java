@@ -95,7 +95,7 @@ public class MainActivity extends BaseActivity {
 				// 百度定位
 				startService(intent.setClass(context, LocationService.class));
 				// Netty服务
-//				startService(intent.setClass(context, NettyService.class));
+				startService(intent.setClass(context, NettyService.class));
 				// 初始化串口服务
 				startService(intent.setClass(context, SerialPortService.class));
 				// agora服务
@@ -117,7 +117,7 @@ public class MainActivity extends BaseActivity {
 				// 百度定位
 				stopService(intent.setClass(context, LocationService.class));
 				// Netty服务
-//				stopService(intent.setClass(context, NettyService.class));
+				stopService(intent.setClass(context, NettyService.class));
 				// 初始化串口服务
 				stopService(intent.setClass(context, SerialPortService.class));
 				// agora服务

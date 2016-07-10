@@ -27,27 +27,39 @@ public class NettyResultHandle {
                 }
 
                 Log.i("netty", "direction===" + direction);
-                ControlMoveEnum moveEnum = EnumManager.getControlMove(direction);
-                Log.i("netty", "moveEnum===" + moveEnum);
-                if(moveEnum != null){
-                    switch (moveEnum){
-                        case FORWARD://向前
-                            sendDirection(direction);
-                            break;
-                        case BACKWARD://向后
-                            sendDirection(direction);
-                            break;
-                        case LEFT://向左
-                            sendDirection(direction);
-                            break;
-                        case RIGHT://向右
-                            sendDirection(direction);
-                            break;
-                        case STOP://停止
-                            sendDirection(direction);
-                            break;
-                        default:
-                            break;
+                if(TextUtils.isDigitsOnly(direction)){
+                    ControlMoveEnum moveEnum = EnumManager.getControlMove(direction);
+                    Log.i("netty", "moveEnum===" + moveEnum);
+                    if(moveEnum != null){
+                        switch (moveEnum){
+                            case FORWARD://向前
+                                sendDirection(direction);
+                                break;
+                            case BACKWARD://向后
+                                sendDirection(direction);
+                                break;
+                            case LEFT://向左
+                                sendDirection(direction);
+                                break;
+                            case RIGHT://向右
+                                sendDirection(direction);
+                                break;
+                            case STOP://停止
+                                sendDirection(direction);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+
+                }else{
+                    if(!TextUtils.isEmpty(direction)){
+                        String splite = "__";
+                        if(direction.contains(splite)){
+                            String[] datas = direction.split(splite);
+                            Log.i("netty", "datas[1]===" + datas[1]);
+                            sendDirection(datas[1]);
+                        }
                     }
                 }
 
@@ -73,6 +85,8 @@ public class NettyResultHandle {
             String musicContent = info.getMusicContent();
             Log.i("netty", "pushCode===" + extra);
             Log.i("netty", "musicContent===" + musicContent);
+
+            DataConfig.isJpushStop = false;
 
             switch (extra) {
                 case DataConfig.JPUSH_MUSIC:// 音乐
@@ -119,6 +133,7 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_PAUSE:// 音乐暂停
                     Log.i("netty", "音乐暂停");
+                    DataConfig.isJpushStop = true;
                     BroadcastShare.stopMusicOnly();
 
                     break;

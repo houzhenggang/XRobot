@@ -8,11 +8,17 @@ import android.util.Log;
 import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
-import com.robot.et.core.software.okhttp.util.HttpUtils;
+import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.core.software.system.MediaManager;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
 
 import java.io.File;
+import java.io.IOException;
 
 public class PlayerControl {
 
@@ -157,7 +163,36 @@ public class PlayerControl {
 
 	//向APP发送当前媒体播放的状态
 	public static void pushMediaState(String meidaType,String mediaState,String playName){
-		HttpUtils.getInstance().pushMediaState(meidaType, mediaState, playName);
+		final SharedPreferencesUtils share = SharedPreferencesUtils.getInstance();
+		HttpEngine.Param[] params = new HttpEngine.Param[]{
+				new HttpEngine.Param("mobile", share.getString(SharedPreferencesKeys.AGORA_CALL_PHONENUM, "")),
+				new HttpEngine.Param("robotNumber", share.getString(SharedPreferencesKeys.ROBOT_NUM, "")),
+				new HttpEngine.Param("mediaType", meidaType),
+				new HttpEngine.Param("mediaState", mediaState),
+				new HttpEngine.Param("playName", playName)
+		};
+		HttpEngine httpEngine = HttpEngine.getInstance();
+		Request request = httpEngine.createRequest(UrlConfig.PUSH_MEDIASTATE_TO_APP, params);
+		Call call = httpEngine.createRequestCall(request);
+		call.enqueue(new Callback() {
+
+			@Override
+			public void onFailure(Request arg0, IOException arg1) {
+			}
+			@Override
+			public void onResponse(Response response) throws IOException {
+				String result = response.body().string();
+				Log.i("json", "result====" + result);
+				if(GsonParse.isChangeStatusSuccess(result)){
+					Log.i("json", "向APP发送媒体状态成功");
+				}
+				Intent intent = new Intent();
+				intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);
+				intent.putExtra("robotNum", share.getString(SharedPreferencesKeys.ROBOT_NUM, ""));
+				CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+			}
+
+		});
 	}
 
 	//当前播放的媒体类型
@@ -205,6 +240,10 @@ public class PlayerControl {
 		BroadcastShare.stopSpeakOnly();
 		BroadcastShare.stopMusicOnly();
 		BroadcastShare.stopListenerOnly();
+		if(DataConfig.isJpushStop){
+			DataConfig.isJpushStop = false;
+			return;
+		}
 		playMusic(DataConfig.MUSIC_SRC_FROM_JPUSH,mediaType, content);
 	}
 

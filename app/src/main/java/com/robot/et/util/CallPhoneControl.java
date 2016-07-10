@@ -5,7 +5,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.robot.et.config.DataConfig;
-import com.robot.et.core.software.okhttp.util.HttpUtils;
+import com.robot.et.config.UrlConfig;
+import com.robot.et.core.software.okhttp.HttpEngine;
+import com.squareup.okhttp.Call;
+import com.squareup.okhttp.Callback;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.Response;
+
+import java.io.IOException;
 
 public class CallPhoneControl {
 	
@@ -40,13 +47,91 @@ public class CallPhoneControl {
 	}
 	
 	//打电话之前先获取对方的房间号
-	public static void getRoomNum(String userName){
-		HttpUtils.getInstance().getRoomNum(userName);
+	public static void getRoomNum(final String userName){
+		HttpEngine.Param[] params = new HttpEngine.Param[]{
+				new HttpEngine.Param("username", userName),
+				new HttpEngine.Param("robotNumber", SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "")),
+				new HttpEngine.Param("requestType", String.valueOf(DataConfig.JPUSH_CALL_VIDEO))
+		};
+		HttpEngine httpEngine = HttpEngine.getInstance();
+		Request request = httpEngine.createRequest(UrlConfig.GET_AGORA_ROOMNUM, params);
+		Call call = httpEngine.createRequestCall(request);
+		call.enqueue(new Callback() {
+
+			@Override
+			public void onFailure(Request response, IOException arg1) {
+			}
+			@Override
+			public void onResponse(Response response) throws IOException {
+				String result = response.body().string();
+				Log.i("json", "getRoomNum()  result==" + result);
+				if(!TextUtils.isEmpty(result)){
+					callBySpeak(userName, result);
+				}
+			}
+
+		});
 	}
 	
 	// 修改机器人免打扰的状态值  (修改是否可以接听外来的电话)
-	public static void changeRobotCallStatus(String status, String content) {
-		HttpUtils.getInstance().changeRobotCallStatus(status, content);
+	public static void changeRobotCallStatus(final String status, final String content) {
+		HttpEngine.Param[] params = new HttpEngine.Param[]{
+				new HttpEngine.Param("robotNumber", SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "")),
+				new HttpEngine.Param("robotStatus", status)
+		};
+		HttpEngine httpEngine = HttpEngine.getInstance();
+		Request request = httpEngine.createRequest(UrlConfig.ROBOT_DISTURB_URL, params);
+		Call call = httpEngine.createRequestCall(request);
+		call.enqueue(new Callback() {
+
+			@Override
+			public void onFailure(Request arg0, IOException arg1) {
+			}
+			@Override
+			public void onResponse(Response response) throws IOException {
+				String result = response.body().string();
+				Log.i("json", "result====" + result);
+				if(GsonParse.isChangeStatusSuccess(result)){
+					SharedPreferencesUtils share = SharedPreferencesUtils.getInstance();
+					if(TextUtils.equals(status, DataConfig.ROBOT_STATUS_NORMAL)){//正常模式
+						share.putInt(SharedPreferencesKeys.AGORA_CALL_PATTERN, DataConfig.AGORA_CALL_NORMAL_PATTERN);
+					}else if(TextUtils.equals(status, DataConfig.ROBOT_STATUS_DISYURB_NOT)){//免打扰模式
+						share.putInt(SharedPreferencesKeys.AGORA_CALL_PATTERN, DataConfig.AGORA_CALL_DISTURB_NOT_PATTERN);
+					}
+					share.commitValue();
+					BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
+				}
+			}
+
+		});
+	}
+
+	//通知app关闭agora视频
+	public static void notifyAppCloseAgora(String status){
+
+		HttpEngine.Param[] params = new HttpEngine.Param[]{
+				new HttpEngine.Param("username", SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.AGORA_CALL_PHONENUM, "")),
+				new HttpEngine.Param("robotNumber", SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "")),
+				new HttpEngine.Param("requestType", status)
+		};
+		HttpEngine httpEngine = HttpEngine.getInstance();
+		Request request = httpEngine.createRequest(UrlConfig.GET_AGORA_ROOMNUM, params);
+		Call call = httpEngine.createRequestCall(request);
+		call.enqueue(new Callback() {
+
+			@Override
+			public void onFailure(Request arg0, IOException arg1) {
+			}
+			@Override
+			public void onResponse(Response response) throws IOException {
+				String result = response.body().string();
+				Log.i("json", "result====" + result);
+				if(GsonParse.isChangeStatusSuccess(result)){
+					Log.i("json", "网速不好关闭agora成功");
+				}
+			}
+
+		});
 	}
 	
 }

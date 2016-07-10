@@ -43,10 +43,15 @@ public class BroadcastShare {
 	
 	//仅仅停止掉音乐
 	public static void stopMusicOnly(){
+		if(DataConfig.isJpushStop){
+			DataConfig.isJpushStop = false;
+			stopSpeakOnly();
+		}
 		// 如果音乐还在播放，停止掉
 		if (DataConfig.isPlayMusic) {
 			Logger.i("停止掉音乐");
 			DataConfig.isPlayMusic = false;
+			DataConfig.isJpushStop = false;
 			Intent intent = new Intent();
 			intent.setAction(BroadcastAction.ACTION_STOP_MUSIC_ONLY);
 			Context context = CustomApplication.getInstance().getApplicationContext();

@@ -4,7 +4,7 @@ package com.robot.et.config;
 public class DataConfig {
 	
 	//HostName   internet:139.196.185.52  localHost:192.168.1.28
-	public static final String HOST = "192.168.1.28";
+	public static final String HOST = "139.196.185.52";
 	//Port
 	public static final int PORT = 9999;
 	//科大讯飞的appid
@@ -215,5 +215,8 @@ public class DataConfig {
 
 	//在表演剧本
 	public static boolean isPlayScript = false;
+
+	//app是否推送了暂停
+	public static boolean isJpushStop = false;
 
 }

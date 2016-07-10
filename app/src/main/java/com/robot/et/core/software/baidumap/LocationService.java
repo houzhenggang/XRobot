@@ -9,6 +9,7 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.SDKInitializer;
 import com.robot.et.config.BroadcastAction;
+import com.robot.et.debug.Logger;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 
@@ -26,6 +27,7 @@ public class LocationService extends Service {
 	@Override
 	public void onCreate() {
 		super.onCreate();
+		Logger.i("LocationService  onCreate()");
 		mLocation = new Location(this);
 		SDKInitializer.initialize(getApplicationContext());  
 		mLocation.registerListener(mListener);
@@ -35,6 +37,7 @@ public class LocationService extends Service {
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+		Logger.i("开始定位");
 		mLocation.start();
 		return super.onStartCommand(intent, flags, startId);
 	}
@@ -46,6 +49,7 @@ public class LocationService extends Service {
 			if (null != location && location.getLocType() != BDLocation.TypeServerError) {
 				String city = location.getCity();
 				String area = location.getDistrict();
+				Logger.i("city==="+ city + "===area==="+area);
 				if(!TextUtils.isEmpty(city) && !TextUtils.isEmpty(area)){
 					sharedUtils.putString(SharedPreferencesKeys.CITY_KEY, city);
 					sharedUtils.putString(SharedPreferencesKeys.AREA_KEY, area);
@@ -60,10 +64,12 @@ public class LocationService extends Service {
 					
 				}else{
 					//没有定位成功继续定位
+					Logger.i("null != location 没有定位成功继续定位");
 					mLocation.start();
 				}
 			}else{
 				//没有定位成功继续定位
+				Logger.i("null == location 没有定位成功继续定位");
 				mLocation.start();
 			}
 		}

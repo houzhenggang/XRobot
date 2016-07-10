@@ -231,6 +231,10 @@ public class IflySpeakService extends Service {
 					}
 					break;
 				case DataConfig.TYPE_MUSIC_PLAY_START:// 音乐开始播放前的提示
+					if(DataConfig.isJpushStop){
+						DataConfig.isJpushStop = false;
+						return;
+					}
 					PlayerControl.startPlayMusic(DataManager.getContentSrc());
 					ScriptManager.playScript(PlayerControl.getCurrentPlayName());
 					break;

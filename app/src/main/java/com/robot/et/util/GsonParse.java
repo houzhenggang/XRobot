@@ -39,7 +39,7 @@ public class GsonParse {
 					info.setRobotId(jObject.getInt("id"));
 					info.setRobotNum(jObject.getString("robotNumber"));
 				}
-				callBack.getRobotInfo(message, info);
+				callBack.setRobotInfo(message, info);
 			} catch (JSONException e) {
 				Log.i(TAG, "getRobotInfo JSONException");
 				info = null;
@@ -699,7 +699,7 @@ public class GsonParse {
 	}
 	
 	public interface RobotInfoCallBack{
-		public void getRobotInfo(String message, RobotInfo info);
+		public void setRobotInfo(String message, RobotInfo info);
 	}
 
 	public interface UserInfoCallBack{

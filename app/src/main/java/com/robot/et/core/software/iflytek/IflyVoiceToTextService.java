@@ -79,7 +79,7 @@ public class IflyVoiceToTextService extends Service {
 				DataConfig.isPlayScript = false;
 				closeAnyDec();
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)) {// 唤醒或者中断的处理
-				Logger.i("唤醒或者中断的处理");
+				Log.i("voiceresult", "唤醒或者中断的处理" );
 				DataConfig.isPlayScript = false;
 
 				if(DataConfig.isAgoraVideo){

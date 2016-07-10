@@ -44,6 +44,7 @@ public class AlarmClockService extends Service{
 	private void remindTips() {
 		 long minute = System.currentTimeMillis();
 		 List<RemindInfo> infos = AlarmRemindManager.getRemindTips(minute);
+		 Logger.i("AlarmRemindService  infos.size()===" + infos.size());
 		 if(infos != null && infos.size() > 0){
 			 Logger.i("infos.size()==="+ infos.size());
 			 List<String> datas = new ArrayList<String>();

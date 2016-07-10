@@ -13,9 +13,9 @@ import com.alibaba.fastjson.JSON;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.UrlConfig;
-import com.robot.et.core.software.okhttp.util.HttpUtils;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.CommandMsg;
+import com.robot.et.util.DataManager;
 import com.robot.et.util.DeviceUuidFactory;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
@@ -52,7 +52,7 @@ public class NettyService extends Service {
 		if (TextUtils.isEmpty(robotNum)) {
 			String deviceId = new DeviceUuidFactory(this).getDeviceUuid();
 			Log.i("netty", "deviceId===" + deviceId);
-			HttpUtils.getInstance().getRobotInfo(UrlConfig.GET_ROBOT_INFO_BY_DEVICEID, deviceId);
+			DataManager.getRobotInfo(UrlConfig.GET_ROBOT_INFO_BY_DEVICEID, deviceId);
 		} else {
 			Intent intent = new Intent();
 			intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);

@@ -3,8 +3,8 @@ package com.robot.et.util;
 import android.text.TextUtils;
 
 import com.robot.et.enums.ControlMoveEnum;
-import com.robot.et.enums.SceneServiceEnum;
 import com.robot.et.enums.MatchSceneEnum;
+import com.robot.et.enums.SceneServiceEnum;
 
 public class EnumManager {
 

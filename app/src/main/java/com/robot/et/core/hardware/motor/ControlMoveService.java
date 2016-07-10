@@ -87,7 +87,7 @@ public class ControlMoveService extends Service {
 
 	private void doAction(String message) {
 		byte[] content = null;
-
+		
 		RobotAction action = new RobotAction();
 		if (TextUtils.equals("1", message)) {
 			Log.i("Move", "机器人移动方向:向前");
@@ -126,6 +126,36 @@ public class ControlMoveService extends Service {
 		} else if (TextUtils.equals("5", message)) {
 			Log.i("Move", "机器人移动方向:停止");
 			action.setCategory("move");
+			action.setAction("stop");
+			String s = JSON.toJSONString(action);
+			content = s.getBytes();
+		} else if (TextUtils.equals("11", message)) {
+			Log.i("Move", "玩具控制 向前");
+			action.setCategory("go");
+			action.setAction("forward");
+			String s = JSON.toJSONString(action);
+			content = s.getBytes();
+		} else if (TextUtils.equals("12", message)) {
+			Log.i("Move", "玩具控制 向后");
+			action.setCategory("go");
+			action.setAction("backward");
+			String s = JSON.toJSONString(action);
+			content = s.getBytes();
+		} else if (TextUtils.equals("13", message)) {
+			Log.i("Move", "玩具控制 向左");
+			action.setCategory("go");
+			action.setAction("turnLeft");
+			String s = JSON.toJSONString(action);
+			content = s.getBytes();
+		} else if (TextUtils.equals("14", message)) {
+			Log.i("Move", "玩具控制 向右");
+			action.setCategory("go");
+			action.setAction("turnRight");
+			String s = JSON.toJSONString(action);
+			content = s.getBytes();
+		} else if (TextUtils.equals("15", message)) {
+			Log.i("Move", "玩具控制 停止");
+			action.setCategory("go");
 			action.setAction("stop");
 			String s = JSON.toJSONString(action);
 			content = s.getBytes();
