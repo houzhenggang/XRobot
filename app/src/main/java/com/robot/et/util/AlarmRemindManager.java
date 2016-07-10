@@ -115,6 +115,7 @@ public class AlarmRemindManager {
 	public static void setAlarm(JpushInfo info) {
 		// yyyy-MM-dd HH:mm:ss
 		String alarmTime = info.getAlarmTime();
+		String originalTime = alarmTime;
 		alarmTime = setAlarmTimeFormat(alarmTime);
 		String alarmContent = info.getAlarmContent();
 		int remindNum = info.getRemindNum();
@@ -145,6 +146,7 @@ public class AlarmRemindManager {
 					mInfo.setContent(alarmContent);
 					mInfo.setRemindInt(DataConfig.REMIND_NO_ID);
 					mInfo.setFrequency(frequency);
+					mInfo.setOriginalAlarmTime(originalTime);
 					DBUtils.addAlarm(mInfo);
 				}
 			}
@@ -175,6 +177,13 @@ public class AlarmRemindManager {
 	// 删除已经提醒的条目
 	public static void deleteCurrentRemindTips(long minute) {
 		DBUtils.deleteCurrentRemindTips(minute);
+	}
+
+	// 删除app传来的提醒
+	public static void deleteAppRemindTips(String originalTime) {
+		if(!TextUtils.isEmpty(originalTime)){
+			DBUtils.deleteAppAlarmRemind(originalTime);
+		}
 	}
 
 	// 增加Ifly提醒的操作 格式：日期 + 时间 + 做什么事

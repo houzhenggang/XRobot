@@ -23,7 +23,8 @@ public class RobotDBHelper extends SQLiteOpenHelper {
 		//提醒表
 		String reminds = "create table reminds"+
 				"("+ 
-				"id integer primary key autoincrement,robotNum varchar(50),date varchar(50),time varchar(20),content varchar(200),remindInt integer,frequency integer"+
+				"id integer primary key autoincrement,robotNum varchar(50),date varchar(50),time varchar(20),content varchar(200),remindInt integer," +
+				"frequency integer,originalAlarmTime varchar(50)"+
 				 ")";
 		//用户电话联系表
 		String users = "create table users"+

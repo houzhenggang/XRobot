@@ -186,6 +186,7 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_DELETE_A_MESSAGE:// 删除留言
                     Log.i("netty", "删除留言");
+                    AlarmRemindManager.deleteAppRemindTips(musicContent);
 
                     break;
                 case DataConfig.JPUSH_CHOREOGRAPHY_DANCE:// 为某首歌曲编排舞蹈

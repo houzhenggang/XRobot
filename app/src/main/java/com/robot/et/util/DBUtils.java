@@ -125,6 +125,14 @@ public class DBUtils {
 		mDao.deleteRemindInfo(date, time, DataConfig.REMIND_NO_ID);
 	}
 
+	//根据时间内容删除APP发来的闹铃
+	public static void deleteAppAlarmRemind(String originalTime){
+		if(!TextUtils.isEmpty(originalTime)){
+			RobotDB mDao = RobotDB.getInstance();
+			mDao.deleteAppRemindInfo(originalTime);
+		}
+	}
+
 	//增加剧本
 	public static void addScript(ScriptInfo info, List<ScriptActionInfo> infos){
 		RobotDB mDao = RobotDB.getInstance();

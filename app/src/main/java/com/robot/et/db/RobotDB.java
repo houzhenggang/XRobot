@@ -34,9 +34,10 @@ public class RobotDB {
 	
 	//增加提醒
 	public void addRemindInfo(RemindInfo info){
-		String sql = "insert into reminds(robotNum,date,time,content,remindInt,frequency) values(?,?,?,?,?,?)";
+		String sql = "insert into reminds(robotNum,date,time,content,remindInt,frequency,originalAlarmTime) values(?,?,?,?,?,?,?)";
 		SQLiteDatabase db = helper.getWritableDatabase();
-		db.execSQL(sql, new String[]{info.getRobotNum(),info.getDate(),info.getTime(),info.getContent(),String.valueOf(info.getRemindInt()),String.valueOf(info.getFrequency())});
+		db.execSQL(sql, new String[]{info.getRobotNum(),info.getDate(),info.getTime(),info.getContent(),String.valueOf(info.getRemindInt()),
+				String.valueOf(info.getFrequency()),info.getOriginalAlarmTime()});
 		db.close();
 	}
 	
@@ -54,6 +55,7 @@ public class RobotDB {
 			info.setContent(c.getString(c.getColumnIndex("content")));
 			info.setRemindInt(c.getInt(c.getColumnIndex("remindInt")));
 			info.setFrequency(c.getInt(c.getColumnIndex("frequency")));
+			info.setOriginalAlarmTime(c.getString(c.getColumnIndex("originalAlarmTime")));
 			mRemindInfos.add(info);
 		}
 		
@@ -77,6 +79,7 @@ public class RobotDB {
 			info.setContent(c.getString(c.getColumnIndex("content")));
 			info.setRemindInt(c.getInt(c.getColumnIndex("remindInt")));
 			info.setFrequency(c.getInt(c.getColumnIndex("frequency")));
+			info.setOriginalAlarmTime(c.getString(c.getColumnIndex("originalAlarmTime")));
 		}
 		c.close();
 		db.close();
@@ -91,6 +94,14 @@ public class RobotDB {
 		db.close();
 	}
 	
+	//根据APP原始的闹铃时间删除提醒
+	public void deleteAppRemindInfo(String originalTime){
+		String sql = "delete from reminds where originalAlarmTime=?";
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL(sql, new String[] {originalTime});
+		db.close();
+	}
+
 	//更改提醒
 	public void updateRemindInfo(RemindInfo info,String data,int frequency){
 		String sql = "update reminds set date=?,frequency=? where date=? and time=?";
