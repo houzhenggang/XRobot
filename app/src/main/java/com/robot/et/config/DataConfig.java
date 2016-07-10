@@ -203,9 +203,6 @@ public class DataConfig {
 	//是剧本里播放的音乐
 	public static boolean isScriptPlayMusic = false;
 
-	//使用蓝牙音箱
-	public static boolean isBluetoothBox = false;
-
 	//在表演剧本
 	public static boolean isPlayScript = false;
 

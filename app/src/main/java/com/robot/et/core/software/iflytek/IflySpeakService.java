@@ -211,9 +211,6 @@ public class IflySpeakService extends Service {
 				Intent intent = new Intent();
 				switch (currentType) {
 				case DataConfig.TYPE_VOICE_CHAT:// 对话
-					if(DataConfig.isBluetoothBox){
-						return;
-					}
 					intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
 					sendBroadcast(intent);
 					break;
