@@ -75,7 +75,6 @@
         <service android:name=".core.software.iflytek.IflySpeakService" />
         <service android:name=".core.software.iflytek.IflyVoiceToTextService" />
         <service android:name=".core.software.iflytek.IflyTextUnderstanderService" />
-        <service android:name=".core.software.turing.TuRingService" />
 
         <!-- 网络连接状态监控 -->
         <service

@@ -300,7 +300,8 @@ public class IflyUtils {
 		if (!TextUtils.isEmpty(answer)) {
 			BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
 		} else {
-			BroadcastShare.askTuRing(DataConfig.TYPE_VOICE_CHAT,question);
+			//科大讯飞不能理解的话继续监听
+			BroadcastShare.resumeChat();
 		}
 	}
 	

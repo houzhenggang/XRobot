@@ -546,7 +546,7 @@ public class GsonParse {
 						if(TextUtils.equals(iflyCity, "CURRENT_CITY")){
 							DataConfig.isGetCity = true;
 							String weatherContent = time + currentCity + currentArea + "的天气";
-							BroadcastShare.getWeatherByIfly(weatherContent);
+							BroadcastShare.askIfly(weatherContent);
 							break;
 						}else{
 							content = time + iflyCity;

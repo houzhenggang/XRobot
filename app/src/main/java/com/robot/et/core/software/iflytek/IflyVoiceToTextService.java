@@ -102,7 +102,7 @@ public class IflyVoiceToTextService extends Service {
 				String[] wakeUpSpeakContent= getResources().getStringArray(R.array.wake_up_speak_content);
 				int i=new Random().nextInt(wakeUpSpeakContent.length);
 				String content=wakeUpSpeakContent[i];
-				BroadcastShare.textToSpeak(DataConfig.TYPE_RESUME_CHAT, content);
+				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
 				Logger.i("音乐播放完成");
 				if(DataConfig.isScriptPlayMusic){//播放的剧本里的音乐
@@ -222,15 +222,10 @@ public class IflyVoiceToTextService extends Service {
 					if(IflyUtils.doCommandAction(result)){
 						return;
 					}
-					
-					if (DataConfig.isUseIfly) {
-						// 问科大讯飞
-						BroadcastShare.askIfly(result);
-					} else {
-						// 问图灵
-						BroadcastShare.askTuRing(DataConfig.TYPE_VOICE_CHAT,result);
-					}
-					
+
+					// 问科大讯飞
+					BroadcastShare.askIfly(result);
+
 				}else {
 					listenBegin();
 				}

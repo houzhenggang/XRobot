@@ -11,15 +11,6 @@ import com.robot.et.debug.Logger;
 
 public class BroadcastShare {
 
-	// 问图灵机器人
-	public static void askTuRing(int type, String content) {
-		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_TURING_RECEIVER);
-		intent.putExtra("result", content);
-		intent.putExtra(DataConfig.TYPE_KEY, type);
-		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
-	}
-	
 	//问科大讯飞
 	public static void askIfly(String content) {
 		Intent intent = new Intent();
@@ -98,15 +89,6 @@ public class BroadcastShare {
 		context.sendBroadcast(intent);
 	}
 	
-	//获取天气从ifly
-	public static void getWeatherByIfly(String result){
-		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_IFLY_TEXT_UNDERSTANDER);
-		intent.putExtra("result", result);
-		Context context = CustomApplication.getInstance().getApplicationContext();
-		context.sendBroadcast(intent);
-	}
-	
 	//连接agora
 	public static void connectAgora(int type){
 		Intent intent = new Intent();
@@ -127,7 +109,7 @@ public class BroadcastShare {
 	//没有返回内容的时候，说的话
 	public static void noResultToSpeak(){
 		String tempContent = DataManager.getDataNoAnswer();
-		textToSpeak(DataConfig.TYPE_RESUME_CHAT, tempContent);
+		textToSpeak(DataConfig.TYPE_VOICE_CHAT, tempContent);
 	}
 
 	//控制小车走的广播

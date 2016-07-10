@@ -106,17 +106,13 @@ public class DataConfig {
 	public static final String TYPE_KEY = "type_key";
 	public static final int TYPE_WELCOME_CONTENT = 0;
 	public static final int TYPE_MUSIC_PLAY_START = 1;
-	public static final int TYPE_TURING_WEATHER = 2;
 	public static final int TYPE_VOICE_CHAT = 3;
-	public static final int TYPE_RESUME_CHAT = 4;
 	public static final int TYPE_REMIND_TIPS = 5;
 	public static final int TYPE_NETWORK_CONNECT = 6;
 	public static final int TYPE_NETWORK_BREAKOFF = 7;
-	public static final int TYPE_AGORA_CALL = 8;
 	public static final int TYPE_CALL_PHONE = 9;
 	public static final int TYPE_PHONE_ERROR = 10;
 	public static final int TYPE_AGORA_HANGUP = 11;
-	public static final int TYPE_SLEEP = 12;
 	public static final int TYPE_DO_NOTHING = 13;
 	public static final int TYPE_SCRIPT = 14;
 
@@ -180,9 +176,6 @@ public class DataConfig {
 	//天气解析异常
 	public static boolean isParseWeatherError = false;
 			
-	//默认使用图灵还是科大讯飞理解问题
-	public static boolean isUseIfly = true;
-	
 	//当前是agora视频
 	public static boolean isAgoraVideo = false;
 	

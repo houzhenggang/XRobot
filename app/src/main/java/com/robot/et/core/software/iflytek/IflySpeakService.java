@@ -239,35 +239,9 @@ public class IflySpeakService extends Service {
 					ScriptManager.playScript(PlayerControl.getCurrentPlayName());
 					break;
 				case DataConfig.TYPE_WELCOME_CONTENT:// 第一次欢迎语说完去查天气
-					if (DataConfig.isUseIfly) {
-						// 查科大讯飞
-						BroadcastShare.getWeatherByIfly("今天" + city + area + "的天气");
-					} else {
-						// 查图灵
-						intent.setAction(BroadcastAction.ACTION_TURING_RECEIVER);
-						intent.putExtra("result", "今天" + city + area + "的天气");
-						intent.putExtra("city", city);
-						intent.putExtra("area", area);
-						intent.putExtra(DataConfig.TYPE_KEY,DataConfig.TYPE_WELCOME_CONTENT);
-						sendBroadcast(intent);
-					}
-					break;
-				case DataConfig.TYPE_TURING_WEATHER:// 查图灵天气完去登录
-					Logger.i("开始听外面的声音");
-					intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
-					sendBroadcast(intent);
-					break;
-				case DataConfig.TYPE_RESUME_CHAT:// 去图灵查内容之后
-					if(DataConfig.isBluetoothBox){
-						return;
-					}
+					// 查科大讯飞
+					BroadcastShare.askIfly("今天" + city + area + "的天气");
 
-					if (DataConfig.isPlayMusic) {
-
-					} else {
-						intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
-						sendBroadcast(intent);
-					}
 					break;
 				case DataConfig.TYPE_NETWORK_CONNECT:// 网络连接
 					Logger.i("iflyspeakservice   网络连接");
