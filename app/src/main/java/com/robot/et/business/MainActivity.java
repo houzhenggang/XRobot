@@ -72,8 +72,8 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
-		ScriptManager.addScript("script1");
-		ScriptManager.addScript("script2");
+		ScriptManager.addLocalScript("script1");
+		ScriptManager.addLocalScript("script2");
 		super.onWindowFocusChanged(hasFocus);
 	}
 

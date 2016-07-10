@@ -275,7 +275,7 @@ public class IflySpeakService extends Service {
 					break;
 				case DataConfig.TYPE_SCRIPT:// 剧本的表演
 					Logger.i("iflyspeakservice  剧本的表演");
-					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true);
+					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,0);
 
 					break;
 				case DataConfig.JPUSH_CALL_VIDEO:// agora视频

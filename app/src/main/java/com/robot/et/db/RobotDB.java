@@ -267,4 +267,28 @@ public class RobotDB {
 		return infos;
 	}
 
+	//更新剧本的名字
+	public void updateScriptName(int scriptId,String scriptName){
+		String sql = "update script set scriptContent=? where scriptId=?";
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL(sql, new String[]{scriptName,String.valueOf(scriptId)});
+		db.close();
+	}
+
+	//根据剧本id删除剧本
+	public void deleteScript(int scriptId){
+		String sql = "delete from script where id=?";
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL(sql, new String[] {String.valueOf(scriptId)});
+		db.close();
+	}
+
+	//根据剧本ID删除剧本动作
+	public void deleteScriptAction(int scriptId){
+		String sql = "delete from scriptAction where scriptId=?";
+		SQLiteDatabase db = helper.getWritableDatabase();
+		db.execSQL(sql, new String[] {String.valueOf(scriptId)});
+		db.close();
+	}
+
 }

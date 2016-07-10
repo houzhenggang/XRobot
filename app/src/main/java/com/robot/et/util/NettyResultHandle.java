@@ -181,6 +181,7 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_RECORDING_ACTION:// 录制动作
                     Log.i("netty", "录制动作");
+                    ScriptManager.addAppRecordAction(musicContent);
 
                     break;
                 case DataConfig.JPUSH_DELETE_A_MESSAGE:// 删除留言
@@ -189,6 +190,7 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_CHOREOGRAPHY_DANCE:// 为某首歌曲编排舞蹈
                     Log.i("netty", "为某首歌曲编排舞蹈");
+                    ScriptManager.addAppRecordMusic(musicContent);
 
                     break;
 

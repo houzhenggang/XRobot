@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Random;
 
 public class GsonParse {
-	private final static String TAG = "json";
+	private final static String TAG = "jsonparse";
 
 	public static RobotInfo getRobotInfo(String json,RobotInfoCallBack callBack){
 		RobotInfo info = null;
@@ -693,7 +693,63 @@ public class GsonParse {
 
 		}
 	}
-	
+
+	//增加APP发过来的录制动作
+	public static void parseAppRecordAction(String jsonContent,ScriptCallBack callBack) {
+		if(!TextUtils.isEmpty(jsonContent)){
+			try {
+				JSONTokener tokener = new JSONTokener(jsonContent);
+				JSONObject json = new JSONObject(tokener);
+				String scriptContent = json.getString("actionName");
+				ScriptInfo scriptInfo = new ScriptInfo();
+				scriptInfo.setScriptContent(scriptContent);
+				List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
+				JSONArray array = json.getJSONArray("actions");
+				for(int i=0;i<array.length();i++){
+					String action = array.getString(i);
+					if(TextUtils.isDigitsOnly(action)){
+						ScriptActionInfo info = new ScriptActionInfo();
+						info.setActionType(Integer.parseInt(action));
+						infos.add(info);
+					}
+				}
+				callBack.getScribt(scriptInfo,infos);
+			} catch (Exception e) {
+				Log.i(TAG, "addAppRecordScript  JSONException");
+				callBack.getScribt(null,null);
+			}
+
+		}
+	}
+
+	//增加APP发过来的音乐编舞
+	public static void parseAppRecordMusic(String jsonContent,ScriptCallBack callBack) {
+		if(!TextUtils.isEmpty(jsonContent)){
+			try {
+				JSONTokener tokener = new JSONTokener(jsonContent);
+				JSONObject json = new JSONObject(tokener);
+				String scriptContent = json.getString("songName");
+				ScriptInfo scriptInfo = new ScriptInfo();
+				scriptInfo.setScriptContent(scriptContent);
+				List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
+				JSONArray array = json.getJSONArray("editDance");
+				for(int i=0;i<array.length();i++){
+					String action = array.getString(i);
+					if(TextUtils.isDigitsOnly(action)){
+						ScriptActionInfo info = new ScriptActionInfo();
+						info.setActionType(Integer.parseInt(action));
+						infos.add(info);
+					}
+				}
+				callBack.getScribt(scriptInfo,infos);
+			} catch (Exception e) {
+				Log.i(TAG, "addAppRecordScript  JSONException");
+				callBack.getScribt(null,null);
+			}
+
+		}
+	}
+
 	public interface ScriptCallBack{
 		public void getScribt(ScriptInfo info, List<ScriptActionInfo> infos);
 	}

@@ -128,15 +128,19 @@ public class DBUtils {
 	//增加剧本
 	public static void addScript(ScriptInfo info, List<ScriptActionInfo> infos){
 		RobotDB mDao = RobotDB.getInstance();
-		int tempId = mDao.getScriptId(info.getScriptContent());
-		Log.i("netty", "addScript tempId===" + tempId);
-		if(tempId != -1){
+		String scriptName = info.getScriptContent();
+		int scriptId = mDao.getScriptId(scriptName);
+		Log.i("netty", "addScript temId===" + scriptId);
+		if(scriptId != -1){//已经存在
 			Log.i("netty", "addScript 数据内容已存在");
-			return;
+			mDao.deleteScriptAction(scriptId);
+		}else{//没有存在
+			Log.i("netty", "addScript 无数据内容");
+			mDao.addScript(info);
+			scriptId = mDao.getScriptId(scriptName);
+			Log.i("netty", "addScript scriptId===" + scriptId);
 		}
-		mDao.addScript(info);
-		int scriptId = mDao.getScriptId(info.getScriptContent());
-		Log.i("netty", "addScript scriptId===" + scriptId);
+
 		if(infos != null && infos.size() > 0){
 			for(ScriptActionInfo actionInfo : infos){
 				actionInfo.setScriptId(scriptId);

@@ -117,9 +117,10 @@ public class BroadcastShare {
 		Intent intent = new Intent();
 		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
 		intent.putExtra("direction", direction);
-		if(!TextUtils.isEmpty(distance)){
-			intent.putExtra("digit", distance);
+		if(TextUtils.isEmpty(distance)){
+			distance = "30";
 		}
+		intent.putExtra("digit", distance);
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 

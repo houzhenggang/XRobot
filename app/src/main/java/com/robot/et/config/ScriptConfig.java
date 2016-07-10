@@ -7,10 +7,6 @@ public class ScriptConfig {
     public static final int SCRIPT_DIRECTION_FRONT = 90101;
     //向后走
     public static final int SCRIPT_DIRECTION_BACK = 90102;
-    //向左走
-    public static final int SCRIPT_DIRECTION_LEFT = 90103;
-    //向右走
-    public static final int SCRIPT_DIRECTION_RIGHT = 90104;
 
 
     //说
