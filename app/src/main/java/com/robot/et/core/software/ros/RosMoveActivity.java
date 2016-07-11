@@ -21,13 +21,12 @@ public class RosMoveActivity extends RosActivity {
     private NodeConfiguration nodeConfiguration;
 
     public RosMoveActivity(){
-        super("XRobot","XRobot", URI.create("http://192.168.8.3:11311"));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ros_controler);
+//        setContentView(R.layout.activity_ros_controler);
         IntentFilter mFilter = new IntentFilter();
         mFilter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
         mFilter.addAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
@@ -84,6 +83,7 @@ public class RosMoveActivity extends RosActivity {
             Log.i("ROS_MOVE", "机器人移动方向:向右");
             mover.execTurnRight();
         } else if (TextUtils.equals("5", message)) {
+            Log.i("ROS_MOVE", "机器人移动方向:停止");
             mover.execStop();
         }
     }

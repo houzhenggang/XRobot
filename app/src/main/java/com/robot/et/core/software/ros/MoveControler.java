@@ -74,14 +74,19 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
             public void run() {
                 if (publishVelocity) {
                     if (isForward){
-                        publishVelocity(0.2,0,0);
+                        Log.i("ROS_MOVE","前进");
+                        publishVelocity(0.4,0,0);
                     }else if (isBackWard){
-                        publishVelocity(-0.2,0,0);
+                        Log.i("ROS_MOVE","后退");
+                        publishVelocity(-0.4,0,0);
                     }else if (isTurnLeft){
+                        Log.i("ROS_MOVE","向左");
                         publishVelocity(0,0,0.5);
                     }else if (isTurnRight){
+                        Log.i("ROS_MOVE","向右");
                         publishVelocity(0,0,-0.5);
                     }else {
+                        Log.i("ROS_MOVE","停止");
                         publishVelocity(0,0,0);
                     }
                     publisher.publish(currentVelocityCommand);
@@ -98,7 +103,7 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
         double z = message.getPose().getPose().getOrientation().getY();
         heading = Math.atan2(2 * y * w - 2 * x * z, x * x - y * y - z * z + w * w) * 180 / Math.PI;
         currentOrientation = (float) -heading;
-        Log.i("ros","当前方向角度："+currentOrientation);
+        Log.i("ROS_MOVE","当前方向角度："+currentOrientation);
 
         if (degree==0){
             return;
@@ -122,7 +127,7 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
         currentVelocityCommand.getLinear().setZ(0);
         currentVelocityCommand.getAngular().setX(0);
         currentVelocityCommand.getAngular().setY(0);
-        currentVelocityCommand.getAngular().setZ(-angularVelocityZ);
+        currentVelocityCommand.getAngular().setZ(angularVelocityZ);
     }
 
     public void isPublishVelocity(boolean publishVelocity){

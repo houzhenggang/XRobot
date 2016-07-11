@@ -138,8 +138,6 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".core.software.ros.OS" />
-        <activity android:name=".core.software.ros.RosWakeUpActivity"></activity>
     </application>
 
 </manifest>

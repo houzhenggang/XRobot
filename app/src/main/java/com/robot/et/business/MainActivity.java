@@ -85,6 +85,7 @@ public class MainActivity extends BaseActivity {
 					ScanCodeActivity.instance.finish();
 					ScanCodeActivity.instance = null;
 				}
+				startActivity(intent.setClass(context,RosMoveActivity.class));
 				// 极光推送
 //				startService(intent.setClass(context, JpushService.class));
 				//图灵
