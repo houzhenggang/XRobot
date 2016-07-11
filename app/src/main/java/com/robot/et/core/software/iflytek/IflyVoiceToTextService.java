@@ -25,6 +25,7 @@ import com.robot.et.config.DataConfig;
 import com.robot.et.core.software.iflytek.util.IflyUtils;
 import com.robot.et.core.software.system.MusicPlayerService;
 import com.robot.et.debug.Logger;
+import com.robot.et.util.AlarmRemindManager;
 import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.GsonParse;
 import com.robot.et.util.PlayerControl;
@@ -80,6 +81,7 @@ public class IflyVoiceToTextService extends Service {
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)) {// 唤醒或者中断的处理
 				Log.i("voiceresult", "唤醒或者中断的处理" );
 				DataConfig.isPlayScript = false;
+				DataConfig.isAppPushRemind = false;
 
 				if(DataConfig.isAgoraVideo){
 					BroadcastShare.connectAgora(DataConfig.JPUSH_CALL_VIDEO);
@@ -118,6 +120,9 @@ public class IflyVoiceToTextService extends Service {
 				listenBegin();
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY)) {// 开始播放音乐
 				Logger.i("播放音乐");
+				if(DataConfig.isAppPushRemind){//APP推送的提醒
+					DataConfig.isScriptPlayMusic = false;
+				}
 				intent.setClass(IflyVoiceToTextService.this,MusicPlayerService.class);
 				intent.putExtra("url", intent.getStringExtra("url"));
 				startService(intent);
@@ -206,7 +211,12 @@ public class IflyVoiceToTextService extends Service {
 						listenBegin();
 						return;
 					}
-					
+					//APP提醒必须要说的话
+					if(DataConfig.isAppPushRemind){
+						AlarmRemindManager.handleAppRemind(result);
+						return;
+					}
+
 					//做自定义的事情
 					if(IflyUtils.doCustomAction(result)){
 						return;

@@ -88,6 +88,11 @@ public class DataConfig {
 	public final static int JPUSH_DELETE_A_MESSAGE = 40025;
 	//为某首歌曲编排舞蹈
 	public final static int JPUSH_CHOREOGRAPHY_DANCE = 40026;
+	//APP发来的提醒
+	public final static int JPUSH_REMIND = 40027;
+	//本体提示app提醒情况
+	public final static int JPUSH_REPLY_REMIND = 40028;
+
 
 	// 声音提示默认发音人 在线合成
 	public static final String VOICER_TIPS_DEFAULT = "nannan";
@@ -208,5 +213,8 @@ public class DataConfig {
 
 	//app是否推送了暂停
 	public static boolean isJpushStop = false;
+
+	//app是否推送了提醒
+	public static boolean isAppPushRemind = false;
 
 }

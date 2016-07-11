@@ -16,5 +16,7 @@ public class UrlConfig {
 	public final static String GET_ROBOT_INFO_BY_DEVICEID = URL_PATH + "robot/findRobotByDeviceId";
 	//本体推送当前媒体状态到App的URL
 	public final static String PUSH_MEDIASTATE_TO_APP = URL_PATH + "pushToApp/pushMediaState";
-	
+	//本体机器人给App用户推送消息
+	public final static String PUSH_MESSAGE_TO_APP = URL_PATH + "pushToApp/pushMsgToApp";
+
 }

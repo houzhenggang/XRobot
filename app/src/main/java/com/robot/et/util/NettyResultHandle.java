@@ -147,8 +147,13 @@ public class NettyResultHandle {
 
                     break;
                 case DataConfig.JPUSH_ALARM:// 闹铃
-                    Log.i("netty", "JPUSH_ALARM");
+                    Log.i("netty", "闹铃");
                     AlarmRemindManager.setAlarm(info);
+
+                    break;
+                case DataConfig.JPUSH_REMIND:// APP提醒
+                    Log.i("netty", "APP提醒");
+                    AlarmRemindManager.setAppAlarmRemind(musicContent);
 
                     break;
                 case DataConfig.JPUSH_ROBOT_LEARN:// 机器人问答库

@@ -193,6 +193,9 @@ public class ScriptManager {
         }else{
             Log.i("netty", "doScriptAction()剧本执行完毕");
             DataConfig.isPlayScript = false;
+            if(DataConfig.isAppPushRemind){
+                BroadcastShare.resumeChat();
+            }
         }
     }
 
@@ -210,6 +213,9 @@ public class ScriptManager {
         }else{
             Log.i("netty", "setNewScriptInfos()剧本执行完毕");
             DataConfig.isPlayScript = false;
+            if(DataConfig.isAppPushRemind){
+                BroadcastShare.resumeChat();
+            }
         }
     }
 

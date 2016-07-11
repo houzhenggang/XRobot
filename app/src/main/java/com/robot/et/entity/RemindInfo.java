@@ -10,6 +10,10 @@ package com.robot.et.entity;
  * remindInt 是否已经提醒 0：未提醒  1：已提醒
  * frequency 提醒的频次  0:每天,1:一天 ,7:本周
  * originalAlarmTime 原始的闹铃时间   用于删除指定闹铃使用
+ * remindMen  提醒的人
+ * requireAnswer  要求回答内容
+ * spareContent   备用内容
+ * spareType   备用int型值
  */
 public class RemindInfo {
 	private int robotId;
@@ -20,6 +24,10 @@ public class RemindInfo {
 	private int remindInt;
 	private int frequency;
 	private String originalAlarmTime;
+	private String remindMen;
+	private String requireAnswer;
+	private String spareContent;
+	private int spareType;
 	public int getRobotId() {
 		return robotId;
 	}
@@ -67,6 +75,30 @@ public class RemindInfo {
 	}
 	public void setOriginalAlarmTime(String originalAlarmTime) {
 		this.originalAlarmTime = originalAlarmTime;
+	}
+	public String getRemindMen() {
+		return remindMen;
+	}
+	public void setRemindMen(String remindMen) {
+		this.remindMen = remindMen;
+	}
+	public String getRequireAnswer() {
+		return requireAnswer;
+	}
+	public void setRequireAnswer(String requireAnswer) {
+		this.requireAnswer = requireAnswer;
+	}
+	public String getSpareContent() {
+		return spareContent;
+	}
+	public void setSpareContent(String spareContent) {
+		this.spareContent = spareContent;
+	}
+	public int getSpareType() {
+		return spareType;
+	}
+	public void setSpareType(int spareType) {
+		this.spareType = spareType;
 	}
 
 	public RemindInfo() {

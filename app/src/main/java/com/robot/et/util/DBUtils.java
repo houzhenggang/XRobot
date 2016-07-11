@@ -45,9 +45,16 @@ public class DBUtils {
 	//增加闹铃
 	public static boolean addAlarm(RemindInfo info){
 		RobotDB mDb = RobotDB.getInstance();
-		return mDb.addCurrentRemindInfo(info);
+		RemindInfo mInfo = mDb.getRemindInfo(info);
+		if(mInfo != null){
+			Log.i("alarm", "闹铃已存在");
+			return false;
+		}
+		mDb.addRemindInfo(info);
+		Log.i("alarm", "增加闹铃成功");
+		return true;
 	}
-	
+
 	// 增加智能学习的问题与答案
 	public static void insertLeanInfo(String robotNum, String question,
 			String answer, String action, int learnType) {

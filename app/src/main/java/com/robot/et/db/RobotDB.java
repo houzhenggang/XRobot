@@ -34,10 +34,11 @@ public class RobotDB {
 	
 	//增加提醒
 	public void addRemindInfo(RemindInfo info){
-		String sql = "insert into reminds(robotNum,date,time,content,remindInt,frequency,originalAlarmTime) values(?,?,?,?,?,?,?)";
+		String sql = "insert into reminds(robotNum,date,time,content,remindInt,frequency,originalAlarmTime,remindMen,requireAnswer,spareContent,spareType) " +
+				"values(?,?,?,?,?,?,?,?,?,?,?)";
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL(sql, new String[]{info.getRobotNum(),info.getDate(),info.getTime(),info.getContent(),String.valueOf(info.getRemindInt()),
-				String.valueOf(info.getFrequency()),info.getOriginalAlarmTime()});
+				String.valueOf(info.getFrequency()),info.getOriginalAlarmTime(),info.getRemindMen(),info.getRequireAnswer(),info.getSpareContent(),String.valueOf(info.getSpareType())});
 		db.close();
 	}
 	
@@ -56,6 +57,10 @@ public class RobotDB {
 			info.setRemindInt(c.getInt(c.getColumnIndex("remindInt")));
 			info.setFrequency(c.getInt(c.getColumnIndex("frequency")));
 			info.setOriginalAlarmTime(c.getString(c.getColumnIndex("originalAlarmTime")));
+			info.setRemindMen(c.getString(c.getColumnIndex("remindMen")));
+			info.setRequireAnswer(c.getString(c.getColumnIndex("requireAnswer")));
+			info.setSpareContent(c.getString(c.getColumnIndex("spareContent")));
+			info.setSpareType(c.getInt(c.getColumnIndex("spareType")));
 			mRemindInfos.add(info);
 		}
 		
@@ -80,6 +85,10 @@ public class RobotDB {
 			info.setRemindInt(c.getInt(c.getColumnIndex("remindInt")));
 			info.setFrequency(c.getInt(c.getColumnIndex("frequency")));
 			info.setOriginalAlarmTime(c.getString(c.getColumnIndex("originalAlarmTime")));
+			info.setRemindMen(c.getString(c.getColumnIndex("remindMen")));
+			info.setRequireAnswer(c.getString(c.getColumnIndex("requireAnswer")));
+			info.setSpareContent(c.getString(c.getColumnIndex("spareContent")));
+			info.setSpareType(c.getInt(c.getColumnIndex("spareType")));
 		}
 		c.close();
 		db.close();
@@ -116,16 +125,6 @@ public class RobotDB {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL(sql, new String[] {});
 		db.close();
-	}
-	
-	//增加当前的提醒
-	public boolean addCurrentRemindInfo(RemindInfo remindInfo){
-		RemindInfo mInfo = getRemindInfo(remindInfo);
-		if(mInfo != null){
-			return false;
-		}
-		addRemindInfo(remindInfo);
-		return true;
 	}
 	
 	//新增用户联系方式

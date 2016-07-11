@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.text.TextUtils;
+import android.util.Log;
 
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
@@ -56,10 +58,18 @@ public class AlarmClockService extends Service{
 				 
 				 int frequency = info.getFrequency();
 				 if(frequency == DataConfig.alarmAllDay){//每天
-					minute += 24 * 60 * 60 * 1000;
-					AlarmRemindManager.updateRemindInfo(info, minute,DataConfig.alarmAllDay);
-					AlarmRemindManager.setMoreAlarm(minute);
-					 
+					 if (!TextUtils.isEmpty(info.getRemindMen())) {
+						 //app提醒
+						 Log.i("alarm", "app提醒");
+						 AlarmRemindManager.deleteAppRemindTips(info.getOriginalAlarmTime());
+					 }else{
+						 //APP设置的闹铃
+						 Log.i("alarm", "APP设置的闹铃");
+						 minute += 24 * 60 * 60 * 1000;
+						 AlarmRemindManager.updateRemindInfo(info, minute, DataConfig.alarmAllDay);
+						 AlarmRemindManager.setMoreAlarm(minute);
+					 }
+
 				 }else{//不是每天
 					 if(frequency == 1){
 						 AlarmRemindManager.deleteCurrentRemindTips(minute);
@@ -79,8 +89,23 @@ public class AlarmClockService extends Service{
 					 DataManager.setListData(datas);
 				 }
 			 }
-			 
-			 String content = "主人您好，您设置的" + infos.get(infos.size() - 1).getContent() + "提醒时间到了，不要忘记哦。";
+
+			 RemindInfo info = infos.get(infos.size() - 1);
+			 String remindMen = info.getRemindMen();
+			 String remindContent = info.getContent();
+			 String content = "";
+			 if(!TextUtils.isEmpty(remindMen)){
+				 //app提醒
+				 content = remindMen + "，" + remindContent;
+				 DataConfig.isAppPushRemind = true;
+				 AlarmRemindManager.setRequireAnswer(info.getRequireAnswer());
+				 AlarmRemindManager.setSpareType(info.getSpareType());
+				 AlarmRemindManager.setSpareContent(info.getSpareContent());
+			 }else{
+				 //闹铃
+				 content = "主人您好，您设置的" + remindContent + "提醒时间到了，不要忘记哦。";
+			 }
+
 			 BroadcastShare.textToSpeak(DataConfig.TYPE_REMIND_TIPS, content);
 			 
 		 }
