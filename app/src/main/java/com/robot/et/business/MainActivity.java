@@ -28,11 +28,12 @@ import com.robot.et.core.software.ros.RosMoveActivity;
 import com.robot.et.core.software.system.AlarmClockService;
 import com.robot.et.core.software.system.network.NetWorkConnectService;
 import com.robot.et.core.software.system.network.NetWorkTrafficService;
-//import com.robot.et.core.software.turing.TuRingService;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
 import com.robot.et.util.ScriptManager;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
+
+//import com.robot.et.core.software.turing.TuRingService;
 
 public class MainActivity extends BaseActivity {
 
@@ -71,13 +72,6 @@ public class MainActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
-	}
-
-	@Override
-	public void onWindowFocusChanged(boolean hasFocus) {
-		ScriptManager.addLocalScript("script1");
-		ScriptManager.addLocalScript("script2");
-		super.onWindowFocusChanged(hasFocus);
 	}
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {

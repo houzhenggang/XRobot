@@ -114,7 +114,10 @@ public class MusicPlayerService extends Service{
 	        public void onPrepared(MediaPlayer mp) {  
 	        	Logger.i("音乐开始播放");
 	        	DataConfig.isPlayMusic = true;
-	            mediaPlayer.start(); // 开始播放  
+	            mediaPlayer.start(); // 开始播放
+				if(DataConfig.isScriptPlayMusic){
+					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,0);
+				}
 	        }  
 	    }  
 	

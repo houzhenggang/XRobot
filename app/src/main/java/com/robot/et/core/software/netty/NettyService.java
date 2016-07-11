@@ -17,6 +17,7 @@ import com.robot.et.debug.Logger;
 import com.robot.et.entity.CommandMsg;
 import com.robot.et.util.DataManager;
 import com.robot.et.util.DeviceUuidFactory;
+import com.robot.et.util.ScriptManager;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 
@@ -59,6 +60,8 @@ public class NettyService extends Service {
 			intent.putExtra("robotNum", robotNum);
 			sendBroadcast(intent);
 		}
+
+		ScriptManager.addLocalScript("script3");
 
 	}
 

@@ -59,6 +59,7 @@ public class ScriptManager {
                     break;
                 case ScriptConfig.SCRIPT_SPEAK://说
                     Log.i("netty", "doScriptAction() 说");
+                    setScriptActionInfos(infos);
                     BroadcastShare.textToSpeak(DataConfig.TYPE_SCRIPT, info.getContent());
 
                     break;
@@ -82,6 +83,7 @@ public class ScriptManager {
                     break;
                 case ScriptConfig.SCRIPT_SING://唱
                     Log.i("netty", "doScriptAction() 唱");
+                    setScriptActionInfos(infos);
                     PlayerControl.playScriptMusic(DataConfig.JPUSH_MUSIC,info.getContent(),info.getSpareContent());
 
                     break;
@@ -175,7 +177,6 @@ public class ScriptManager {
                 case ScriptConfig.SCRIPT_STOP_GO://停止走
                     Log.i("netty", "doScriptAction() 停止走");
                     BroadcastShare.controlMove(String.valueOf(ControlMoveConfig.MOVE_STOP),"");
-                    SystemClock.sleep(2000);
                     setNewScriptInfos(infos,true,2000);
 
                     break;

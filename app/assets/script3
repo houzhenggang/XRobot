@@ -1,16 +1,16 @@
 {
-    "scriptContent": "模拟剧本三",
+    "scriptContent": "合唱共舞",
     "script": [
         {
-            "actionType": 90101,
-            "content": "2"
-        },
-        {
             "actionType": 90200,
-            "content": "好无聊呢，我来找你玩喽"
+            "content": "我给你唱歌跳舞吧"
         },
         {
-            "actionType": 90603,
+            "actionType": 90101,
+            "content": "50"
+        },
+        {
+            "actionType": 90701,
             "content": ""
         },
         {
@@ -18,15 +18,55 @@
             "content": "爸爸妈妈听我说"
         },
         {
-            "actionType": 90500,
-            "content": "1"
+            "actionType": 90101,
+            "content": "20"
         },
         {
-            "actionType": 90802,
+            "actionType": 90701,
             "content": ""
         },
         {
-            "actionType": 90900,
+            "actionType": 90101,
+            "content": "30"
+        },
+        {
+            "actionType": 90102,
+            "content": "30"
+        },
+        {
+            "actionType": 90101,
+            "content": "30"
+        },
+        {
+            "actionType": 90102,
+            "content": "30"
+        },
+        {
+            "actionType": 90101,
+            "content": "30"
+        },
+        {
+            "actionType": 90102,
+            "content": "30"
+        },
+        {
+            "actionType": 90101,
+            "content": "50"
+        },
+        {
+            "actionType": 90702,
+            "content": ""
+        },
+        {
+            "actionType": 90101,
+            "content": "30"
+        },
+        {
+            "actionType": 90102,
+            "content": "30"
+        },
+        {
+            "actionType": 90903,
             "content": ""
         }
     ]

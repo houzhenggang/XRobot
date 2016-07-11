@@ -194,6 +194,11 @@ public class NettyResultHandle {
                     ScriptManager.addAppRecordMusic(musicContent);
 
                     break;
+                case DataConfig.JPUSH_SCENE_INTERACTION:// 场景互动
+                    Log.i("netty", "场景互动");
+                    ScriptManager.playScript(musicContent);
+
+                    break;
 
                 default:// agora音视频
                     Log.i("netty", "agora音视频");

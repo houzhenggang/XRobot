@@ -28,7 +28,6 @@ import com.robot.et.debug.Logger;
 import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.GsonParse;
 import com.robot.et.util.PlayerControl;
-import com.robot.et.util.ScriptManager;
 import com.robot.et.util.Utilities;
 
 import java.util.HashMap;
@@ -106,7 +105,7 @@ public class IflyVoiceToTextService extends Service {
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
 				Logger.i("音乐播放完成");
 				if(DataConfig.isScriptPlayMusic){//播放的剧本里的音乐
-					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,0);
+					DataConfig.isScriptPlayMusic = false;
 					return;
 				}
 

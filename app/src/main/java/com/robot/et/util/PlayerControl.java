@@ -99,7 +99,7 @@ public class PlayerControl {
 			String[] datas = result.split(DataConfig.MUSIC_SPLITE);
 			// 歌手+歌名 + 歌曲src
 			DataManager.setContentSrc(datas[2]);
-			content = playPrompt + datas[0] + "，" + datas[1];
+			content = "好的，" + playPrompt + datas[0] + "，" + datas[1];
 		}else {//极光推送
 			DataConfig.isJpushPlayMusic  = true;
 			String musicSrc = getMusicSrc(mediaType, result);
