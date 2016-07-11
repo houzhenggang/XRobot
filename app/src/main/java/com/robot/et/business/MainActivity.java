@@ -24,6 +24,7 @@ import com.robot.et.core.software.iflytek.IflySpeakService;
 import com.robot.et.core.software.iflytek.IflyTextUnderstanderService;
 import com.robot.et.core.software.iflytek.IflyVoiceToTextService;
 import com.robot.et.core.software.netty.NettyService;
+import com.robot.et.core.software.ros.RosMoveActivity;
 import com.robot.et.core.software.system.AlarmClockService;
 import com.robot.et.core.software.system.network.NetWorkConnectService;
 import com.robot.et.core.software.system.network.NetWorkTrafficService;
@@ -65,7 +66,9 @@ public class MainActivity extends BaseActivity {
 		findViewById(R.id.img_welcome).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				ScriptManager.playScript("模拟剧本二");
+//				ScriptManager.playScript("模拟剧本二");
+				Intent intent=new Intent(MainActivity.this, RosMoveActivity.class);
+				startActivity(intent);
 			}
 		});
 	}

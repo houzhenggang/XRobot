@@ -52,7 +52,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- <activity android:name="org.ros.android.MasterChooser"/> -->
+        <activity android:name="org.ros.android.MasterChooser" />
+        <activity android:name=".core.software.ros.RosMoveActivity" />
         <activity
             android:name=".core.software.zxing.ScanCodeActivity"
             android:launchMode="singleTask"
@@ -79,32 +80,32 @@
         <!-- 网络连接状态监控 -->
         <service
             android:name=".core.software.system.network.NetWorkConnectService"
-            android:launchMode="singleInstance"></service>
+            android:launchMode="singleInstance" />
         <!-- 网络流量状态监控 -->
         <service
             android:name=".core.software.system.network.NetWorkTrafficService"
-            android:launchMode="singleInstance"></service>
+            android:launchMode="singleInstance" />
         <!-- 串口服务 -->
         <service
             android:name=".core.hardware.serialport.SerialPortService"
-            android:launchMode="singleInstance"></service>
+            android:launchMode="singleInstance" />
         <!-- 唤醒服务 -->
         <service
             android:name=".core.hardware.wakeup.WakeUpServices"
-            android:launchMode="singleInstance"></service>
+            android:launchMode="singleInstance" />
 
         <!-- 控制机器人运动 -->
         <service
             android:name=".core.hardware.motor.ControlMoveService"
-            android:launchMode="singleInstance"></service>
+            android:launchMode="singleInstance" />
         <!-- Netty 服务 -->
         <service
             android:name=".core.software.netty.NettyService"
-            android:launchMode="singleInstance"></service>
+            android:launchMode="singleInstance" />
         <!-- 表情控制服务 -->
         <service
             android:name=".core.hardware.emotion.EmotionService"
-            android:launchMode="singleInstance"></service>
+            android:launchMode="singleInstance" />
         <!-- 蓝牙Services -->
         <service android:name=".core.software.agora.AgoraService" />
         <!-- Agora -->
@@ -137,7 +138,8 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".business.RosControler"></activity>
+        <activity android:name=".core.software.ros.OS" />
+        <activity android:name=".core.software.ros.RosWakeUpActivity"></activity>
     </application>
 
 </manifest>

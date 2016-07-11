@@ -18,6 +18,14 @@ public class NettyClientHandler extends SimpleChannelInboundHandler<Object> {
 		if(!TextUtils.isEmpty(message)){
 			NettyResultHandle.setPushResult(message);
 		}
+//		try{
+//			String a1 = FastJsonUtil.getJsonField((String)msg,"msg");
+//			String music = FastJsonUtil.getJsonField(a1,"comandContent");
+//			Log.i("netty", "接受到netty服务器发来的消息music===" +music);
+//			PlayerControl.playMp3(DataConfig.JPUSH_MUSIC,"MUSIC",music);
+//		}catch (Exception e){
+//			Log.i("netty", "接受到netty服务器发来的消息Exception===" + e.getMessage());
+//		}
 
 	}
 
