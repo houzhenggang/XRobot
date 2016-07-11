@@ -21,6 +21,7 @@ public class RosMoveActivity extends RosActivity {
     private NodeConfiguration nodeConfiguration;
 
     public RosMoveActivity(){
+        super("XRobot","XRobot", URI.create("http://192.168.3.1:11311"));
     }
 
     @Override
