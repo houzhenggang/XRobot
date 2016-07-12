@@ -238,6 +238,7 @@ public class DataManager {
 		DataConfig.isPlayScript = false;
 		DataConfig.isAppPushRemind = false;
 		DataConfig.isControlToyCar = false;
+		DataConfig.isStartTime = false;
 	}
 
 	//机器人周围的小车的编号

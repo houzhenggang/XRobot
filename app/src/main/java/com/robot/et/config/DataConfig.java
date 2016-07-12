@@ -220,4 +220,7 @@ public class DataConfig {
 	//是否控制玩具车
 	public static boolean isControlToyCar = false;
 
+	//开始计时APP提醒的时间（没有回答指定话语）
+	public static boolean isStartTime = false;
+
 }

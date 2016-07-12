@@ -41,7 +41,7 @@ public class IflyVoiceToTextService extends Service {
 	private SpeechRecognizer mIat;
 	// 用HashMap存储听写结果
 	private HashMap<String, String> mIatResults = new LinkedHashMap<String, String>();
-	int ret = 0; // 函数调用返回值
+	private int ret = 0; // 函数调用返回值
 
 	@Override
 	public IBinder onBind(Intent arg0) {
@@ -116,7 +116,7 @@ public class IflyVoiceToTextService extends Service {
 					sendBroadcast(intent);
 					return;
 				}
-				
+				DataConfig.isStartTime = false;
 				listenBegin();
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY)) {// 开始播放音乐
 				Logger.i("播放音乐");
@@ -146,6 +146,9 @@ public class IflyVoiceToTextService extends Service {
 	
 	//开启听
 	private void listenBegin(){
+		if(DataConfig.isAppPushRemind){
+			AlarmRemindManager.noResponseAppRemind();
+		}
 	
 		listen(true,DataConfig.VOICER_TIPS_DEFAULT);
 	}

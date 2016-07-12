@@ -1,5 +1,6 @@
 package com.robot.et.util;
 
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -278,20 +279,44 @@ public class AlarmRemindManager {
 			if(!TextUtils.isEmpty(answer)){
 				if(result.contains(answer)){//回答正确
 					DataConfig.isAppPushRemind = false;
-					BroadcastShare.resumeChat();
+					DataConfig.isStartTime = false;
+					BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, "嘿嘿，我可以去玩喽");
 				}else{//回答错误
-					int type = getSpareType();
-					if(type != 0){
-						List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
-						ScriptActionInfo info = new ScriptActionInfo();
-						info.setActionType(type);
-						info.setContent(getSpareContent());
-						infos.add(info);
-						DataConfig.isPlayScript = false;
-						ScriptManager.doScriptAction(infos);
-					}
+					doAppRemindNoResponse();
 				}
 			}
+		}
+	}
+
+	//APP发来的提醒没有按照主人设置要求的话的处理
+	public static void doAppRemindNoResponse(){
+		int type = getSpareType();
+		if(type != 0){
+			List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
+			ScriptActionInfo info = new ScriptActionInfo();
+			info.setActionType(type);
+			info.setContent(getSpareContent());
+			infos.add(info);
+			DataConfig.isPlayScript = false;
+			ScriptManager.doScriptAction(infos);
+		}
+	}
+
+	//APP设置的提醒如果15s没有响应的话就执行要做的事情
+	public static void noResponseAppRemind(){
+		if(!DataConfig.isStartTime){
+			DataConfig.isStartTime = true;
+			new Handler().postDelayed(new Runnable() {
+
+				@Override
+				public void run() {
+					if(DataConfig.isStartTime){
+						BroadcastShare.stopListenerOnly();
+						BroadcastShare.stopSpeakOnly();
+						doAppRemindNoResponse();
+					}
+				}
+			}, 15 * 1000);
 		}
 	}
 
@@ -326,10 +351,12 @@ public class AlarmRemindManager {
 
 	//要求回答的内容
 	private static String requireAnswer;
-	//要求做的类型
+	//不回答时要求做的类型
 	private static int spareType;
-	//要求做的内容
+	//不回答时要求做的内容
 	private static String spareContent;
+	//提醒的人
+	private static String remindMen;
 
 	public static String getRequireAnswer() {
 		return requireAnswer;
@@ -354,4 +381,13 @@ public class AlarmRemindManager {
 	public static void setSpareContent(String spareContent) {
 		AlarmRemindManager.spareContent = spareContent;
 	}
+
+	public static String getRemindMen() {
+		return remindMen;
+	}
+
+	public static void setRemindMen(String remindMen) {
+		AlarmRemindManager.remindMen = remindMen;
+	}
+
 }

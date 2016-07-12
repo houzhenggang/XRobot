@@ -96,13 +96,15 @@ public class AlarmClockService extends Service{
 			 String content = "";
 			 if(!TextUtils.isEmpty(remindMen)){
 				 //app提醒
-				 content = remindMen + "，" + remindContent;
+				 content = remindContent;
 				 DataConfig.isAppPushRemind = true;
 				 AlarmRemindManager.setRequireAnswer(info.getRequireAnswer());
 				 AlarmRemindManager.setSpareType(info.getSpareType());
 				 AlarmRemindManager.setSpareContent(info.getSpareContent());
+				 AlarmRemindManager.setRemindMen(remindMen);
 			 }else{
 				 //闹铃
+				 DataConfig.isAppPushRemind = false;
 				 content = "主人您好，您设置的" + remindContent + "提醒时间到了，不要忘记哦。";
 			 }
 

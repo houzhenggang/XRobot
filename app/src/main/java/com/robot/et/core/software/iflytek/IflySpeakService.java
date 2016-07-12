@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -221,6 +220,12 @@ public class IflySpeakService extends Service {
 						//正在agora查看模式，不做任何操作
 						AlarmRemindManager.doMoreAlarm();
 					}else{
+						if(DataConfig.isAppPushRemind){
+							String content = AlarmRemindManager.getRemindMen() + ",请回答：" + AlarmRemindManager.getRequireAnswer();
+							BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
+							return;
+						}
+
 						AlarmRemindManager.doMoreAlarm();
 						//继续监听
 						intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
