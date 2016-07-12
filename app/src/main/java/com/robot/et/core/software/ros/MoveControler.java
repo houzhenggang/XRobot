@@ -75,16 +75,16 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
                 if (publishVelocity) {
                     if (isForward){
                         Log.i("ROS_MOVE","前进");
-                        publishVelocity(0.4,0,0);
+                        publishVelocity(1,0,0);
                     }else if (isBackWard){
                         Log.i("ROS_MOVE","后退");
-                        publishVelocity(-0.4,0,0);
+                        publishVelocity(-1,0,0);
                     }else if (isTurnLeft){
                         Log.i("ROS_MOVE","向左");
-                        publishVelocity(0,0,0.5);
+                        publishVelocity(0,0,1.0);
                     }else if (isTurnRight){
                         Log.i("ROS_MOVE","向右");
-                        publishVelocity(0,0,-0.5);
+                        publishVelocity(0,0,-1.0);
                     }else {
                         Log.i("ROS_MOVE","停止");
                         publishVelocity(0,0,0);
@@ -103,11 +103,6 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
         double z = message.getPose().getPose().getOrientation().getY();
         heading = Math.atan2(2 * y * w - 2 * x * z, x * x - y * y - z * z + w * w) * 180 / Math.PI;
         currentOrientation = (float) -heading;
-        Log.i("ROS_MOVE","当前方向角度："+currentOrientation);
-
-        if (degree==0){
-            return;
-        }
         //第一种计算方案
         if (Math.abs(currentOrientation-degree)<10){
             publishVelocity=false;
@@ -166,7 +161,7 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
     }
 
     public double getCurrentDegree(){
-        return heading;
+        return currentOrientation;
     }
 
     public void setDegree(double degree){

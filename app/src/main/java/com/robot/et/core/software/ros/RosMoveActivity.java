@@ -45,8 +45,7 @@ public class RosMoveActivity extends RosActivity {
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {
         private String direction;
-        private String data;//获取的语音板的角度(String)
-        private double degree;//获取的语音板的角度(double)
+        private int data;//获取的Brocast传递的角度(int)
 
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -58,13 +57,14 @@ public class RosMoveActivity extends RosActivity {
                 }
                 doMoveAction(direction);
             }else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)){
-                Log.i("ROS_MOVE","语音唤醒时，当前机器人的角度："+mover.getCurrentDegree());
-                data=intent.getStringExtra("degree");
-                if (null==data||TextUtils.equals("", data)){
+                Log.i("ROS_WAKE_UP","语音唤醒时，当前机器人的角度："+mover.getCurrentDegree());
+                data=intent.getIntExtra("degree",0);
+                Log.i("ROS_WAKE_UP","语音唤醒时，获取的角度："+data);
+                if (data == 0 || data == 360){
+                    //原地不动
                     return;
                 }
-                degree=Double.valueOf(data);
-                doTrunAction(degree);
+                doTrunAction(mover.getCurrentDegree(),Double.valueOf(data));
             }
         }
     };
@@ -88,16 +88,20 @@ public class RosMoveActivity extends RosActivity {
             mover.execStop();
         }
     }
-    public void doTrunAction(double degree){
+    public void doTrunAction(double currentDegree,double degree){
         mover.isPublishVelocity(true);
-        if (degree==0 && degree==360){
-            return;
-        }else if (degree>180){
-            mover.execTurnLeft();
-            mover.setDegree(degree-360);
-        }else{
+        double temp;
+        if (currentDegree+degree<=180){
+            temp=currentDegree+degree;
+        }else {
+            temp=currentDegree+degree-360;
+        }
+        if ((degree > 0 && degree < 180)){
             mover.execTurnRight();
-            mover.setDegree(degree);
+            mover.setDegree(temp);
+        }else{
+            mover.execTurnLeft();
+            mover.setDegree(temp);
         }
     }
     @Override
