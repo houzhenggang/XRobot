@@ -25,6 +25,9 @@ public class ControlMoveService extends Service {
 		IntentFilter filter = new IntentFilter();
 		filter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
 		filter.addAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
+		filter.addAction(BroadcastAction.ACTION_CONTROL_AROUND_TOYCAR);
+		filter.addAction(BroadcastAction.ACTION_CONTROL_RAISE_HANDS);
+		filter.addAction(BroadcastAction.ACTION_CONTROL_WAVING);
 		registerReceiver(receiver, filter);
 	}
 
@@ -81,7 +84,22 @@ public class ControlMoveService extends Service {
 						doAction(direction);
 					}
 				}
+			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_AROUND_TOYCAR)){//控制周围小车
+				Log.i("Move", "控制周围小车");
+				String direction = intent.getStringExtra("direction");
+				int directionType = 0;
+				if(TextUtils.isDigitsOnly(direction)){
+					directionType = Integer.parseInt(direction);
+				}
+				int toyCarNum = intent.getIntExtra("toyCarNum",0);
+				contrlToyCarMove(directionType,toyCarNum);
+
+			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_RAISE_HANDS)){//举手
+				Log.i("Move", "举手");
+			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_WAVING)){//摆手
+				Log.i("Move", "摆手");
 			}
+
 		}
 	};
 
@@ -129,36 +147,6 @@ public class ControlMoveService extends Service {
 			action.setAction("stop");
 			String s = JSON.toJSONString(action);
 			content = s.getBytes();
-		} else if (TextUtils.equals("11", message)) {
-			Log.i("Move", "玩具控制 向前");
-			action.setCategory("go");
-			action.setAction("forward");
-			String s = JSON.toJSONString(action);
-			content = s.getBytes();
-		} else if (TextUtils.equals("12", message)) {
-			Log.i("Move", "玩具控制 向后");
-			action.setCategory("go");
-			action.setAction("backward");
-			String s = JSON.toJSONString(action);
-			content = s.getBytes();
-		} else if (TextUtils.equals("13", message)) {
-			Log.i("Move", "玩具控制 向左");
-			action.setCategory("go");
-			action.setAction("turnLeft");
-			String s = JSON.toJSONString(action);
-			content = s.getBytes();
-		} else if (TextUtils.equals("14", message)) {
-			Log.i("Move", "玩具控制 向右");
-			action.setCategory("go");
-			action.setAction("turnRight");
-			String s = JSON.toJSONString(action);
-			content = s.getBytes();
-		} else if (TextUtils.equals("15", message)) {
-			Log.i("Move", "玩具控制 停止");
-			action.setCategory("go");
-			action.setAction("stop");
-			String s = JSON.toJSONString(action);
-			content = s.getBytes();
 		}
 		byte[] end = new byte[] { 0x0a };//结束符
 		byte[] realcontent = byteMerger(content, end);
@@ -166,6 +154,73 @@ public class ControlMoveService extends Service {
 		intent.setAction(BroadcastAction.ACTION_MOVE_TO_SERIALPORT);
 		intent.putExtra("actioncontent", realcontent);
 		sendBroadcast(intent);
+	}
+
+	private void contrlToyCarMove(int directionType,int toyCarNum){
+		if(directionType != 0){
+			Log.i("Move", "控制机器人周围玩具toyCarNum===" + toyCarNum);
+			RobotAction action = new RobotAction();
+			action.setCategory("go");
+			action.setToyCarNum("00" + toyCarNum);
+			switch (directionType){
+				case 1:
+					Log.i("Move", "1玩具控制 向前");
+					action.setAction("forward");
+					break;
+				case 2:
+					Log.i("Move", "2玩具控制 向后");
+					action.setAction("backward");
+					break;
+				case 3:
+					Log.i("Move", "3玩具控制 向左");
+					action.setAction("turnLeft");
+					break;
+				case 4:
+					Log.i("Move", "4玩具控制 向右");
+					action.setAction("turnRight");
+					break;
+				case 5:
+					Log.i("Move", "5玩具控制 停止");
+					action.setAction("stop");
+					break;
+				case 11:
+					Log.i("Move", "11玩具控制 向前");
+					action.setAction("forward");
+					break;
+				case 12:
+					Log.i("Move", "12玩具控制 向后");
+					action.setAction("backward");
+					break;
+				case 13:
+					Log.i("Move", "13玩具控制 向左");
+					action.setAction("turnLeft");
+					break;
+				case 14:
+					Log.i("Move", "14玩具控制 向右");
+					action.setAction("turnRight");
+					break;
+				case 15:
+					Log.i("Move", "15玩具控制 停止");
+					action.setAction("stop");
+					break;
+				default:
+					break;
+			}
+			String json = JSON.toJSONString(action);
+			sendMoveAction(json);
+		}
+	}
+
+	private void sendMoveAction(String result){
+		if(!TextUtils.isEmpty(result)){
+			byte[] content = result.getBytes();
+			byte[] end = new byte[] { 0x0a };//结束符
+			byte[] realcontent = byteMerger(content, end);
+			Intent intent = new Intent();
+			intent.setAction(BroadcastAction.ACTION_MOVE_TO_SERIALPORT);
+			intent.putExtra("actioncontent", realcontent);
+			sendBroadcast(intent);
+		}
 	}
 	
 	public byte[] byteMerger(byte[] first, byte[] second) {

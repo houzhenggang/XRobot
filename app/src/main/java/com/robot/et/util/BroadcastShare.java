@@ -113,7 +113,7 @@ public class BroadcastShare {
 		textToSpeak(DataConfig.TYPE_VOICE_CHAT, tempContent);
 	}
 
-	//控制小车走的广播
+	//控制机器人走的广播
 	public static void controlMove(String direction,String distance){
 		Intent intent = new Intent();
 		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
@@ -122,10 +122,16 @@ public class BroadcastShare {
 			distance = "30";
 		}
 		intent.putExtra("digit", distance);
-		if(DataConfig.isControlToyCar){
-			Log.i("voiceresult", "执行控制周围玩具的动作命令toyCarNum==" + DataManager.getToyCarNum());
-			intent.putExtra("toyCarNum", DataManager.getToyCarNum());
-		}
+		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+	}
+
+	//控制机器人周围小车走的广播
+	public static void controlToyCarMove(String direction,int toyCarNum){
+		Intent intent = new Intent();
+		intent.setAction(BroadcastAction.ACTION_CONTROL_AROUND_TOYCAR);
+		intent.putExtra("direction", direction);
+		Log.i("voiceresult", "执行控制周围玩具的动作命令toyCarNum==" + toyCarNum);
+		intent.putExtra("toyCarNum", toyCarNum);
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 

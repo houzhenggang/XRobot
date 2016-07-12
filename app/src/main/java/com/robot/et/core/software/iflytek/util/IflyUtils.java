@@ -262,9 +262,14 @@ public class IflyUtils {
 						String answer = answers[randNum];
 						BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
 					}
-					
-					//控制小车走的广播
-					BroadcastShare.controlMove(actionValue[i],digit);
+
+					if(DataConfig.isControlToyCar){
+						//控制玩具车走的广播
+						BroadcastShare.controlToyCarMove(actionValue[i],DataManager.getToyCarNum());
+					}else{
+						//控制机器人走的广播
+						BroadcastShare.controlMove(actionValue[i],digit);
+					}
 					return true;
 				}
 			}

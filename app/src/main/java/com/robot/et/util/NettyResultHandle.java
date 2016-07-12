@@ -58,7 +58,7 @@ public class NettyResultHandle {
                         if(direction.contains(splite)){
                             String[] datas = direction.split(splite);
                             Log.i("netty", "datas[1]===" + datas[1]);
-                            sendDirection(datas[1]);
+                            BroadcastShare.controlToyCarMove(datas[1],1);
                         }
                     }
                 }

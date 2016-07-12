@@ -7,20 +7,10 @@ public class RobotAction {
 	private int radius; // 转弯半径
 	private int distance; //移动距离
 	private int time; //移动时间
+	private String toyCarNum; //机器人周围小车编号
 
 	public RobotAction() {
 		super();
-	}
-
-	public RobotAction(String category, String action, int angle, int radius,
-			int distance, int time) {
-		super();
-		this.category = category;
-		this.action = action;
-		this.angle = angle;
-		this.radius = radius;
-		this.distance = distance;
-		this.time = time;
 	}
 
 	public String getCategory() {
@@ -69,6 +59,14 @@ public class RobotAction {
 
 	public void setTime(int time) {
 		this.time = time;
+	}
+
+	public String getToyCarNum() {
+		return toyCarNum;
+	}
+
+	public void setToyCarNum(String toyCarNum) {
+		this.toyCarNum = toyCarNum;
 	}
 
 }

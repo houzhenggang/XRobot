@@ -91,5 +91,7 @@ public class BroadcastAction {
 	public static String ACTION_CONTROL_BLINK = "action.control.blink";
 	//摆手的广播
 	public static String ACTION_CONTROL_WAVING = "action.control.waving";
+	//控制机器人周围小车的广播
+	public static String ACTION_CONTROL_AROUND_TOYCAR = "action.control.around.toycar";
 
 }
