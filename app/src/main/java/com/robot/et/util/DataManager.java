@@ -13,6 +13,7 @@ import android.util.Log;
 import com.robot.et.R;
 import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
+import com.robot.et.config.DataConfig;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.debug.Logger;
@@ -230,6 +231,24 @@ public class DataManager {
 			}
 
 		});
+	}
+
+	//还原boolean值
+	public static void initBooleanValue(){
+		DataConfig.isPlayScript = false;
+		DataConfig.isAppPushRemind = false;
+		DataConfig.isControlToyCar = false;
+	}
+
+	//机器人周围的小车的编号
+	private static int toyCarNum;
+
+	public static int getToyCarNum() {
+		return toyCarNum;
+	}
+
+	public static void setToyCarNum(int toyCarNum) {
+		DataManager.toyCarNum = toyCarNum;
 	}
 
 }

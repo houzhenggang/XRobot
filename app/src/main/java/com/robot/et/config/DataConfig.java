@@ -217,4 +217,7 @@ public class DataConfig {
 	//app是否推送了提醒
 	public static boolean isAppPushRemind = false;
 
+	//是否控制玩具车
+	public static boolean isControlToyCar = false;
+
 }

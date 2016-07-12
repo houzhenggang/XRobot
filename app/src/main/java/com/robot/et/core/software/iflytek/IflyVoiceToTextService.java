@@ -27,6 +27,7 @@ import com.robot.et.core.software.system.MusicPlayerService;
 import com.robot.et.debug.Logger;
 import com.robot.et.util.AlarmRemindManager;
 import com.robot.et.util.BroadcastShare;
+import com.robot.et.util.DataManager;
 import com.robot.et.util.GsonParse;
 import com.robot.et.util.PlayerControl;
 import com.robot.et.util.Utilities;
@@ -76,12 +77,11 @@ public class IflyVoiceToTextService extends Service {
 				listenBegin();
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_PHONE_COMEIN)) {// 电话或者视频进来停掉监听
 				Logger.i("电话进来");
-				DataConfig.isPlayScript = false;
 				closeAnyDec();
+				DataManager.initBooleanValue();
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)) {// 唤醒或者中断的处理
 				Log.i("voiceresult", "唤醒或者中断的处理" );
-				DataConfig.isPlayScript = false;
-				DataConfig.isAppPushRemind = false;
+				DataManager.initBooleanValue();
 
 				if(DataConfig.isAgoraVideo){
 					BroadcastShare.connectAgora(DataConfig.JPUSH_CALL_VIDEO);

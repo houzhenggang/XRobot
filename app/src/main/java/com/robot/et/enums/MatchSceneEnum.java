@@ -60,6 +60,11 @@ public enum MatchSceneEnum {
 			return MatchStringUtil.matchString(str, MatchStringUtil.doActionRegex);
 		}
 	},
+	CONTROL_TOYCAR_SCENE {// 控制玩具车
+		public boolean isScene(String str) {
+			return MatchStringUtil.matchString(str, MatchStringUtil.controlToyCarRegex);
+		}
+	},
 	LANGUAGE_SWITCH_SCENE {// 语言切换
 		public boolean isScene(String str) {
 			return MatchStringUtil.matchString(str, MatchStringUtil.languageSwitchRegex);

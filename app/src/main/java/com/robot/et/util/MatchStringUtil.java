@@ -30,6 +30,8 @@ public class MatchStringUtil {
 	public static String doActionRegex = "^" + baseRegex + "*我+"   + baseRegex + "*((问)|(说))+"  + baseRegex + "*你+"  + baseRegex + "+(萌|(卖个萌))+" + baseRegex + "*$";
 	//语言切换
 	public static String languageSwitchRegex = "^" + baseRegex + "*((切换)|说|用)+" + baseRegex + "*((英语)|(外语))+" + baseRegex + "*$";
+	//控制机器人周围的玩具车走
+	public static String controlToyCarRegex = "^" + baseRegex + "+号+"  + baseRegex + "*((小车)|(玩具车)|(汽车))+" + baseRegex + "*$";
 
 	//匹配场景字符串
 	public static boolean matchString(String str,String strRegex) {
@@ -88,5 +90,29 @@ public class MatchStringUtil {
 		}
 		return tempResult;
 	}
+
+	//获取控制机器人周围小车的号码
+	public static int getToyCarNum(String result){
+		int carNum = 0;
+		if(!TextUtils.isEmpty(result)){
+			int end = result.indexOf("号");
+			String num = result.substring(end - 1,end);
+			if(TextUtils.equals(num,"1") || TextUtils.equals(num,"一")){
+				carNum = 1;
+			}else if(TextUtils.equals(num,"2") || TextUtils.equals(num,"二")){
+				carNum = 2;
+			}else if(TextUtils.equals(num,"3") || TextUtils.equals(num,"三")){
+				carNum = 3;
+			}else if(TextUtils.equals(num,"4") || TextUtils.equals(num,"四")){
+				carNum = 4;
+			}else if(TextUtils.equals(num,"5") || TextUtils.equals(num,"五")){
+				carNum = 5;
+			}else if(TextUtils.equals(num,"6") || TextUtils.equals(num,"六")){
+				carNum = 6;
+			}
+		}
+		return carNum;
+	}
+
 
 }

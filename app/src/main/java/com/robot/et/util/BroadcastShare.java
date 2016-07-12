@@ -3,6 +3,7 @@ package com.robot.et.util;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
@@ -121,6 +122,10 @@ public class BroadcastShare {
 			distance = "30";
 		}
 		intent.putExtra("digit", distance);
+		if(DataConfig.isControlToyCar){
+			Log.i("voiceresult", "执行控制周围玩具的动作命令toyCarNum==" + DataManager.getToyCarNum());
+			intent.putExtra("toyCarNum", DataManager.getToyCarNum());
+		}
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 

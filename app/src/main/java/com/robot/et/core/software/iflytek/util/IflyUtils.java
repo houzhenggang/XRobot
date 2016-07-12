@@ -22,9 +22,11 @@ import com.robot.et.util.AlarmRemindManager;
 import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.CallPhoneControl;
 import com.robot.et.util.CharactorTool;
+import com.robot.et.util.DataManager;
 import com.robot.et.util.DateTools;
 import com.robot.et.util.EnumManager;
 import com.robot.et.util.GsonParse;
+import com.robot.et.util.MatchStringUtil;
 import com.robot.et.util.PlayerControl;
 import com.robot.et.util.RobotLearnManager;
 
@@ -196,6 +198,15 @@ public class IflyUtils {
 		case DO_ACTION_SCENE:// 智能学习做动作
 			flag = true;
 			RobotLearnManager.learnActionBySpeak(result);
+			break;
+		case CONTROL_TOYCAR_SCENE:// 控制玩具车
+			flag = true;
+			DataConfig.isControlToyCar = true;
+			int toyCarNum = MatchStringUtil.getToyCarNum(result);
+			DataManager.setToyCarNum(toyCarNum);
+			Log.i("voiceresult", "toyCarNum=====" + toyCarNum );
+			BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, "好的");
+
 			break;
 		case LANGUAGE_SWITCH_SCENE:// 语言切换
 			flag = true;
