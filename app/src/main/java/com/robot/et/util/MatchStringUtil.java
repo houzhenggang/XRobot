@@ -97,18 +97,12 @@ public class MatchStringUtil {
 		if(!TextUtils.isEmpty(result)){
 			int end = result.indexOf("号");
 			String num = result.substring(end - 1,end);
-			if(TextUtils.equals(num,"1") || TextUtils.equals(num,"一")){
+			if(TextUtils.equals(num,"一")){
 				carNum = 1;
-			}else if(TextUtils.equals(num,"2") || TextUtils.equals(num,"二")){
-				carNum = 2;
-			}else if(TextUtils.equals(num,"3") || TextUtils.equals(num,"三")){
-				carNum = 3;
-			}else if(TextUtils.equals(num,"4") || TextUtils.equals(num,"四")){
-				carNum = 4;
-			}else if(TextUtils.equals(num,"5") || TextUtils.equals(num,"五")){
-				carNum = 5;
-			}else if(TextUtils.equals(num,"6") || TextUtils.equals(num,"六")){
-				carNum = 6;
+			}else{
+				if(TextUtils.isDigitsOnly(num)){
+					carNum = Integer.parseInt(num);
+				}
 			}
 		}
 		return carNum;
