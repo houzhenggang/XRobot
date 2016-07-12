@@ -95,11 +95,22 @@ public class MatchStringUtil {
 	public static int getToyCarNum(String result){
 		int carNum = 0;
 		if(!TextUtils.isEmpty(result)){
-			int end = result.indexOf("号");
-			String num = result.substring(end - 1,end);
-			if(TextUtils.equals(num,"一")){
-				carNum = 1;
-			}else{
+			String sign = "号";
+			if(result.contains(sign)){
+				int end = result.indexOf(sign);
+				String data = result.substring(0,end);
+				StringBuffer buffer = new StringBuffer();
+				if(!TextUtils.isEmpty(data)){
+					for(int i=0;i<data.length();i++){
+						char tempChar = data.charAt(i);
+						if(Character.isDigit(tempChar)){
+							buffer.append(tempChar);
+						}else if(TextUtils.equals(tempChar + "","一")){
+							buffer.append("1");
+						}
+					}
+				}
+				String num = buffer.toString();
 				if(TextUtils.isDigitsOnly(num)){
 					carNum = Integer.parseInt(num);
 				}
@@ -107,6 +118,5 @@ public class MatchStringUtil {
 		}
 		return carNum;
 	}
-
 
 }
