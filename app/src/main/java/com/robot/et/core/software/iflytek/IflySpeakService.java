@@ -145,6 +145,11 @@ public class IflySpeakService extends Service {
 		}
 		IflyUtils.setTextToVoiceParam(mTts,isTypeCloud,speakMen,"50","50","50");
 
+		if(DataConfig.isBluetoothBox){
+			DataConfig.isBluetoothBox = false;
+			content = "小黄人开始   说" + content;
+		}
+
 		int code = mTts.startSpeaking(content, mTtsListener);
 		// * 只保存音频不进行播放接口,调用此接口请注释startSpeaking接口
 		// * text:要合成的文本，uri:需要保存的音频全路径，listener:回调接口

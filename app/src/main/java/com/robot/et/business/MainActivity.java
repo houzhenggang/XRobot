@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -29,6 +30,7 @@ import com.robot.et.core.software.system.AlarmClockService;
 import com.robot.et.core.software.system.network.NetWorkConnectService;
 import com.robot.et.core.software.system.network.NetWorkTrafficService;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
+import com.robot.et.util.BluetoothKeyManager;
 import com.robot.et.util.ScriptManager;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
@@ -72,6 +74,14 @@ public class MainActivity extends BaseActivity {
 				startActivity(intent);
 			}
 		});
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if(BluetoothKeyManager.responseKey(keyCode)){
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {

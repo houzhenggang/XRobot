@@ -223,4 +223,7 @@ public class DataConfig {
 	//开始计时APP提醒的时间（没有回答指定话语）
 	public static boolean isStartTime = false;
 
+	//使用蓝牙音箱
+	public static boolean isBluetoothBox = false;
+
 }

@@ -680,9 +680,23 @@ public class GsonParse {
 					JSONObject object = array.getJSONObject(i);
 					ScriptActionInfo info = new ScriptActionInfo();
 					info.setActionType(object.getInt("actionType"));
-					String content = object.getString("content");
-					if(!TextUtils.isEmpty(content)){
-						info.setContent(content);
+					if(object.has("content")){
+						String content = object.getString("content");
+						if(!TextUtils.isEmpty(content)){
+							info.setContent(content);
+						}
+					}
+					if(object.has("spareType")){
+						String spareType = object.getString("spareType");
+						if(TextUtils.isDigitsOnly(spareType)){
+							info.setDirection(Integer.parseInt(spareType));
+						}
+					}
+					if(object.has("spareContent")){
+						String spareContent = object.getString("spareContent");
+						if(!TextUtils.isEmpty(spareContent)){
+							info.setSpareContent(spareContent);
+						}
 					}
 					infos.add(info);
 				}

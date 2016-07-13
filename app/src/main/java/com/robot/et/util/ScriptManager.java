@@ -184,6 +184,22 @@ public class ScriptManager {
                     Log.i("netty", "doScriptAction() 停止转圈");
                     BroadcastShare.controlTurnAround(ScriptConfig.SCRIPT_TURN_CLOCKWISE,ScriptConfig.SCRIPT_STOP_TURN);
                     setNewScriptInfos(infos,true,2000);
+                case ScriptConfig.SCRIPT_EXPRESSION://表情
+                    Log.i("netty", "doScriptAction() 表情");
+                    String content = info.getContent();
+                    int emotionKey = EnumManager.getEmotionKey(content);
+                    BroadcastShare.controlRobotEmotion(emotionKey);
+
+                    break;
+                case ScriptConfig.SCRIPT_FOLLOW://跟随
+                    Log.i("netty", "doScriptAction() 跟随");
+
+
+                    break;
+                case ScriptConfig.SCRIPT_QUESTION_ANSWER://问答
+                    Log.i("netty", "doScriptAction() 问答");
+                    String content2 = info.getContent();
+                    String spareContent = info.getSpareContent();
 
                     break;
                 default:
@@ -281,6 +297,16 @@ public class ScriptManager {
 
     public static void setScriptActionInfos(List<ScriptActionInfo> infos) {
         ScriptManager.infos = infos;
+    }
+
+    private static List<ScriptActionInfo> emutionInfos = new ArrayList<ScriptActionInfo>();
+
+    public static List<ScriptActionInfo> getEmutionInfos() {
+        return emutionInfos;
+    }
+
+    public static void setEmutionInfos(List<ScriptActionInfo> emutionInfos) {
+        ScriptManager.emutionInfos = emutionInfos;
     }
 
 }

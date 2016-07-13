@@ -92,7 +92,7 @@ public class ControlMoveService extends Service {
 					directionType = Integer.parseInt(direction);
 				}
 				int toyCarNum = intent.getIntExtra("toyCarNum",0);
-				contrlToyCarMove(directionType,toyCarNum);
+				contrlToyCarMove(directionType,String.valueOf(toyCarNum));
 
 			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_RAISE_HANDS)){//举手
 				Log.i("Move", "举手");
@@ -156,12 +156,11 @@ public class ControlMoveService extends Service {
 		sendBroadcast(intent);
 	}
 
-	private void contrlToyCarMove(int directionType,int toyCarNum){
+	private void contrlToyCarMove(int directionType,String toyCarNum){
 		if(directionType != 0){
 			Log.i("Move", "控制机器人周围玩具toyCarNum===" + toyCarNum);
 			RobotAction action = new RobotAction();
 			action.setCategory("go");
-			action.setToyCarNum("00" + toyCarNum);
 			switch (directionType){
 				case 1:
 					Log.i("Move", "1玩具控制 向前");
@@ -206,6 +205,7 @@ public class ControlMoveService extends Service {
 				default:
 					break;
 			}
+			action.setCarNum(toyCarNum);
 			String json = JSON.toJSONString(action);
 			sendMoveAction(json);
 		}

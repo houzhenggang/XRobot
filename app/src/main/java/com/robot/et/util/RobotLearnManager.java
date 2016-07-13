@@ -1,20 +1,18 @@
 package com.robot.et.util;
 
-import java.util.List;
-import java.util.Random;
-
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.robot.et.R;
 import com.robot.et.app.CustomApplication;
-import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.EmotionConfig;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.entity.LearnAnswerInfo;
+
+import java.util.List;
+import java.util.Random;
 
 public class RobotLearnManager {
 	
@@ -101,11 +99,7 @@ public class RobotLearnManager {
 				//执行萌的动作
 				if(!TextUtils.isEmpty(action)){
 					Log.i("voiceresult", "执行萌的动作action====" + action);
-					Intent intent = new Intent();
-					intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_EMOTION);
-					intent.putExtra("emotion", Integer.parseInt(action));
-					CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
-					
+					BroadcastShare.controlRobotEmotion(Integer.parseInt(action));
 					BroadcastShare.resumeChat();
 				}
 				return true;

@@ -4,15 +4,17 @@ package com.robot.et.config;
 public class ScriptConfig {
 
     //眨左眼
-    public static final int SCRIPT_BLINK_LEFT = 90301;
+    public static final int SCRIPT_BLINK_LEFT = 90101;
     //眨右眼
-    public static final int SCRIPT_BLINK_RIGHT = 90302;
+    public static final int SCRIPT_BLINK_RIGHT = 90102;
     //眨眼（两个都眨）
-    public static final int SCRIPT_BLINK_TWO = 90303;
+    public static final int SCRIPT_BLINK_TWO = 90103;
 
+    //表情
+    public static final int SCRIPT_EXPRESSION = 90200;
 
     //说
-    public static final int SCRIPT_SPEAK = 90200;
+    public static final int SCRIPT_SPEAK = 90300;
 
 
     //唱
@@ -20,13 +22,13 @@ public class ScriptConfig {
 
 
     //举左手
-    public static final int SCRIPT_RAISE_HANDS_LEFT = 90801;
+    public static final int SCRIPT_RAISE_HANDS_LEFT = 90501;
     //举右手
-    public static final int SCRIPT_RAISE_HANDS_RIGHT = 90802;
+    public static final int SCRIPT_RAISE_HANDS_RIGHT = 90502;
     //手都举起来
-    public static final int SCRIPT_RAISE_HANDS_TWO = 90803;
+    public static final int SCRIPT_RAISE_HANDS_TWO = 90503;
     //手放下来
-    public static final int SCRIPT_HANDS_PUT_DOWN = 90804;
+    public static final int SCRIPT_HANDS_PUT_DOWN = 90504;
 
 
     //摆左手
@@ -38,36 +40,43 @@ public class ScriptConfig {
 
 
     //转圈
-    public static final int SCRIPT_TURN_AROUND = 90500;
+    public static final int SCRIPT_TURN_AROUND = 90700;
     //顺时针
-    public static final int SCRIPT_TURN_CLOCKWISE = 90501;
+    public static final int SCRIPT_TURN_CLOCKWISE = 90701;
     //逆时针
-    public static final int SCRIPT_TURN_ANTI_CLOCKWISE = 90502;
+    public static final int SCRIPT_TURN_ANTI_CLOCKWISE = 90702;
 
 
     //向前走
-    public static final int SCRIPT_DIRECTION_FRONT = 90101;
+    public static final int SCRIPT_DIRECTION_FRONT = 90801;
     //向后走
-    public static final int SCRIPT_DIRECTION_BACK = 90102;
+    public static final int SCRIPT_DIRECTION_BACK = 90802;
 
 
     //向左转
-    public static final int SCRIPT_TURN_LEFT = 90701;
+    public static final int SCRIPT_TURN_LEFT = 90901;
     //向右转
-    public static final int SCRIPT_TURN_RIGHT = 90702;
+    public static final int SCRIPT_TURN_RIGHT = 90902;
 
 
     //所有都停止
-    public static final int SCRIPT_STOP_ALL = 90900;
+    public static final int SCRIPT_STOP_ALL = 91000;
     //停止说话
-    public static final int SCRIPT_STOP_SPEAK = 90901;
+    public static final int SCRIPT_STOP_SPEAK = 91001;
     //停止唱歌
-    public static final int SCRIPT_STOP_SING = 90902;
+    public static final int SCRIPT_STOP_SING = 91002;
     //停止走
-    public static final int SCRIPT_STOP_GO = 90903;
+    public static final int SCRIPT_STOP_GO = 91003;
     //停止转圈
-    public static final int SCRIPT_STOP_TURN = 90904;
+    public static final int SCRIPT_STOP_TURN = 91004;
     //停止摆手
-    public static final int SCRIPT_STOP_WAVING = 90905;
+    public static final int SCRIPT_STOP_WAVING = 91005;
+
+
+    //跟随
+    public static final int SCRIPT_FOLLOW = 92000;
+
+    //问答
+    public static final int SCRIPT_QUESTION_ANSWER = 92100;
 
 }

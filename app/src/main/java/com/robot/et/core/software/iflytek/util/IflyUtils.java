@@ -296,11 +296,7 @@ public class IflyUtils {
 						//执行命令的动作
 						if(!TextUtils.isEmpty(action)){
 							Log.i("voiceresult", "执行萌的动作action====" + action);
-							Intent intent = new Intent();
-							intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_EMOTION);
-							intent.putExtra("emotion", Integer.parseInt(action));
-							context.sendBroadcast(intent);
-							
+							BroadcastShare.controlRobotEmotion(Integer.parseInt(action));
 							BroadcastShare.resumeChat();
 						}
 						return true;

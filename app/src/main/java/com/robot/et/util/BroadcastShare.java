@@ -144,6 +144,16 @@ public class BroadcastShare {
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 
+	//机器人表情
+	public static void controlRobotEmotion(int emotionKey){
+		if(emotionKey != 0){
+			Intent intent = new Intent();
+			intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_EMOTION);
+			intent.putExtra("emotion", emotionKey);
+			CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+		}
+	}
+
 	//举手
 	public static void controlRalseHands(int intention){
 		Intent intent = new Intent();

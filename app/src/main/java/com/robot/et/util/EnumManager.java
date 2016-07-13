@@ -3,6 +3,7 @@ package com.robot.et.util;
 import android.text.TextUtils;
 
 import com.robot.et.enums.ControlMoveEnum;
+import com.robot.et.enums.EmotionEnum;
 import com.robot.et.enums.MatchSceneEnum;
 import com.robot.et.enums.SceneServiceEnum;
 
@@ -38,5 +39,17 @@ public class EnumManager {
 		return null;
 	}
 
+	//获取表情的int型值
+	public static int getEmotionKey(String emotionName){
+		int key = 0;
+		if(!TextUtils.isEmpty(emotionName)){
+			for(EmotionEnum emotionEnum:EmotionEnum.values()){
+				if(TextUtils.equals(emotionName,emotionEnum.getEmotionName())){
+					key = emotionEnum.getEmotionKey();
+				}
+			}
+		}
+		return key;
+	}
 
 }
