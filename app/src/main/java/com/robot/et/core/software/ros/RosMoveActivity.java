@@ -10,6 +10,7 @@ import android.util.Log;
 import com.robot.et.R;
 import com.robot.et.config.BroadcastAction;
 import org.ros.android.RosActivity;
+import org.ros.android.view.visualization.layer.CompressedOccupancyGridLayer;
 import org.ros.node.NodeConfiguration;
 import org.ros.node.NodeMainExecutor;
 import java.net.URI;
@@ -18,6 +19,7 @@ import java.net.URI;
 public class RosMoveActivity extends RosActivity {
 
     private MoveControler mover;
+    private CompressedOccupancyGridLayer compressedOccupancyGridLayer;
     private NodeConfiguration nodeConfiguration;
 
     public RosMoveActivity(){
@@ -59,7 +61,7 @@ public class RosMoveActivity extends RosActivity {
             }else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)){
                 Log.i("ROS_WAKE_UP","语音唤醒时，当前机器人的角度："+mover.getCurrentDegree());
                 data=intent.getIntExtra("degree",0);
-                Log.i("ROS_WAKE_UP","语音唤醒时，获取的角度："+data);
+                Log.i("ROS_WAKE_UP_DEGREE","语音唤醒时，获取的角度："+data);
                 if (data == 0 || data == 360){
                     //原地不动
                     return;

@@ -81,10 +81,10 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
                         publishVelocity(-1,0,0);
                     }else if (isTurnLeft){
                         Log.i("ROS_MOVE","向左");
-                        publishVelocity(0,0,1.0);
+                        publishVelocity(0,0,1);
                     }else if (isTurnRight){
                         Log.i("ROS_MOVE","向右");
-                        publishVelocity(0,0,-1.0);
+                        publishVelocity(0,0,-1);
                     }else {
                         Log.i("ROS_MOVE","停止");
                         publishVelocity(0,0,0);
@@ -104,9 +104,11 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
         heading = Math.atan2(2 * y * w - 2 * x * z, x * x - y * y - z * z + w * w) * 180 / Math.PI;
         currentOrientation = (float) -heading;
         //第一种计算方案
-        if (Math.abs(currentOrientation-degree)<10){
+        if (Math.abs(currentOrientation-degree)<20){
             publishVelocity=false;
+            Log.i("ROS_STOP_DEGREE","ROS_STOP_DEGREE:"+currentOrientation);
         }
+
     }
     /**
      * Publish the velocity as a ROS Twist message.

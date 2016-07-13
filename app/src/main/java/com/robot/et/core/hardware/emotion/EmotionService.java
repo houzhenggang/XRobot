@@ -51,22 +51,22 @@ public class EmotionService extends Service {
 	private void doEmotion(int emotion) {
 		switch (emotion) {
 		case EmotionConfig.ROBOT_EMOTION_NORMAL:
-			Emotion.setEmotion(1);
+			Emotion.setEmotion(0x6001);
 			break;
 		case EmotionConfig.ROBOT_EMOTION_PLEASURE:
-			Emotion.setEmotion(1);
+			Emotion.setEmotion(0x6002);
 			break;
 		case EmotionConfig.ROBOT_EMOTION_ANGER:
-			Emotion.setEmotion(2);
+			Emotion.setEmotion(0x6003);
 			break;
 		case EmotionConfig.ROBOT_EMOTION_SAD:
-			Emotion.setEmotion(2);
+			Emotion.setEmotion(0x6004);
 			break;
 		case EmotionConfig.ROBOT_EMOTION_HAPPY:
-			Emotion.setEmotion(1);
+			Emotion.setEmotion(0x6005);
 			break;
 		case EmotionConfig.ROBOT_EMOTION_SLEEP:
-			Emotion.setEmotion(2);
+			Emotion.setEmotion(0x6004);
 			break;
 		default:
 			break;

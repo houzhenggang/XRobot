@@ -1,13 +1,15 @@
-task wrapper(type: Wrapper) {
-    gradleVersion = '2.2.1'
-}
 
 buildscript {
+    repositories {
+        jcenter()
+    }
     apply from: "https://github.com/rosjava/android_core/raw/indigo/buildscript.gradle"
 }
 
 allprojects {
-    group "org.ros.android_core"
+    repositories {
+        jcenter()
+    }
 }
 
 subprojects {
@@ -25,4 +27,6 @@ subprojects {
     }
 }
 
-defaultTasks 'assembleRelease', 'uploadArchives'
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

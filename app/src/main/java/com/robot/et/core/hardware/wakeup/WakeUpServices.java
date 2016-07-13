@@ -73,10 +73,10 @@ public class WakeUpServices extends Service {
 						intent.setAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
 						intent.putExtra("degree", degree);
 						sendBroadcast(intent);
-//						Intent intent2 = new Intent();
-//						intent2.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_EMOTION);
-//						intent.putExtra("emotion",EmotionConfig.ROBOT_EMOTION_HAPPY);
-//						sendBroadcast(intent2);
+						Intent intent2 = new Intent();
+						intent2.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_EMOTION);
+						intent.putExtra("emotion",EmotionConfig.ROBOT_EMOTION_HAPPY);
+						sendBroadcast(intent2);
 					} else {
 						// Log.i("wakeup", "no wakeUp");
 					}
