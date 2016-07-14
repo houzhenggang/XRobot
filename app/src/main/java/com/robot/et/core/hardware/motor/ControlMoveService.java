@@ -176,43 +176,23 @@ public class ControlMoveService extends Service {
 			action.setCategory("go");
 			switch (directionType){
 				case 1:
-					Log.i("Move", "1玩具控制 向前");
+					Log.i("Move", "玩具控制 向前");
 					action.setAction("forward");
 					break;
 				case 2:
-					Log.i("Move", "2玩具控制 向后");
+					Log.i("Move", "玩具控制 向后");
 					action.setAction("backward");
 					break;
 				case 3:
-					Log.i("Move", "3玩具控制 向左");
+					Log.i("Move", "玩具控制 向左");
 					action.setAction("turnLeft");
 					break;
 				case 4:
-					Log.i("Move", "4玩具控制 向右");
+					Log.i("Move", "玩具控制 向右");
 					action.setAction("turnRight");
 					break;
 				case 5:
-					Log.i("Move", "5玩具控制 停止");
-					action.setAction("stop");
-					break;
-				case 11:
-					Log.i("Move", "11玩具控制 向前");
-					action.setAction("forward");
-					break;
-				case 12:
-					Log.i("Move", "12玩具控制 向后");
-					action.setAction("backward");
-					break;
-				case 13:
-					Log.i("Move", "13玩具控制 向左");
-					action.setAction("turnLeft");
-					break;
-				case 14:
-					Log.i("Move", "14玩具控制 向右");
-					action.setAction("turnRight");
-					break;
-				case 15:
-					Log.i("Move", "15玩具控制 停止");
+					Log.i("Move", "玩具控制 停止");
 					action.setAction("stop");
 					break;
 				default:

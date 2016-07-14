@@ -130,7 +130,7 @@ public class BroadcastShare {
 		Intent intent = new Intent();
 		intent.setAction(BroadcastAction.ACTION_CONTROL_AROUND_TOYCAR);
 		intent.putExtra("direction", direction);
-		Log.i("voiceresult", "执行控制周围玩具的动作命令toyCarNum==" + toyCarNum);
+		Log.i("netty", "执行控制周围玩具的动作命令toyCarNum==" + toyCarNum);
 		intent.putExtra("toyCarNum", toyCarNum);
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}

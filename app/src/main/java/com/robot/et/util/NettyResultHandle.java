@@ -55,10 +55,18 @@ public class NettyResultHandle {
                 }else{
                     if(!TextUtils.isEmpty(direction)){
                         String splite = "__";
-                        if(direction.contains(splite)){
+                        if(direction.contains(splite)){//1_1(小车编号__方向指令)
                             String[] datas = direction.split(splite);
+                            Log.i("netty", "datas[0]===" + datas[0]);
                             Log.i("netty", "datas[1]===" + datas[1]);
-                            BroadcastShare.controlToyCarMove(datas[1],1);
+                            String carNum = datas[0];
+                            int toyCarNum = 0;
+                            if(!TextUtils.isEmpty(carNum)){
+                                if(TextUtils.isDigitsOnly(carNum)){
+                                    toyCarNum = Integer.parseInt(carNum);
+                                }
+                            }
+                            BroadcastShare.controlToyCarMove(datas[1],toyCarNum);
                         }
                     }
                 }
