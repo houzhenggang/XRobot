@@ -253,20 +253,18 @@ public class IflyUtils {
 					Log.i("move","actionValue[i]===" + actionValue[i]);
 					Log.i("move","digit===" + digit);
 					
-					//随机回答
-					String[] answers = context.getResources().getStringArray(R.array.action_custorm_answer);
-					int size = answers.length;
-					if(answers != null && size > 0){
-						Random random = new Random();
-						int randNum = random.nextInt(size);
-						String answer = answers[randNum];
-						BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
-					}
-
-					if(DataConfig.isControlToyCar){
-						//控制玩具车走的广播
+					if(DataConfig.isControlToyCar){//控制玩具车走
 						BroadcastShare.controlToyCarMove(actionValue[i],DataManager.getToyCarNum());
 					}else{
+						//随机回答
+						String[] answers = context.getResources().getStringArray(R.array.action_custorm_answer);
+						int size = answers.length;
+						if(answers != null && size > 0){
+							Random random = new Random();
+							int randNum = random.nextInt(size);
+							String answer = answers[randNum];
+							BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
+						}
 						//控制机器人走的广播
 						BroadcastShare.controlMove(actionValue[i],digit);
 					}

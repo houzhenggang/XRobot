@@ -7,6 +7,8 @@ import com.robot.et.enums.EmotionEnum;
 import com.robot.et.enums.MatchSceneEnum;
 import com.robot.et.enums.SceneServiceEnum;
 
+import java.util.Random;
+
 public class EnumManager {
 
 	// 获取自定义的场景枚举值
@@ -43,13 +45,34 @@ public class EnumManager {
 	public static int getEmotionKey(String emotionName){
 		int key = 0;
 		if(!TextUtils.isEmpty(emotionName)){
-			for(EmotionEnum emotionEnum:EmotionEnum.values()){
-				if(TextUtils.equals(emotionName,emotionEnum.getEmotionName())){
-					key = emotionEnum.getEmotionKey();
+			if(TextUtils.equals(emotionName,"随意表情")){
+				EmotionEnum[] motions = EmotionEnum.values();
+				int size = motions.length;
+				if(motions != null && size > 0){
+					Random random = new Random();
+					int randNum = random.nextInt(size);
+					EmotionEnum newEnum = motions[randNum];
+					key = newEnum.getEmotionKey();
+				}
+			}else{
+				for(EmotionEnum emotionEnum:EmotionEnum.values()){
+					if(TextUtils.equals(emotionName,emotionEnum.getEmotionName())){
+						key = emotionEnum.getEmotionKey();
+					}
 				}
 			}
 		}
 		return key;
+	}
+
+	//获取剧本控制走的枚举值
+	public static String getScriptMoveKey(String str){
+		for(ControlMoveEnum moveEnum : ControlMoveEnum.values()){
+			if(TextUtils.equals(str, moveEnum.getMoveName())){
+				return moveEnum.getMoveKey();
+			}
+		}
+		return null;
 	}
 
 }

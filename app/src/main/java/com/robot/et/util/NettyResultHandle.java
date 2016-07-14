@@ -177,6 +177,7 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_PLAY_SCRIPT:// 表演剧本
                     Log.i("netty", "表演剧本");
+                    ScriptManager.playScriptStart();
                     ScriptManager.playScript(musicContent);
 
                     break;
@@ -201,7 +202,15 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_SCENE_INTERACTION:// 场景互动
                     Log.i("netty", "场景互动");
+                    ScriptManager.playScriptStart();
                     ScriptManager.playScript(musicContent);
+
+                    break;
+                case DataConfig.JPUSH_GRAPHIC_EDITOR:// 图形编辑
+                    Log.i("netty", "图形编辑");
+                    ScriptManager.addAppGraphicEdit(musicContent);
+                    ScriptManager.playScriptStart();
+                    ScriptManager.playScript(ScriptManager.getScriptName());
 
                     break;
 

@@ -4,7 +4,6 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.robot.et.config.ControlMoveConfig;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.ScriptConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
@@ -25,10 +24,6 @@ public class ScriptManager {
             if(ChannelActivity.instance != null){//正在音视频
                 return;
             }
-            BroadcastShare.stopSpeakOnly();
-            BroadcastShare.stopListenerOnly();
-            BroadcastShare.stopMusicOnly();
-            SystemClock.sleep(1000);
 
             List<ScriptActionInfo> infos = DBUtils.getScriptActions(content);
             Log.i("netty", "playScript() infos.size()====" + infos.size());
@@ -43,163 +38,85 @@ public class ScriptManager {
         Log.i("netty", "doScriptAction()   infos.size()====" +infos.size());
         if(infos != null && infos.size() > 0){
             ScriptActionInfo info = infos.get(0);
-            Log.i("netty", "doScriptAction() info.getContent()====" + info.getContent());
+            String content = info.getContent();
+            Log.i("netty", "doScriptAction() info.getContent()====" + content);
             switch (info.getActionType()){
-                case ScriptConfig.SCRIPT_DIRECTION_FRONT://向前走
-                    Log.i("netty", "doScriptAction() 向前走");
-                    BroadcastShare.controlMove(String.valueOf(ControlMoveConfig.MOVE_DIRECTION_FRONT),info.getContent());
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_DIRECTION_BACK://向后走
-                    Log.i("netty", "doScriptAction() 向后走");
-                    BroadcastShare.controlMove(String.valueOf(ControlMoveConfig.MOVE_DIRECTION_BACK),info.getContent());
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_SPEAK://说
-                    Log.i("netty", "doScriptAction() 说");
-                    setScriptActionInfos(infos);
-                    BroadcastShare.textToSpeak(DataConfig.TYPE_SCRIPT, info.getContent());
-
-                    break;
-                case ScriptConfig.SCRIPT_BLINK_LEFT://眨左眼
-                    Log.i("netty", "doScriptAction() 眨左眼");
-                    BroadcastShare.controlBlink(ScriptConfig.SCRIPT_BLINK_LEFT);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_BLINK_RIGHT://眨右眼
-                    Log.i("netty", "doScriptAction() 眨右眼");
-                    BroadcastShare.controlBlink(ScriptConfig.SCRIPT_BLINK_RIGHT);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_BLINK_TWO://眨眼（两个都眨）
-                    Log.i("netty", "doScriptAction() 眨眼（两个都眨）");
-                    BroadcastShare.controlBlink(ScriptConfig.SCRIPT_BLINK_TWO);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_SING://唱
-                    Log.i("netty", "doScriptAction() 唱");
-                    setScriptActionInfos(infos);
-                    PlayerControl.playScriptMusic(DataConfig.JPUSH_MUSIC,info.getContent(),info.getSpareContent());
-
-                    break;
-                case ScriptConfig.SCRIPT_TURN_AROUND://转圈
-                    Log.i("netty", "doScriptAction() 转圈");
-                    BroadcastShare.controlTurnAround(ScriptConfig.SCRIPT_TURN_CLOCKWISE,Integer.parseInt(info.getContent()));
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_WAVING_LEFT://摆左手
-                    Log.i("netty", "doScriptAction() 摆左手");
-                    BroadcastShare.controlWaving(ScriptConfig.SCRIPT_WAVING_LEFT);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_WAVING_RIGHT://摆右手
-                    Log.i("netty", "doScriptAction() 摆右手");
-                    BroadcastShare.controlWaving(ScriptConfig.SCRIPT_WAVING_RIGHT);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_WAVING_TWO://两只手都摆
-                    Log.i("netty", "doScriptAction() 两只手都摆");
-                    BroadcastShare.controlWaving(ScriptConfig.SCRIPT_WAVING_TWO);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_STOP_WAVING://停止摆手
-                    Log.i("netty", "doScriptAction() 两只手都摆");
-                    BroadcastShare.controlWaving(ScriptConfig.SCRIPT_STOP_WAVING);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_TURN_LEFT://向左转
-                    Log.i("netty", "doScriptAction() 向左转");
-                    BroadcastShare.controlMove(String.valueOf(ControlMoveConfig.MOVE_DIRECTION_LEFT),info.getContent());
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_TURN_RIGHT://向右转
-                    Log.i("netty", "doScriptAction() 向右转");
-                    BroadcastShare.controlMove(String.valueOf(ControlMoveConfig.MOVE_DIRECTION_RIGHT),info.getContent());
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_RAISE_HANDS_LEFT://举左手
-                    Log.i("netty", "doScriptAction() 举左手");
-                    BroadcastShare.controlRalseHands(ScriptConfig.SCRIPT_RAISE_HANDS_LEFT);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_RAISE_HANDS_RIGHT://举右手
-                    Log.i("netty", "doScriptAction() 举右手");
-                    BroadcastShare.controlRalseHands(ScriptConfig.SCRIPT_RAISE_HANDS_RIGHT);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_RAISE_HANDS_TWO://手都举起来
-                    Log.i("netty", "doScriptAction() 手都举起来");
-                    BroadcastShare.controlRalseHands(ScriptConfig.SCRIPT_RAISE_HANDS_TWO);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_HANDS_PUT_DOWN://手放下来
-                    Log.i("netty", "doScriptAction() 手放下来");
-                    BroadcastShare.controlRalseHands(ScriptConfig.SCRIPT_HANDS_PUT_DOWN);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_STOP_ALL://所有都停止
-                    Log.i("netty", "doScriptAction() 所有都停止");
-                    BroadcastShare.stopSpeakOnly();
-                    BroadcastShare.stopMusicOnly();
-                    BroadcastShare.controlMove(String.valueOf(ControlMoveConfig.MOVE_STOP),"");
-                    BroadcastShare.controlTurnAround(ScriptConfig.SCRIPT_TURN_CLOCKWISE,ScriptConfig.SCRIPT_STOP_TURN);
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_STOP_SPEAK://停止说话
-                    Log.i("netty", "doScriptAction() 停止说话");
-                    BroadcastShare.stopSpeakOnly();
-                    setNewScriptInfos(infos,true,0);
-
-                    break;
-                case ScriptConfig.SCRIPT_STOP_SING://停止唱歌
-                    Log.i("netty", "doScriptAction() 停止唱歌");
-                    BroadcastShare.stopMusicOnly();
-                    setNewScriptInfos(infos,true,0);
-
-                    break;
-                case ScriptConfig.SCRIPT_STOP_GO://停止走
-                    Log.i("netty", "doScriptAction() 停止走");
-                    BroadcastShare.controlMove(String.valueOf(ControlMoveConfig.MOVE_STOP),"");
-                    setNewScriptInfos(infos,true,2000);
-
-                    break;
-                case ScriptConfig.SCRIPT_STOP_TURN://停止转圈
-                    Log.i("netty", "doScriptAction() 停止转圈");
-                    BroadcastShare.controlTurnAround(ScriptConfig.SCRIPT_TURN_CLOCKWISE,ScriptConfig.SCRIPT_STOP_TURN);
-                    setNewScriptInfos(infos,true,2000);
                 case ScriptConfig.SCRIPT_EXPRESSION://表情
                     Log.i("netty", "doScriptAction() 表情");
-                    String content = info.getContent();
                     int emotionKey = EnumManager.getEmotionKey(content);
+                    Log.i("netty", "doScriptAction() emotionKey====" + emotionKey);
                     BroadcastShare.controlRobotEmotion(emotionKey);
+                    setNewScriptInfos(infos,true,2000);
+
+                    break;
+                case ScriptConfig.SCRIPT_MUSIC://音乐
+                    Log.i("netty", "doScriptAction() 音乐");
+                    setScriptActionInfos(infos);
+                    PlayerControl.playScriptMusic(DataConfig.JPUSH_MUSIC,content,info.getSpareContent());
 
                     break;
                 case ScriptConfig.SCRIPT_FOLLOW://跟随
                     Log.i("netty", "doScriptAction() 跟随");
+                    String robotNum = "";
+                    int toyCarNum = 0;
+                    if (content.contains("机器人")) {
+                        robotNum = info.getSpareContent();
+                    } else if (content.contains("小车")) {
+                        toyCarNum = MatchStringUtil.getToyCarNum(content);
+                    }
+                    Log.i("netty", "doScriptAction() robotNum====" + robotNum);
+                    Log.i("netty", "doScriptAction() toyCarNum====" + toyCarNum);
+                    BroadcastShare.controlFollow(robotNum,toyCarNum);
+                    setNewScriptInfos(infos,true,2000);
 
+                    break;
+                case ScriptConfig.SCRIPT_TURN_AROUND://转圈
+                    Log.i("netty", "doScriptAction() 转圈");
+                    int direction = ScriptConfig.getTurnDirection(content);
+                    Log.i("netty", "doScriptAction() direction====" + direction);
+                    Log.i("netty", "doScriptAction() num====" + info.getSpareContent());
+                    BroadcastShare.controlTurnAround(direction,info.getSpareContent());
+                    setNewScriptInfos(infos,true,2000);
 
                     break;
                 case ScriptConfig.SCRIPT_QUESTION_ANSWER://问答
                     Log.i("netty", "doScriptAction() 问答");
-                    String content2 = info.getContent();
-                    String spareContent = info.getSpareContent();
+                    DataConfig.isScriptQA = true;
+                    setScriptActionInfos(infos);
+                    Log.i("netty", "doScriptAction() answer===" + info.getSpareContent());
+                    String speakContent = content + "，请回答：" + info.getSpareContent();
+                    BroadcastShare.textToSpeak(DataConfig.TYPE_SCRIPT, speakContent);
+
+                    break;
+                case ScriptConfig.SCRIPT_SPEAK://说话
+                    Log.i("netty", "doScriptAction() 说话");
+                    DataConfig.isScriptQA = false;
+                    setScriptActionInfos(infos);
+                    BroadcastShare.textToSpeak(DataConfig.TYPE_SCRIPT, content);
+
+                    break;
+                case ScriptConfig.SCRIPT_HAND://手
+                    Log.i("netty", "doScriptAction() 手");
+                    String handDirection = ScriptConfig.getHandDirection(info.getRemarks());
+                    String handCategory = ScriptConfig.getHandCategory(info.getSpareContent());
+                    Log.i("netty", "doScriptAction() handDirection===" + handDirection);
+                    Log.i("netty", "doScriptAction() handCategory===" + handCategory);
+                    BroadcastShare.controlWaving(handDirection,handCategory,content);
+                    setNewScriptInfos(infos,true,2000);
+
+                    break;
+                case ScriptConfig.SCRIPT_MOVE://走
+                    Log.i("netty", "doScriptAction() 走");
+                    String moveDirection = EnumManager.getScriptMoveKey(content);
+                    BroadcastShare.controlMove(moveDirection,"30");
+                    setNewScriptInfos(infos,true,2000);
+
+                    break;
+                case ScriptConfig.SCRIPT_TURN://左转右转
+                    Log.i("netty", "doScriptAction() 左转右转");
+                    String turnDirection = EnumManager.getScriptMoveKey(content);
+                    BroadcastShare.controlMove(turnDirection,"30");
+                    setNewScriptInfos(infos,true,2000);
 
                     break;
                 default:
@@ -229,6 +146,13 @@ public class ScriptManager {
         }
     }
 
+    //表演剧本之前
+    public static void playScriptStart(){
+        BroadcastShare.stopSpeakOnly();
+        BroadcastShare.stopListenerOnly();
+        BroadcastShare.stopMusicOnly();
+    }
+
     //剧本执行完毕
     public static void playScriptEnd(){
         DataConfig.isPlayScript = false;
@@ -253,6 +177,24 @@ public class ScriptManager {
             }
         });
 
+    }
+
+    //增加APP发来的图形编辑
+    public static void addAppGraphicEdit(String content){
+        if(!TextUtils.isEmpty(content)){
+            GsonParse.parseScript(content, new GsonParse.ScriptCallBack() {
+                @Override
+                public void getScribt(ScriptInfo info, List<ScriptActionInfo> infos) {
+                    if(info != null){
+                        Log.i("netty", "addScript  size==" + infos.size());
+                        setScriptName(info.getScriptContent());
+                        if(infos != null && infos.size() > 0){
+                            DBUtils.addScript(info,infos);
+                        }
+                    }
+                }
+            });
+        }
     }
 
     //增加APP发过来的录制动作
@@ -299,14 +241,29 @@ public class ScriptManager {
         ScriptManager.infos = infos;
     }
 
-    private static List<ScriptActionInfo> emutionInfos = new ArrayList<ScriptActionInfo>();
+    private static String scriptName;
 
-    public static List<ScriptActionInfo> getEmutionInfos() {
-        return emutionInfos;
+    public static String getScriptName() {
+        return scriptName;
     }
 
-    public static void setEmutionInfos(List<ScriptActionInfo> emutionInfos) {
-        ScriptManager.emutionInfos = emutionInfos;
+    public static void setScriptName(String scriptName) {
+        ScriptManager.scriptName = scriptName;
+    }
+
+    //APP发来的提醒需求处理
+    public static void handleAppScriptQA(String result){
+        if(!TextUtils.isEmpty(result)){
+            String answer = getScriptActionInfos().get(0).getSpareContent();
+            if(!TextUtils.isEmpty(answer)){
+                if(result.contains(answer)){//回答正确
+                    DataConfig.isScriptQA = false;
+                    setNewScriptInfos(getScriptActionInfos(),true,0);
+                }else{//回答错误
+                    BroadcastShare.resumeChat();
+                }
+            }
+        }
     }
 
 }

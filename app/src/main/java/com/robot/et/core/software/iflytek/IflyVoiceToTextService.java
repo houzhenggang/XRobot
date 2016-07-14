@@ -22,6 +22,7 @@ import com.iflytek.cloud.SpeechRecognizer;
 import com.robot.et.R;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.core.software.iflytek.util.IflyUtils;
 import com.robot.et.core.software.system.MusicPlayerService;
 import com.robot.et.debug.Logger;
@@ -30,6 +31,7 @@ import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.DataManager;
 import com.robot.et.util.GsonParse;
 import com.robot.et.util.PlayerControl;
+import com.robot.et.util.ScriptManager;
 import com.robot.et.util.Utilities;
 
 import java.util.HashMap;
@@ -106,6 +108,8 @@ public class IflyVoiceToTextService extends Service {
 				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
 				Logger.i("音乐播放完成");
+				BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
+
 				if(DataConfig.isScriptPlayMusic){//播放的剧本里的音乐
 					DataConfig.isScriptPlayMusic = false;
 					return;
@@ -174,6 +178,7 @@ public class IflyVoiceToTextService extends Service {
 		public void onBeginOfSpeech() {
 			// 此回调表示：sdk内部录音机已经准备好了，用户可以开始语音输入
 			Log.i("voice", "开始说话 " );
+			BroadcastShare.controlMouthLED(ScriptConfig.LED_ON);
 		}
 
 		@Override
@@ -191,6 +196,7 @@ public class IflyVoiceToTextService extends Service {
 		public void onEndOfSpeech() {
 			// 此回调表示：检测到了语音的尾端点，已经进入识别过程，不再接受语音输入
 			Log.i("voice", "结束说话 " );
+			BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
 		}
 
 		@Override
@@ -217,6 +223,12 @@ public class IflyVoiceToTextService extends Service {
 					//APP提醒必须要说的话
 					if(DataConfig.isAppPushRemind){
 						AlarmRemindManager.handleAppRemind(result);
+						return;
+					}
+
+					//APP发来的是剧本的问答
+					if(DataConfig.isScriptQA){
+						ScriptManager.handleAppScriptQA(result);
 						return;
 					}
 

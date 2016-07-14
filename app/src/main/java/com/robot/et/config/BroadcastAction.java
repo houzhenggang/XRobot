@@ -85,13 +85,13 @@ public class BroadcastAction {
 	public static String ACTION_PLAY_LOWER = "action.play.lower";
 	//打开netty的广播
 	public static String ACTION_OPEN_NETTY = "action.open.netty";
-	//举手的广播
-	public static String ACTION_CONTROL_RAISE_HANDS = "action.control.raise.hands";
-	//眨眼的广播
-	public static String ACTION_CONTROL_BLINK = "action.control.blink";
 	//摆手的广播
 	public static String ACTION_CONTROL_WAVING = "action.control.waving";
 	//控制机器人周围小车的广播
 	public static String ACTION_CONTROL_AROUND_TOYCAR = "action.control.around.toycar";
+	//控制机器人嘴LED灯的广播
+	public static String ACTION_CONTROL_MOUTH_LED = "action.control.mouth.led";
+	//跟随的广播
+	public static String ACTION_CONTROL_ROBOT_FOLLOW = "action.control.robot.follow";
 
 }

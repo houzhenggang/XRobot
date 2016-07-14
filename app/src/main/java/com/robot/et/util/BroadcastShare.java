@@ -136,7 +136,7 @@ public class BroadcastShare {
 	}
 
 	//控制小车转圈
-	public static void controlTurnAround(int turnDirection,int turnNum){
+	public static void controlTurnAround(int turnDirection,String turnNum){
 		Intent intent = new Intent();
 		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_TURN);
 		intent.putExtra("turnDirection", turnDirection);
@@ -146,6 +146,7 @@ public class BroadcastShare {
 
 	//机器人表情
 	public static void controlRobotEmotion(int emotionKey){
+		Log.i("netty", "controlRobotEmotion  emotionKey===" + emotionKey);
 		if(emotionKey != 0){
 			Intent intent = new Intent();
 			intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_EMOTION);
@@ -154,29 +155,35 @@ public class BroadcastShare {
 		}
 	}
 
-	//举手
-	public static void controlRalseHands(int intention){
-		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_CONTROL_RAISE_HANDS);
-		intent.putExtra("intention", intention);
-		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
-	}
-
-	//眨眼
-	public static void controlBlink(int intention){
-		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_CONTROL_BLINK);
-		intent.putExtra("intention", intention);
-		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
-	}
-
 	//摆手
-	public static void controlWaving(int intention){
-		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_CONTROL_WAVING);
-		intent.putExtra("intention", intention);
-		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+	public static void controlWaving(String handDirection,String handCategory,String num){
+		if(!TextUtils.isEmpty(handDirection) && !TextUtils.isEmpty(handCategory)){
+			Intent intent = new Intent();
+			intent.setAction(BroadcastAction.ACTION_CONTROL_WAVING);
+			intent.putExtra("handDirection", handDirection);
+			intent.putExtra("handCategory", handCategory);
+			intent.putExtra("num", num);
+			CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+		}
 	}
 
+	//嘴巴的LED灯
+	public static void controlMouthLED(String LEDState){
+		if(!TextUtils.isEmpty(LEDState)){
+			Intent intent = new Intent();
+			intent.setAction(BroadcastAction.ACTION_CONTROL_MOUTH_LED);
+			intent.putExtra("LEDState", LEDState);
+			CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+		}
+	}
+
+	//跟随
+	public static void controlFollow(String robotNum,int toyCarNum){
+		Intent intent = new Intent();
+		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_FOLLOW);
+		intent.putExtra("robotNum", robotNum);
+		intent.putExtra("toyCarNum", toyCarNum);
+		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+	}
 
 }

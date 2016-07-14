@@ -70,8 +70,8 @@ public class MainActivity extends BaseActivity {
 			@Override
 			public void onClick(View view) {
 //				ScriptManager.playScript("模拟剧本二");
-				Intent intent=new Intent(MainActivity.this, RosMoveActivity.class);
-				startActivity(intent);
+//				Intent intent=new Intent(MainActivity.this, RosMoveActivity.class);
+//				startActivity(intent);
 			}
 		});
 	}

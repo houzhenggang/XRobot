@@ -676,30 +676,8 @@ public class GsonParse {
 				scriptInfo.setScriptContent(scriptContent);
 				List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
 				JSONArray array = json.getJSONArray("script");
-				for (int i = 0; i < array.length(); i++) {
-					JSONObject object = array.getJSONObject(i);
-					ScriptActionInfo info = new ScriptActionInfo();
-					info.setActionType(object.getInt("actionType"));
-					if(object.has("content")){
-						String content = object.getString("content");
-						if(!TextUtils.isEmpty(content)){
-							info.setContent(content);
-						}
-					}
-					if(object.has("spareType")){
-						String spareType = object.getString("spareType");
-						if(TextUtils.isDigitsOnly(spareType)){
-							info.setDirection(Integer.parseInt(spareType));
-						}
-					}
-					if(object.has("spareContent")){
-						String spareContent = object.getString("spareContent");
-						if(!TextUtils.isEmpty(spareContent)){
-							info.setSpareContent(spareContent);
-						}
-					}
-					infos.add(info);
-				}
+				infos = getInfos(array);
+
 				callBack.getScribt(scriptInfo,infos);
 			} catch (Exception e) {
 				Log.i(TAG, "parseScript  JSONException");
@@ -720,14 +698,8 @@ public class GsonParse {
 				scriptInfo.setScriptContent(scriptContent);
 				List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
 				JSONArray array = json.getJSONArray("actions");
-				for(int i=0;i<array.length();i++){
-					String action = array.getString(i);
-					if(TextUtils.isDigitsOnly(action)){
-						ScriptActionInfo info = new ScriptActionInfo();
-						info.setActionType(Integer.parseInt(action));
-						infos.add(info);
-					}
-				}
+				infos = getInfos(array);
+
 				callBack.getScribt(scriptInfo,infos);
 			} catch (Exception e) {
 				Log.i(TAG, "addAppRecordScript  JSONException");
@@ -748,14 +720,8 @@ public class GsonParse {
 				scriptInfo.setScriptContent(scriptContent);
 				List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
 				JSONArray array = json.getJSONArray("editDance");
-				for(int i=0;i<array.length();i++){
-					String action = array.getString(i);
-					if(TextUtils.isDigitsOnly(action)){
-						ScriptActionInfo info = new ScriptActionInfo();
-						info.setActionType(Integer.parseInt(action));
-						infos.add(info);
-					}
-				}
+				infos = getInfos(array);
+
 				callBack.getScribt(scriptInfo,infos);
 			} catch (Exception e) {
 				Log.i(TAG, "addAppRecordScript  JSONException");
@@ -763,6 +729,52 @@ public class GsonParse {
 			}
 
 		}
+	}
+
+	private static List<ScriptActionInfo> getInfos(JSONArray array) {
+		List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
+		try {
+			for (int i = 0; i < array.length(); i++) {
+				JSONObject object = array.getJSONObject(i);
+				ScriptActionInfo info = new ScriptActionInfo();
+				String actionType = object.getString("actionType");
+				if (!TextUtils.isEmpty(actionType)) {
+					if (TextUtils.isDigitsOnly(actionType)) {
+						info.setActionType(Integer.parseInt(actionType));
+					}
+				}
+				if (object.has("content")) {
+					String content = object.getString("content");
+					if (!TextUtils.isEmpty(content)) {
+						info.setContent(content);
+					}
+				}
+				if (object.has("spareType")) {
+					String spareType = object.getString("spareType");
+					if(!TextUtils.isEmpty(spareType)){
+						if (TextUtils.isDigitsOnly(spareType)) {
+							info.setDirection(Integer.parseInt(spareType));
+						}
+					}
+				}
+				if (object.has("spareContent")) {
+					String spareContent = object.getString("spareContent");
+					if (!TextUtils.isEmpty(spareContent)) {
+						info.setSpareContent(spareContent);
+					}
+				}
+				if (object.has("spareContent2")) {
+					String spareContent2 = object.getString("spareContent2");
+					if (!TextUtils.isEmpty(spareContent2)) {
+						info.setRemarks(spareContent2);
+					}
+				}
+				infos.add(info);
+			}
+		} catch (Exception e) {
+			Log.i(TAG, "getInfos  JSONException");
+		}
+		return infos;
 	}
 
 	//app发来的提醒

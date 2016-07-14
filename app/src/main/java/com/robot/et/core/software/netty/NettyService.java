@@ -61,7 +61,7 @@ public class NettyService extends Service {
 			sendBroadcast(intent);
 		}
 
-		ScriptManager.addLocalScript("script3");
+		ScriptManager.addLocalScript("script1");
 
 	}
 

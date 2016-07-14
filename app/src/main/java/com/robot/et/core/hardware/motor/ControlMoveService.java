@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.robot.et.config.BroadcastAction;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.entity.RobotAction;
 
 public class ControlMoveService extends Service {
@@ -26,8 +27,8 @@ public class ControlMoveService extends Service {
 		filter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
 		filter.addAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
 		filter.addAction(BroadcastAction.ACTION_CONTROL_AROUND_TOYCAR);
-		filter.addAction(BroadcastAction.ACTION_CONTROL_RAISE_HANDS);
 		filter.addAction(BroadcastAction.ACTION_CONTROL_WAVING);
+		filter.addAction(BroadcastAction.ACTION_CONTROL_MOUTH_LED);
 		registerReceiver(receiver, filter);
 	}
 
@@ -88,16 +89,28 @@ public class ControlMoveService extends Service {
 				Log.i("Move", "控制周围小车");
 				String direction = intent.getStringExtra("direction");
 				int directionType = 0;
-				if(TextUtils.isDigitsOnly(direction)){
-					directionType = Integer.parseInt(direction);
+				if(!TextUtils.isEmpty(direction)){
+					if(TextUtils.isDigitsOnly(direction)){
+						directionType = Integer.parseInt(direction);
+					}
 				}
 				int toyCarNum = intent.getIntExtra("toyCarNum",0);
-				contrlToyCarMove(directionType,String.valueOf(toyCarNum));
+				contrlToyCarMove(directionType,toyCarNum);
 
-			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_RAISE_HANDS)){//举手
-				Log.i("Move", "举手");
-			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_WAVING)){//摆手
-				Log.i("Move", "摆手");
+			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_WAVING)){//举手摆手
+				Log.i("Move", "举手摆手");
+				String handDirection = intent.getStringExtra("handDirection");
+				String handCategory = intent.getStringExtra("handCategory");
+				String num = intent.getStringExtra("num");
+				if(!TextUtils.isEmpty(handDirection) && !TextUtils.isEmpty(handCategory)){
+					handAction(handDirection,handCategory);
+				}
+			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_MOUTH_LED)){//嘴的LED灯
+				Log.i("Move", "嘴的LED灯");
+				String LEDState = intent.getStringExtra("LEDState");
+				if(!TextUtils.isEmpty(LEDState)){
+					controlMouthLED(LEDState);
+				}
 			}
 
 		}
@@ -156,7 +169,7 @@ public class ControlMoveService extends Service {
 		sendBroadcast(intent);
 	}
 
-	private void contrlToyCarMove(int directionType,String toyCarNum){
+	private void contrlToyCarMove(int directionType,int toyCarNum){
 		if(directionType != 0){
 			Log.i("Move", "控制机器人周围玩具toyCarNum===" + toyCarNum);
 			RobotAction action = new RobotAction();
@@ -211,7 +224,46 @@ public class ControlMoveService extends Service {
 		}
 	}
 
+	//控制摆臂
+	private void handAction(String handDirection,String handCategory){
+		RobotAction action = new RobotAction();
+		action.setCategory("Hand");
+		if(TextUtils.equals(handDirection, ScriptConfig.HAND_UP)){
+			action.setAction("up");
+		}else if(TextUtils.equals(handDirection,ScriptConfig.HAND_DOWN)){
+			action.setAction("down");
+		}else if(TextUtils.equals(handDirection,ScriptConfig.HAND_WAVING)){
+			action.setAction("waving");
+		}
+
+		if(TextUtils.equals(handCategory,ScriptConfig.HAND_LEFT)){
+			action.setSide("Left");
+		}else if(TextUtils.equals(handCategory,ScriptConfig.HAND_RIGHT)){
+			action.setSide("Right");
+		}else if(TextUtils.equals(handCategory,ScriptConfig.HAND_TWO)){
+			action.setSide("LandR");
+		}
+		String json = JSON.toJSONString(action);
+		sendMoveAction(json);
+	}
+
+	//控制嘴的LED
+	private void controlMouthLED(String LEDState){
+		RobotAction action = new RobotAction();
+		action.setCategory("LED");
+		if(TextUtils.equals(LEDState, ScriptConfig.LED_ON)){
+			action.setAction("ON");
+		}else if(TextUtils.equals(LEDState,ScriptConfig.LED_OFF)){
+			action.setAction("OFF");
+		}else if(TextUtils.equals(LEDState,ScriptConfig.LED_BLINK)){
+			action.setAction("blink");
+		}
+		String json = JSON.toJSONString(action);
+		sendMoveAction(json);
+	}
+
 	private void sendMoveAction(String result){
+		Log.i("Move", "json===" + result);
 		if(!TextUtils.isEmpty(result)){
 			byte[] content = result.getBytes();
 			byte[] end = new byte[] { 0x0a };//结束符

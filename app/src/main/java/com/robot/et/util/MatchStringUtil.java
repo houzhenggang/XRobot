@@ -109,10 +109,12 @@ public class MatchStringUtil {
 							buffer.append("1");
 						}
 					}
-				}
-				String num = buffer.toString();
-				if(TextUtils.isDigitsOnly(num)){
-					carNum = Integer.parseInt(num);
+					String num = buffer.toString();
+					if(!TextUtils.isEmpty(num)){
+						if(TextUtils.isDigitsOnly(num)){
+							carNum = Integer.parseInt(num);
+						}
+					}
 				}
 			}
 		}

@@ -1,9 +1,23 @@
 {
-  "scriptContent" : "合唱共舞",
+  "scriptContent" : "库伊特"
   "script" : [
     {
-      "content" : "随意表情",
+      "content" : "眨右眼",
       "actionType" : "90001",
+      "spareContent" : " ",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "眨双眼",
+      "actionType" : "90001",
+      "spareContent" : " ",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "别看我只是一只羊",
+      "actionType" : "90002",
       "spareContent" : " ",
       "spareContent2" : " ",
       "spareType" : " "
@@ -16,7 +30,14 @@
       "spareType" : " "
     },
     {
-      "content" : "逆时针",
+      "content" : "二号机器人",
+      "actionType" : "90003",
+      "spareContent" : "80000060",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "顺时针",
       "actionType" : "90004",
       "spareContent" : "5",
       "spareContent2" : " ",
@@ -37,6 +58,13 @@
       "spareType" : " "
     },
     {
+      "content" : "今天",
+      "actionType" : "90005",
+      "spareContent" : "我们",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
       "content" : "但愿明天见吧",
       "actionType" : "90006",
       "spareContent" : " ",
@@ -51,18 +79,11 @@
       "spareType" : " "
     },
     {
-      "content" : "你好吗",
-      "actionType" : "90005",
-      "spareContent" : "很好",
-      "spareContent2" : "",
+      "content" : "",
+      "actionType" : "90007",
+      "spareContent" : "左手",
+      "spareContent2" : "举手",
       "spareType" : " "
-    },
-   {
-       "content" : "100",
-       "actionType" : "90008",
-       "spareContent" : "",
-       "spareContent2" : "",
-       "spareType" : " "
-   }
-  ]
+    }
+  ],
 }

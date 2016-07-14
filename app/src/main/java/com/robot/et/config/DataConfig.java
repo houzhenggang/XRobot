@@ -92,6 +92,8 @@ public class DataConfig {
 	public final static int JPUSH_REMIND = 40027;
 	//本体提示app提醒情况
 	public final static int JPUSH_REPLY_REMIND = 40028;
+	//图形编辑
+	public final static int JPUSH_GRAPHIC_EDITOR = 40029;
 
 
 	// 声音提示默认发音人 在线合成
@@ -225,5 +227,8 @@ public class DataConfig {
 
 	//使用蓝牙音箱
 	public static boolean isBluetoothBox = false;
+
+	//是剧本中的问答
+	public static boolean isScriptQA = false;
 
 }

@@ -3,7 +3,7 @@ package com.robot.et.enums;
 //控制走的指令
 public enum ControlMoveEnum {
 
-	FORWARD("1","向前"),BACKWARD("2","向后"),LEFT("3","向左"),RIGHT("4","向右"),
+	FORWARD("1","前进"),BACKWARD("2","后退"),LEFT("3","左转"),RIGHT("4","右转"),
 	STOP("5","停止");
 
 	private String moveKey;

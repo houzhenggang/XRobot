@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.debug.Logger;
 import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.PlayerControl;
@@ -73,7 +74,6 @@ public class MusicPlayerService extends Service{
 					PlayerControl.setCurrentPlayName(PlayerControl.getMusicName(playSrc));
 					PlayerControl.pushMediaState(PlayerControl.getCurrentMediaName(), "open", PlayerControl.getCurrentPlayName());
 					PlayerControl.startPlayMusic(playSrc);
-					ScriptManager.playScript(PlayerControl.getCurrentPlayName());
 				}
 			}
 		}
@@ -115,8 +115,11 @@ public class MusicPlayerService extends Service{
 	        	Logger.i("音乐开始播放");
 	        	DataConfig.isPlayMusic = true;
 	            mediaPlayer.start(); // 开始播放
+				BroadcastShare.controlMouthLED(ScriptConfig.LED_BLINK);
 				if(DataConfig.isScriptPlayMusic){
 					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,0);
+				}else{
+					ScriptManager.playScript(PlayerControl.getCurrentPlayName());
 				}
 	        }  
 	    }  

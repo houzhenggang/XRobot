@@ -17,6 +17,7 @@ import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.core.software.iflytek.util.IflyUtils;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
 import com.robot.et.debug.Logger;
@@ -187,6 +188,7 @@ public class IflySpeakService extends Service {
 		public void onSpeakBegin() {
 			Logger.i("语音合成 开始播放");
 			DataConfig.isSpeaking = true;
+			BroadcastShare.controlMouthLED(ScriptConfig.LED_BLINK);
 		}
 		// 暂停播放
 		@Override
@@ -209,6 +211,7 @@ public class IflySpeakService extends Service {
 		public void onCompleted(SpeechError error) {
 			//说话结束
 			DataConfig.isSpeaking = false;
+			BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
 			if (error == null) {
 				Logger.i("播放完成 ");
 				Logger.i("currentType===== "+currentType);
@@ -243,7 +246,7 @@ public class IflySpeakService extends Service {
 						return;
 					}
 					PlayerControl.startPlayMusic(DataManager.getContentSrc());
-					ScriptManager.playScript(PlayerControl.getCurrentPlayName());
+
 					break;
 				case DataConfig.TYPE_WELCOME_CONTENT:// 第一次欢迎语说完去查天气
 					// 查科大讯飞
@@ -285,6 +288,11 @@ public class IflySpeakService extends Service {
 					break;
 				case DataConfig.TYPE_SCRIPT:// 剧本的表演
 					Logger.i("iflyspeakservice  剧本的表演");
+					if(DataConfig.isScriptQA){
+						intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
+						sendBroadcast(intent);
+						return;
+					}
 					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,0);
 
 					break;
