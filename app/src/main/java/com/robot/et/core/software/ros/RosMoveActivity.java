@@ -7,7 +7,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
-import com.robot.et.R;
 import com.robot.et.config.BroadcastAction;
 import org.ros.android.RosActivity;
 import org.ros.android.view.visualization.layer.CompressedOccupancyGridLayer;
@@ -18,7 +17,8 @@ import java.net.URI;
 
 public class RosMoveActivity extends RosActivity {
 
-    private MoveControler mover;
+    private MoveControler mover;//运动控制
+    private CompressedMapTransport mapTransport; //地图
     private CompressedOccupancyGridLayer compressedOccupancyGridLayer;
     private NodeConfiguration nodeConfiguration;
 
@@ -29,7 +29,6 @@ public class RosMoveActivity extends RosActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_ros_controler);
         IntentFilter mFilter = new IntentFilter();
         mFilter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
         mFilter.addAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
@@ -40,9 +39,11 @@ public class RosMoveActivity extends RosActivity {
     protected void init(NodeMainExecutor nodeMainExecutor) {
         mover = new MoveControler();
         mover.isPublishVelocity(false);
+        mapTransport=new CompressedMapTransport();
         nodeConfiguration = NodeConfiguration.newPublic(getRosHostname());
         nodeConfiguration.setMasterUri(getMasterUri());
         nodeMainExecutor.execute(mover, nodeConfiguration);
+        nodeMainExecutor.execute(mapTransport,nodeConfiguration);
     }
 
     private BroadcastReceiver mReceiver = new BroadcastReceiver() {

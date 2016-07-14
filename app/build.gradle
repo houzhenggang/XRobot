@@ -33,6 +33,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile 'com.github.rosjava.android_remocons:common_tools:[0.2,0.3)'
     compile 'org.ros.android_core:android_15:[0.2,0.3)'
+    compile 'org.ros.rosjava_messages:world_canvas_msgs:[0.1,0.2)'
 
     compile group: 'com.google.zxing', name: 'core', version: '3.2.0'
     compile group: 'com.squareup.okhttp', name: 'okhttp', version: '2.5.0'
