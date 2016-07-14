@@ -31,11 +31,8 @@ import com.robot.et.core.software.system.network.NetWorkConnectService;
 import com.robot.et.core.software.system.network.NetWorkTrafficService;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
 import com.robot.et.util.BluetoothKeyManager;
-import com.robot.et.util.ScriptManager;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
-
-//import com.robot.et.core.software.turing.TuRingService;
 
 public class MainActivity extends BaseActivity {
 
@@ -69,7 +66,6 @@ public class MainActivity extends BaseActivity {
 		findViewById(R.id.img_welcome).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-//				ScriptManager.playScript("模拟剧本二");
 //				Intent intent=new Intent(MainActivity.this, RosMoveActivity.class);
 //				startActivity(intent);
 			}
@@ -96,10 +92,6 @@ public class MainActivity extends BaseActivity {
 					ScanCodeActivity.instance = null;
 				}
 				startActivity(intent.setClass(context,RosMoveActivity.class));
-				// 极光推送
-//				startService(intent.setClass(context, JpushService.class));
-				//图灵
-//				startService(intent.setClass(context, TuRingService.class));
 				// 百度定位
 				startService(intent.setClass(context, LocationService.class));
 				// Netty服务
@@ -118,10 +110,6 @@ public class MainActivity extends BaseActivity {
 			}else if (intent.getAction().equals(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_DISCONNECT)) {
 				//如果视频通话界面还在的话，关闭界面
 				AgoraUtils.closeChannel();
-				// 极光推送
-//				stopService(intent.setClass(context, JpushService.class));
-				//图灵
-//				stopService(intent.setClass(context, TuRingService.class));
 				// 百度定位
 				stopService(intent.setClass(context, LocationService.class));
 				// Netty服务
@@ -187,9 +175,7 @@ public class MainActivity extends BaseActivity {
 		stopService(new Intent(this, IflyTextUnderstanderService.class));
 		stopService(new Intent(this, EmotionService.class));
 		stopService(new Intent(this, WakeUpServices.class));
-//		stopService(new Intent(this, JpushService.class));
 		stopService(new Intent(this, AgoraService.class));
-//		stopService(new Intent(this, TuRingService.class));
 		stopService(new Intent(this, NetWorkTrafficService.class));
 
 		//语种切换还原
