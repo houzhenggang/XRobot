@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.robot.et.util.FileConfiger;
+
 import org.jboss.netty.buffer.ChannelBuffer;
 import org.ros.message.MessageListener;
 import org.ros.namespace.GraphName;
@@ -37,7 +39,7 @@ public class CompressedMapTransport extends AbstractNodeMain implements MessageL
             ChannelBuffer buffer = message.getData();
             Bitmap bitmap = BitmapFactory.decodeByteArray(buffer.array(), buffer.arrayOffset(), buffer.readableBytes());
             //暂时在此处提交网络请求
-            
+            FileConfiger.uploadFile(bitmap);
         }
     }
 }
