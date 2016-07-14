@@ -18,5 +18,7 @@ public class UrlConfig {
 	public final static String PUSH_MEDIASTATE_TO_APP = URL_PATH + "pushToApp/pushMediaState";
 	//本体机器人给App用户推送消息
 	public final static String PUSH_MESSAGE_TO_APP = URL_PATH + "pushToApp/pushMsgToApp";
+	//单个或多个文件上传
+	public final static String UPLOAD_FILE_PATH = URL_PATH + "file/upload";
 
 }

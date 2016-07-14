@@ -1,11 +1,5 @@
 package com.robot.et.core.software.agora;
 
-import io.agora.rtc.IRtcEngineEventHandler;
-import io.agora.rtc.RtcEngine;
-import io.agora.rtc.video.VideoCanvas;
-
-import java.util.Random;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +23,12 @@ import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 import com.robot.et.util.Utilities;
+
+import java.util.Random;
+
+import io.agora.rtc.IRtcEngineEventHandler;
+import io.agora.rtc.RtcEngine;
+import io.agora.rtc.video.VideoCanvas;
 
 public class ChannelActivity extends BaseEngineEventHandlerActivity {
 	private int mCallingType;
@@ -536,20 +536,19 @@ public class ChannelActivity extends BaseEngineEventHandlerActivity {
 	@Override
 	public synchronized void onError(int err) {
 		Log.i("agoravideo", "onError   err====" + err);
-		if (isFinishing()) {
+		if (isFinishing()) {//界面是否finish
 			Log.i("agoravideo", "onError  isFinishing");
 			return;
 		}
 
-		finish();
 		//不是查看的时候报异常问题
 		if(!isLook){
 			if(err == 101){
 				showError("声网key异常，如果需要，要重新拨通哦");
+				finish();
 			}else if(err == 104){
 				showError("网络异常，如果需要，要重新拨通哦");
-			}else{
-				showError("声网异常，如果需要，要重新拨通哦");
+				finish();
 			}
 			
 		}
