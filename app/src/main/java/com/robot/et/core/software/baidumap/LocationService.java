@@ -50,9 +50,11 @@ public class LocationService extends Service {
 				String city = location.getCity();
 				String area = location.getDistrict();
 				Logger.i("city==="+ city + "===area==="+area);
-				if(!TextUtils.isEmpty(city) && !TextUtils.isEmpty(area)){
+				if(!TextUtils.isEmpty(city)){//有时候只能定位到城市不能定位到区域
 					sharedUtils.putString(SharedPreferencesKeys.CITY_KEY, city);
-					sharedUtils.putString(SharedPreferencesKeys.AREA_KEY, area);
+					if(!TextUtils.isEmpty(area)){
+						sharedUtils.putString(SharedPreferencesKeys.AREA_KEY, area);
+					}
 					sharedUtils.commitValue();
 					//停止定位服务（百度地图在不断的定位）
 					mLocation.unregisterListener(mListener);
