@@ -24,7 +24,7 @@ public class ControlMoveService extends Service {
 	@Override
 	public void onCreate() {
 		IntentFilter filter = new IntentFilter();
-		filter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
+//		filter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
 		filter.addAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
 		filter.addAction(BroadcastAction.ACTION_CONTROL_AROUND_TOYCAR);
 		filter.addAction(BroadcastAction.ACTION_CONTROL_WAVING);

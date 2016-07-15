@@ -33,19 +33,19 @@ public class NettyResultHandle {
                     if(moveEnum != null){
                         switch (moveEnum){
                             case FORWARD://向前
-                                sendDirection(direction);
+                                BroadcastShare.controlMove(direction,"10");
                                 break;
                             case BACKWARD://向后
-                                sendDirection(direction);
+                                BroadcastShare.controlMove(direction,"10");
                                 break;
                             case LEFT://向左
-                                sendDirection(direction);
+                                BroadcastShare.controlMove(direction,"10");
                                 break;
                             case RIGHT://向右
-                                sendDirection(direction);
+                                BroadcastShare.controlMove(direction,"10");
                                 break;
                             case STOP://停止
-                                sendDirection(direction);
+                                BroadcastShare.controlMove(direction,"10");
                                 break;
                             default:
                                 break;
@@ -73,17 +73,6 @@ public class NettyResultHandle {
 
             }
         }
-    }
-
-    //发送走的指令
-    public static void sendDirection(String direction){
-        Intent intent = new Intent();
-        intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
-        intent.putExtra("direction", direction);
-        if(!TextUtils.equals("5", direction)){
-            intent.putExtra("digit", "10");
-        }
-        CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
     }
 
     // 处理推送的结果
