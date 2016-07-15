@@ -68,22 +68,24 @@ public class FileConfiger {
         return files;
     }
 
-    public static boolean saveFilePath(Bitmap bitmap){
-        Bitmap.CompressFormat format= Bitmap.CompressFormat.PNG;
-        int quality = 100;
+    public static void saveFilePath(Bitmap bitmap){
         OutputStream stream = null;
         try {
             createFile();
-            stream = new FileOutputStream(getFilePath());
+            stream = new FileOutputStream(new File(getFilePath()));
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            stream.flush();
+            stream.close();
+            Log.i("json", "saveFilePath  success");
         } catch (FileNotFoundException e) {
-            Log.i("file", "saveFilePath  IOException");
+            Log.i("json", "saveFilePath  IOException");
+        } catch (IOException e) {
+            Log.i("json", "saveFilePath  IOException");
         }
-        return bitmap.compress(format, quality, stream);
     }
 
     private static String getFilePath(){
-        String fileSrc = Environment.getExternalStorageDirectory().getAbsolutePath() +
-                File.separator + "robotPicture" + File.separator + FILENAME;
+        String fileSrc = Environment.getExternalStorageDirectory().getAbsolutePath() +  File.separator + FILENAME;
         return fileSrc;
     }
 
@@ -93,7 +95,7 @@ public class FileConfiger {
             try {
                 file.createNewFile();
             } catch (IOException e) {
-                e.printStackTrace();
+                Log.i("json", "createFile  IOException");
             }
         }
     }
