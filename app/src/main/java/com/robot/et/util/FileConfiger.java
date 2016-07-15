@@ -24,9 +24,10 @@ import java.io.OutputStream;
 public class FileConfiger {
 
     //上传文件
-    public static void uploadFile(Bitmap bitmap){
+    public static void uploadFile(Bitmap bitmap,int width,int height){
         HttpEngine.Param[] params = new HttpEngine.Param[]{
                 new HttpEngine.Param("robotNumber", SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "")),
+                new HttpEngine.Param("fileInfo", width + "_" + height),
         };
         String[] fileKeys = new String[]{"file"};
         saveFilePath(bitmap);
