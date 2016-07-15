@@ -36,10 +36,12 @@ public class CompressedMapTransport extends AbstractNodeMain implements MessageL
             Log.e("ROS_MAP","Height:"+message.getInfo().getHeight());
             Log.e("ROS_MAP","capacity:"+message.getData().capacity());
             Log.e("ROS_MAP","Data:"+message.getData());
+            int width=message.getInfo().getWidth();
+            int height=message.getInfo().getHeight();
             ChannelBuffer buffer = message.getData();
             Bitmap bitmap = BitmapFactory.decodeByteArray(buffer.array(), buffer.arrayOffset(), buffer.readableBytes());
             //暂时在此处提交网络请求
-            FileConfiger.uploadFile(bitmap);
+            FileConfiger.uploadFile(bitmap,width,height);
         }
     }
 }
