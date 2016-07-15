@@ -49,6 +49,8 @@ public class MusicPlayerService extends Service{
 			public void onCompletion(MediaPlayer arg0) {
 				Logger.i("音乐播放完成");
 				DataConfig.isPlayMusic = false;
+				BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
+				BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 				Intent intent = new Intent();
 				intent.setAction(BroadcastAction.ACTION_MUSIC_PLAY_END);
 				sendBroadcast(intent);
@@ -84,9 +86,10 @@ public class MusicPlayerService extends Service{
 		String path = intent.getStringExtra("url");
 		if(!TextUtils.isEmpty(path)){
 			try {
-				mediaPlayer.reset();// 把各项参数恢复到初始状态  
-				mediaPlayer.setDataSource(path);  
-				// 进行缓冲  
+				BroadcastShare.controlMouthLED(ScriptConfig.LED_BLINK);
+				mediaPlayer.reset();// 把各项参数恢复到初始状态
+				mediaPlayer.setDataSource(path);
+				// 进行缓冲
 				mediaPlayer.prepare();
 				mediaPlayer.setOnPreparedListener(new PreparedListener());
 			} catch (IllegalStateException e) {
@@ -113,9 +116,8 @@ public class MusicPlayerService extends Service{
 	        @Override  
 	        public void onPrepared(MediaPlayer mp) {  
 	        	Logger.i("音乐开始播放");
-	        	DataConfig.isPlayMusic = true;
-	            mediaPlayer.start(); // 开始播放
-				BroadcastShare.controlMouthLED(ScriptConfig.LED_BLINK);
+				DataConfig.isPlayMusic = true;
+				mediaPlayer.start(); // 开始播放
 				if(DataConfig.isScriptPlayMusic){
 					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,0);
 				}else{

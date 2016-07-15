@@ -8,6 +8,7 @@ import android.util.Log;
 import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.util.BroadcastShare;
@@ -42,6 +43,8 @@ public class AgoraUtils {
 		int agoraType = SharedPreferencesUtils.getInstance().getInt(SharedPreferencesKeys.AGORA_CALL_PATTERN, 0);
 		Log.i("agoravideo", "AgoraUtils extra===" + extra);
 		Log.i("agoravideo", "AgoraUtils agoraType===" + agoraType);
+		BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
+
 		switch (extra) {
 		case DataConfig.JPUSH_CALL_VIDEO:// agora视频
 			if(agoraType == DataConfig.AGORA_CALL_NORMAL_PATTERN){//正常模式

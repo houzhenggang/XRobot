@@ -246,7 +246,7 @@ public class IflyUtils {
 						if(result.contains("一圈")){//转一圈的时候传360
 							digit = "360";
 						}else{//默认30厘米
-							digit = "90";
+							digit = "1";
 						}
 					}
 					String[] actionValue = context.getResources().getStringArray(R.array.action_value);

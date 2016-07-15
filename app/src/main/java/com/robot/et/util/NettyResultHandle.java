@@ -7,6 +7,7 @@ import android.util.Log;
 import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.enums.ControlMoveEnum;
 
@@ -33,19 +34,19 @@ public class NettyResultHandle {
                     if(moveEnum != null){
                         switch (moveEnum){
                             case FORWARD://向前
-                                BroadcastShare.controlMove(direction,"10");
+                                BroadcastShare.controlMove(direction,"1");
                                 break;
                             case BACKWARD://向后
-                                BroadcastShare.controlMove(direction,"10");
+                                BroadcastShare.controlMove(direction,"1");
                                 break;
                             case LEFT://向左
-                                BroadcastShare.controlMove(direction,"10");
+                                BroadcastShare.controlMove(direction,"1");
                                 break;
                             case RIGHT://向右
-                                BroadcastShare.controlMove(direction,"10");
+                                BroadcastShare.controlMove(direction,"1");
                                 break;
                             case STOP://停止
-                                BroadcastShare.controlMove(direction,"10");
+                                BroadcastShare.controlMove(direction,"1");
                                 break;
                             default:
                                 break;
@@ -132,6 +133,8 @@ public class NettyResultHandle {
                     Log.i("netty", "音乐暂停");
                     DataConfig.isJpushStop = true;
                     BroadcastShare.stopMusicOnly();
+                    BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
+                    BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 
                     break;
                 case DataConfig.JPUSH_GET_MEDIASTATE:// 获取媒体当前状态
@@ -145,11 +148,13 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_ALARM:// 闹铃
                     Log.i("netty", "闹铃");
+                    BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
                     AlarmRemindManager.setAlarm(info);
 
                     break;
                 case DataConfig.JPUSH_REMIND:// APP提醒
                     Log.i("netty", "APP提醒");
+                    BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
                     AlarmRemindManager.setAppAlarmRemind(musicContent);
 
                     break;
