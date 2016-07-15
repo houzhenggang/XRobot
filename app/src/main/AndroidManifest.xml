@@ -35,7 +35,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
 
-    <!-- 百度地图 -->
     <application
         android:name=".app.CustomApplication"
         android:icon="@drawable/ic_launcher"
@@ -54,8 +53,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.ros.android.MasterChooser" />
-        <activity android:name=".core.software.ros.RosMoveActivity" />
+
+        <!--<activity android:name="org.ros.android.MasterChooser" />-->
+
         <activity
             android:name=".core.software.zxing.ScanCodeActivity"
             android:launchMode="singleTask"

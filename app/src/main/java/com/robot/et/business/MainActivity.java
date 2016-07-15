@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.WindowManager;
 
 import com.robot.et.R;
-import com.robot.et.business.base.BaseActivity;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.core.hardware.emotion.EmotionService;
@@ -25,7 +24,8 @@ import com.robot.et.core.software.iflytek.IflySpeakService;
 import com.robot.et.core.software.iflytek.IflyTextUnderstanderService;
 import com.robot.et.core.software.iflytek.IflyVoiceToTextService;
 import com.robot.et.core.software.netty.NettyService;
-import com.robot.et.core.software.ros.RosMoveActivity;
+import com.robot.et.core.software.ros.CompressedMapTransport;
+import com.robot.et.core.software.ros.MoveControler;
 import com.robot.et.core.software.system.AlarmClockService;
 import com.robot.et.core.software.system.network.NetWorkConnectService;
 import com.robot.et.core.software.system.network.NetWorkTrafficService;
@@ -34,7 +34,23 @@ import com.robot.et.util.BluetoothKeyManager;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 
-public class MainActivity extends BaseActivity {
+import org.ros.android.RosActivity;
+import org.ros.node.NodeConfiguration;
+import org.ros.node.NodeMainExecutor;
+
+import java.net.URI;
+
+public class MainActivity extends RosActivity {
+
+	private MoveControler mover;//ROS运动控制
+	private CompressedMapTransport mapTransport; //ROS地图
+	private NodeConfiguration nodeConfiguration;//ROS节点
+
+
+	public MainActivity(){
+//		super("XRobot","Xrobot",URI.create("http://192.168.3.1:11311"));//本体的ROS IP和端口
+		super("XRobot","Xrobot",URI.create("http://192.168.2.164:11311"));
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +64,8 @@ public class MainActivity extends BaseActivity {
 		mFilter.addAction(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_CONNECT);
 		mFilter.addAction(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_TRAFFIC_OPEN);
 		mFilter.addAction(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_DISCONNECT);
+		mFilter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
+		mFilter.addAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
 		registerReceiver(mReceiver, mFilter);
 		
 		// 监听网络连接状态
@@ -63,13 +81,17 @@ public class MainActivity extends BaseActivity {
 		// 表情控制服务
 		startService(new Intent(this, EmotionService.class));
 
-		findViewById(R.id.img_welcome).setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-//				Intent intent=new Intent(MainActivity.this, RosMoveActivity.class);
-//				startActivity(intent);
-			}
-		});
+	}
+
+	@Override
+	protected void init(NodeMainExecutor nodeMainExecutor) {
+		mover = new MoveControler();
+		mover.isPublishVelocity(false);
+		mapTransport=new CompressedMapTransport();
+		nodeConfiguration = NodeConfiguration.newPublic(getRosHostname());
+		nodeConfiguration.setMasterUri(getMasterUri());
+		nodeMainExecutor.execute(mover, nodeConfiguration);
+		nodeMainExecutor.execute(mapTransport,nodeConfiguration);
 	}
 
 	@Override
@@ -82,6 +104,9 @@ public class MainActivity extends BaseActivity {
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
 
+		private String direction;
+		private int data;//获取的Brocast传递的角度(int)
+
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			//接收到网络连接成功的广播，开启下列服务
@@ -91,7 +116,6 @@ public class MainActivity extends BaseActivity {
 					ScanCodeActivity.instance.finish();
 					ScanCodeActivity.instance = null;
 				}
-				startActivity(intent.setClass(context,RosMoveActivity.class));
 				// 百度定位
 				startService(intent.setClass(context, LocationService.class));
 				// Netty服务
@@ -124,10 +148,61 @@ public class MainActivity extends BaseActivity {
 				stopService(intent.setClass(context, IflyVoiceToTextService.class));
 				// 网络流量监控
 				stopService(intent.setClass(context, NetWorkTrafficService.class));
+			}else if (intent.getAction().equals(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE)) {
+				direction=intent.getStringExtra("direction");
+				Log.i("ROS_MOVE","手机控制时，得到的direction参数："+direction);
+				if (null==direction|| TextUtils.equals("", direction)) {
+					return;
+				}
+				doMoveAction(direction);
+			}else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)){
+				Log.i("ROS_WAKE_UP","语音唤醒时，当前机器人的角度："+mover.getCurrentDegree());
+				data=intent.getIntExtra("degree",0);
+				Log.i("ROS_WAKE_UP_DEGREE","语音唤醒时，获取的角度："+data);
+				if (data == 0 || data == 360){
+					//原地不动
+					return;
+				}
+				doTrunAction(mover.getCurrentDegree(),Double.valueOf(data));
 			}
 		}
 	};
-	
+
+	private void doMoveAction(String message) {
+		mover.isPublishVelocity(true);
+		if (TextUtils.equals("1", message)) {
+			Log.i("ROS_MOVE", "机器人移动方向:向前");
+			mover.execMoveForword();
+		} else if (TextUtils.equals("2", message)) {
+			Log.i("ROS_MOVE", "机器人移动方向:向后");
+			mover.execMoveBackForward();
+		} else if (TextUtils.equals("3", message)) {
+			Log.i("ROS_MOVE", "机器人移动方向:向左");
+			mover.execTurnLeft();
+		} else if (TextUtils.equals("4", message)) {
+			Log.i("ROS_MOVE", "机器人移动方向:向右");
+			mover.execTurnRight();
+		} else if (TextUtils.equals("5", message)) {
+			Log.i("ROS_MOVE", "机器人移动方向:停止");
+			mover.execStop();
+		}
+	}
+	public void doTrunAction(double currentDegree,double degree){
+		mover.isPublishVelocity(true);
+		double temp;
+		if (currentDegree+degree<=180){
+			temp=currentDegree+degree;
+		}else {
+			temp=currentDegree+degree-360;
+		}
+		if ((degree > 0 && degree < 180)){
+			mover.execTurnRight();
+			mover.setDegree(temp);
+		}else{
+			mover.execTurnLeft();
+			mover.setDegree(temp);
+		}
+	}
 	
 	@Override
 	protected void onStart() {
