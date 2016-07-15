@@ -41,7 +41,7 @@ public class CompressedMapTransport extends AbstractNodeMain implements MessageL
             ChannelBuffer buffer = message.getData();
             Bitmap bitmap = BitmapFactory.decodeByteArray(buffer.array(), buffer.arrayOffset(), buffer.readableBytes());
             //暂时在此处提交网络请求
-            FileConfiger.uploadFile(bitmap,width,height);
+            FileConfiger.uploadFile(bitmap,width,height,"1","3");
         }
     }
 }
