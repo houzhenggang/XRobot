@@ -166,23 +166,23 @@
     <!-- 执行命令的  动作 -->
     <!-- 600000正常，600001喜，600002怒， 600003哀，600004乐，600005睡觉-->
      <string-array name="command_action">
-          <item>60001</item>
-          <item>60001</item>
-          <item>60001</item>
-          <item>60001</item>
-          <item>60001</item>
-          <item>60001</item>
-          <item>60002</item>
-          <item>60002</item>
-          <item>60003</item>
-          <item>60003</item>
-          <item>60003</item>
-          <item>60003</item>
-          <item>60003</item>
-          <item>60003</item>
-          <item>60004</item>
-          <item>60004</item>
-          <item>60005</item>
+          <item>6001</item>
+          <item>6001</item>
+          <item>6001</item>
+          <item>6001</item>
+          <item>6001</item>
+          <item>6001</item>
+          <item>6002</item>
+          <item>6002</item>
+          <item>6003</item>
+          <item>6003</item>
+          <item>6003</item>
+          <item>6003</item>
+          <item>6003</item>
+          <item>6003</item>
+          <item>6004</item>
+          <item>6004</item>
+          <item>6005</item>
     </string-array>
     
     
