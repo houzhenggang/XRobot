@@ -22,7 +22,6 @@ import java.io.OutputStream;
  * Created by houdeming on 2016/7/14.
  */
 public class FileConfiger {
-    private final static String FILENAME = "map.png";
 
     //上传文件
     public static void uploadFile(Bitmap bitmap){
@@ -85,7 +84,8 @@ public class FileConfiger {
     }
 
     private static String getFilePath(){
-        String fileSrc = Environment.getExternalStorageDirectory().getAbsolutePath() +  File.separator + FILENAME;
+        String fileName = SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "") + "_map.png";
+        String fileSrc = Environment.getExternalStorageDirectory().getAbsolutePath() +  File.separator + fileName;
         return fileSrc;
     }
 
