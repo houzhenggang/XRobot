@@ -28,7 +28,7 @@ public class NettyResultHandle {
 
                 Log.i("netty", "direction===" + direction);
                 if(TextUtils.isDigitsOnly(direction)){
-                    BroadcastShare.controlMove(direction,"1");
+                    BroadcastShare.controlMove(direction);
                 }else{
                     if(!TextUtils.isEmpty(direction)){
                         String splite = "__";

@@ -41,8 +41,10 @@ public class BroadcastAction {
 	public static String ACTION_RESUME_MONITOR_CHAT = "com.robot.et.resume.monitor.chat";
 	//停止监听对话的广播
 	public static String ACTION_STOP_LISTENER = "com.robot.et.stop.listener";
-	//控制机器人移动
+	//控制机器人移动不带距离
 	public static String ACTION_CONTROL_ROBOT_MOVE = "action.control.robot.move";
+	//控制机器人移动带距离
+	public static String ACTION_CONTROL_ROBOT_MOVE_WITH_DISTANCE = "action.control.robot.move.with.distance";
 	//控制机器人转向
 	public static String ACTION_CONTROL_ROBOT_TURN ="action.control.robot.turn";
 	//串口数据接收

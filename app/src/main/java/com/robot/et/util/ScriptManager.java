@@ -109,14 +109,14 @@ public class ScriptManager {
                 case ScriptConfig.SCRIPT_MOVE://走
                     Log.i("netty", "doScriptAction() 走");
                     String moveDirection = EnumManager.getScriptMoveKey(content);
-                    BroadcastShare.controlMove(moveDirection,"1");
+                    BroadcastShare.controlMove(moveDirection);
                     setNewScriptInfos(infos,true,2000);
 
                     break;
                 case ScriptConfig.SCRIPT_TURN://左转右转
                     Log.i("netty", "doScriptAction() 左转右转");
                     String turnDirection = EnumManager.getScriptMoveKey(content);
-                    BroadcastShare.controlMove(turnDirection,"30");
+                    BroadcastShare.controlMove(turnDirection);
                     setNewScriptInfos(infos,true,2000);
 
                     break;

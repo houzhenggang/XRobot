@@ -113,15 +113,23 @@ public class BroadcastShare {
 		textToSpeak(DataConfig.TYPE_VOICE_CHAT, tempContent);
 	}
 
-	//控制机器人走的广播
+	//控制机器人走的广播带距离
 	public static void controlMove(String direction,String distance){
 		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
+		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_DISTANCE);
 		intent.putExtra("direction", direction);
 		if(TextUtils.isEmpty(distance)){
 			distance = "1";
 		}
 		intent.putExtra("digit", distance);
+		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+	}
+
+	//控制机器人走的广播不带距离
+	public static void controlMove(String direction){
+		Intent intent = new Intent();
+		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
+		intent.putExtra("direction", direction);
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 
