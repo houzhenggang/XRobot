@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 与action_command_value值一一对应 -->
-    <string-array name="action_name">
-        <item>向前</item>
-        <item>过来</item>
-        <item>前进</item>
-        <item>向后</item>
-        <item>后退</item>
-        <item>再退</item>
-        <item>向左</item>
-        <item>左转</item>
-        <item>向右</item>
-        <item>右转</item>
-        <item>停止</item>
-    </string-array>
 
-    <!-- 与action_command_name值一一对应 -->
-    <string-array name="action_value">
-        <item>1</item>
-        <item>1</item>
-        <item>1</item>
-        <item>2</item>
-        <item>2</item>
-        <item>2</item>
-        <item>3</item>
-        <item>3</item>
-        <item>4</item>
-        <item>4</item>
-        <item>5</item>
-    </string-array>
-    
     <!-- 执行命令时的  -->
     <string-array name="action_custorm_answer">
         <item>收到</item>
