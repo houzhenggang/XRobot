@@ -86,7 +86,6 @@ public class MusicPlayerService extends Service{
 		String path = intent.getStringExtra("url");
 		if(!TextUtils.isEmpty(path)){
 			try {
-				BroadcastShare.controlMouthLED(ScriptConfig.LED_BLINK);
 				mediaPlayer.reset();// 把各项参数恢复到初始状态
 				mediaPlayer.setDataSource(path);
 				// 进行缓冲
