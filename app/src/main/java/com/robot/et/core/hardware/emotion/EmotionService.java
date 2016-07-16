@@ -65,8 +65,14 @@ public class EmotionService extends Service {
 		case EmotionConfig.ROBOT_EMOTION_HAPPY:
 			Emotion.setEmotion(0x6005);
 			break;
+		case EmotionConfig.ROBOT_EMOTION_SEE_LEFT:
+				Emotion.setEmotion(0x6006);
+				break;
+		case EmotionConfig.ROBOT_EMOTION_SEE_RIGHT:
+				Emotion.setEmotion(0x6007);
+				break;
 		case EmotionConfig.ROBOT_EMOTION_SLEEP:
-			Emotion.setEmotion(0x6004);
+			Emotion.setEmotion(0x6008);
 			break;
 		default:
 			break;
