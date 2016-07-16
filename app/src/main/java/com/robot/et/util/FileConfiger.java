@@ -5,8 +5,10 @@ import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
+import com.robot.et.entity.ImageInfo;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
@@ -24,10 +26,11 @@ import java.io.OutputStream;
 public class FileConfiger {
 
     //上传文件
-    public static void uploadFile(Bitmap bitmap, int bitmapWidth, int bitmapHeight, String coordinateX, String coordinateY){
+    public static void uploadFile(Bitmap bitmap, int bitmapWidth, int bitmapHeight, float resolution, double robotX, double robotY,
+                                  double mapX, double mapY) {
         HttpEngine.Param[] params = new HttpEngine.Param[]{
                 new HttpEngine.Param("robotNumber", SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "")),
-                new HttpEngine.Param("fileInfo", coordinateX + "_" + coordinateY + "_" + bitmapWidth + "_" + bitmapHeight),
+                new HttpEngine.Param("fileInfo", getFileInfo(bitmapWidth,bitmapHeight,resolution,robotX,robotY,mapX,mapY)),
         };
         String[] fileKeys = new String[]{"file"};
         saveFilePath(bitmap);
@@ -57,6 +60,18 @@ public class FileConfiger {
         } catch (IOException e) {
             Log.i("json", "uploadFile  IOException");
         }
+    }
+
+    private static String getFileInfo(int bitmapWidth, int bitmapHeight, float resolution, double robotX, double robotY,double mapX, double mapY){
+        ImageInfo info = new ImageInfo();
+        info.setWidth(bitmapWidth);
+        info.setHeight(bitmapHeight);
+        info.setResolution(resolution);
+        info.setRobotX(robotX);
+        info.setRobotY(robotY);
+        info.setMapX(mapX);
+        info.setMapY(mapY);
+        return JSON.toJSONString(info);
     }
 
     public static File[] getFiles(String filePath){
