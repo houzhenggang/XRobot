@@ -81,6 +81,8 @@ public class EmotionService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		unregisterReceiver(receiver);
+		if(receiver != null){
+			unregisterReceiver(receiver);
+		}
 	}
 }

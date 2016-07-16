@@ -299,6 +299,8 @@ public class AlarmRemindManager {
 			infos.add(info);
 			DataConfig.isPlayScript = false;
 			ScriptManager.doScriptAction(infos);
+		}else{
+			BroadcastShare.resumeChat();
 		}
 	}
 

@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import com.robot.et.R;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.core.hardware.emotion.EmotionService;
 import com.robot.et.core.hardware.motor.ControlMoveService;
 import com.robot.et.core.hardware.serialport.SerialPortService;
@@ -31,6 +32,7 @@ import com.robot.et.core.software.system.network.NetWorkConnectService;
 import com.robot.et.core.software.system.network.NetWorkTrafficService;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
 import com.robot.et.util.BluetoothKeyManager;
+import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 
@@ -255,6 +257,8 @@ public class MainActivity extends RosActivity {
 
 		//语种切换还原
 		DataConfig.isLanguageSwitch = false;
+		BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
+		BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 		
 		// 清空部分保存
 		SharedPreferencesUtils sharedUtils = SharedPreferencesUtils.getInstance();

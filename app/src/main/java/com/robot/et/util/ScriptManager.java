@@ -158,6 +158,7 @@ public class ScriptManager {
         BroadcastShare.stopSpeakOnly();
         BroadcastShare.stopListenerOnly();
         BroadcastShare.stopMusicOnly();
+        BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
         BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
     }
 
