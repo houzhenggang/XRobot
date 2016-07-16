@@ -126,6 +126,7 @@ public class IflyVoiceToTextService extends Service {
 				if(DataConfig.isAppPushRemind){//APP推送的提醒
 					DataConfig.isScriptPlayMusic = false;
 				}
+				BroadcastShare.controlMouthLED(ScriptConfig.LED_BLINK);
 				intent.setClass(IflyVoiceToTextService.this,MusicPlayerService.class);
 				intent.putExtra("url", intent.getStringExtra("url"));
 				startService(intent);

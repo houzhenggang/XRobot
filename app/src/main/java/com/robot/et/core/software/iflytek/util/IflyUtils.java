@@ -255,6 +255,7 @@ public class IflyUtils {
 					
 					if(DataConfig.isControlToyCar){//控制玩具车走
 						BroadcastShare.controlToyCarMove(actionValue[i],DataManager.getToyCarNum());
+						BroadcastShare.resumeChat();
 					}else{
 						//随机回答
 						String[] answers = context.getResources().getStringArray(R.array.action_custorm_answer);
