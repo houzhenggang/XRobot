@@ -108,7 +108,6 @@ public class IflyVoiceToTextService extends Service {
 				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
 				Logger.i("音乐播放完成");
-				BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
 
 				if(DataConfig.isScriptPlayMusic){//播放的剧本里的音乐
 					DataConfig.isScriptPlayMusic = false;
@@ -146,6 +145,8 @@ public class IflyVoiceToTextService extends Service {
 		}
 		BroadcastShare.stopSpeakOnly();
 		BroadcastShare.stopMusicOnly();
+		BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
+		BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 	}
 	
 	//开启听

@@ -24,6 +24,7 @@ public class ScriptManager {
             if(ChannelActivity.instance != null){//正在音视频
                 return;
             }
+            BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 
             List<ScriptActionInfo> infos = DBUtils.getScriptActions(content);
             Log.i("netty", "playScript() infos.size()====" + infos.size());
@@ -108,7 +109,7 @@ public class ScriptManager {
                 case ScriptConfig.SCRIPT_MOVE://走
                     Log.i("netty", "doScriptAction() 走");
                     String moveDirection = EnumManager.getScriptMoveKey(content);
-                    BroadcastShare.controlMove(moveDirection,"30");
+                    BroadcastShare.controlMove(moveDirection,"1");
                     setNewScriptInfos(infos,true,2000);
 
                     break;
@@ -116,6 +117,12 @@ public class ScriptManager {
                     Log.i("netty", "doScriptAction() 左转右转");
                     String turnDirection = EnumManager.getScriptMoveKey(content);
                     BroadcastShare.controlMove(turnDirection,"30");
+                    setNewScriptInfos(infos,true,2000);
+
+                    break;
+                case ScriptConfig.SCRIPT_STOP://停止
+                    Log.i("netty", "doScriptAction() 停止");
+                    BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
                     setNewScriptInfos(infos,true,2000);
 
                     break;
@@ -151,12 +158,17 @@ public class ScriptManager {
         BroadcastShare.stopSpeakOnly();
         BroadcastShare.stopListenerOnly();
         BroadcastShare.stopMusicOnly();
+        BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
     }
 
     //剧本执行完毕
     public static void playScriptEnd(){
         DataConfig.isPlayScript = false;
         DataConfig.isStartTime = false;
+        if(!DataConfig.isPlayMusic){
+            BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
+            BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
+        }
         if(DataConfig.isAppPushRemind){
             BroadcastShare.resumeChat();
         }

@@ -214,6 +214,8 @@ public class ControlMoveService extends Service {
 			action.setAction("down");
 		}else if(TextUtils.equals(handDirection,ScriptConfig.HAND_WAVING)){
 			action.setAction("waving");
+		}else if(TextUtils.equals(handDirection,ScriptConfig.HAND_STOP)){
+			action.setAction("stop");
 		}
 
 		if(TextUtils.equals(handCategory,ScriptConfig.HAND_LEFT)){

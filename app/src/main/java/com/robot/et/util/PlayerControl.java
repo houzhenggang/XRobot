@@ -8,6 +8,7 @@ import android.util.Log;
 import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
 import com.robot.et.core.software.okhttp.HttpEngine;
@@ -240,6 +241,7 @@ public class PlayerControl {
 		BroadcastShare.stopSpeakOnly();
 		BroadcastShare.stopMusicOnly();
 		BroadcastShare.stopListenerOnly();
+		BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 		if(DataConfig.isJpushStop){
 			DataConfig.isJpushStop = false;
 			return;

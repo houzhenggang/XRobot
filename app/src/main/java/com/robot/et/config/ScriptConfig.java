@@ -25,6 +25,8 @@ public class ScriptConfig {
     public static final int SCRIPT_MOVE = 90008;
     //转
     public static final int SCRIPT_TURN = 90009;
+    //停止
+    public static final int SCRIPT_STOP = 90010;
 
 
 
@@ -36,6 +38,8 @@ public class ScriptConfig {
     public static final String HAND_UP = "up";
     //手举下
     public static final String HAND_DOWN = "down";
+    //手停止动
+    public static final String HAND_STOP = "stop";
     //手臂摆手
     public static final String HAND_WAVING = "waving";
     //左手
