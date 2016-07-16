@@ -227,50 +227,46 @@ public class IflyUtils {
 	//判断是不是自定义的动作
 	public static boolean isCustormAction(String result){
 		if(!TextUtils.isEmpty(result)){
-			Context context = CustomApplication.getInstance().getApplicationContext();
-			String[] actionNames = context.getResources().getStringArray(R.array.action_name);
-			for(int i = 0;i < actionNames.length;i++){
-				if(CharactorTool.getFullSpell(result).contains(CharactorTool.getFullSpell(actionNames[i]))){
-					StringBuffer buffer = new StringBuffer();
-					for(int j=0;j<result.length();j++){
-						char tempChar = result.charAt(j);
-						if(Character.isDigit(tempChar)){
-							buffer.append(tempChar);
-						}
+			String moveKey = EnumManager.getControlMove(result);
+			Log.i("voiceresult","moveKey===" + moveKey);
+			if(!TextUtils.isEmpty(moveKey)){
+				StringBuffer buffer = new StringBuffer();
+				for(int j=0;j<result.length();j++){
+					char tempChar = result.charAt(j);
+					if(Character.isDigit(tempChar)){
+						buffer.append(tempChar);
 					}
-					String tempDistance = buffer.toString();
-					String digit = "";
-					if(!TextUtils.isEmpty(tempDistance)){
-						digit = tempDistance;
-					}else{
-						if(result.contains("一圈")){//转一圈的时候传360
-							digit = "360";
-						}else{//默认30厘米
-							digit = "1";
-						}
-					}
-					String[] actionValue = context.getResources().getStringArray(R.array.action_value);
-					Log.i("move","actionValue[i]===" + actionValue[i]);
-					Log.i("move","digit===" + digit);
-					
-					if(DataConfig.isControlToyCar){//控制玩具车走
-						BroadcastShare.controlToyCarMove(actionValue[i],DataManager.getToyCarNum());
-						BroadcastShare.resumeChat();
-					}else{
-						//随机回答
-						String[] answers = context.getResources().getStringArray(R.array.action_custorm_answer);
-						int size = answers.length;
-						if(answers != null && size > 0){
-							Random random = new Random();
-							int randNum = random.nextInt(size);
-							String answer = answers[randNum];
-							BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
-						}
-						//控制机器人走的广播
-						BroadcastShare.controlMove(actionValue[i],digit);
-					}
-					return true;
 				}
+				String tempDistance = buffer.toString();
+				String digit = "";
+				if(!TextUtils.isEmpty(tempDistance)){
+					digit = tempDistance;
+				}else{
+					if(result.contains("一圈")){//转一圈的时候传360
+						digit = "360";
+					}else{//默认30厘米
+						digit = "1";
+					}
+				}
+				Log.i("voiceresult","digit===" + digit);
+				if(DataConfig.isControlToyCar){//控制玩具车走
+					BroadcastShare.controlToyCarMove(moveKey,DataManager.getToyCarNum());
+					BroadcastShare.resumeChat();
+				}else{
+					//随机回答
+					String[] answers = CustomApplication.getInstance().getApplicationContext().
+							getResources().getStringArray(R.array.action_custorm_answer);
+					int size = answers.length;
+					if(answers != null && size > 0){
+						Random random = new Random();
+						int randNum = random.nextInt(size);
+						String answer = answers[randNum];
+						BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
+					}
+					//控制机器人走的广播
+					BroadcastShare.controlMove(moveKey,digit);
+				}
+				return true;
 			}
 		}
 		return false;

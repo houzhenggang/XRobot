@@ -32,13 +32,13 @@ public class EnumManager {
 	}
 	
 	//获取控制走的枚举值
-	public static ControlMoveEnum getControlMove(String str){
+	public static String getControlMove(String str){
 		for(ControlMoveEnum moveEnum : ControlMoveEnum.values()){
-			if(TextUtils.equals(str, moveEnum.getMoveKey())){
-				return moveEnum;
+			if(CharactorTool.getFullSpell(str).contains(CharactorTool.getFullSpell(moveEnum.getMoveName()))){
+				return moveEnum.getMoveKey();
 			}
 		}
-		return null;
+		return "";
 	}
 
 	//获取表情的int型值
