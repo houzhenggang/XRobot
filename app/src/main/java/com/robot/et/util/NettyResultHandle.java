@@ -9,7 +9,6 @@ import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.ScriptConfig;
 import com.robot.et.entity.JpushInfo;
-import com.robot.et.enums.ControlMoveEnum;
 
 /**
  * Created by houdeming on 2016/7/5.
@@ -29,30 +28,7 @@ public class NettyResultHandle {
 
                 Log.i("netty", "direction===" + direction);
                 if(TextUtils.isDigitsOnly(direction)){
-                    ControlMoveEnum moveEnum = EnumManager.getControlMove(direction);
-                    Log.i("netty", "moveEnum===" + moveEnum);
-                    if(moveEnum != null){
-                        switch (moveEnum){
-                            case FORWARD://向前
-                                BroadcastShare.controlMove(direction,"1");
-                                break;
-                            case BACKWARD://向后
-                                BroadcastShare.controlMove(direction,"1");
-                                break;
-                            case LEFT://向左
-                                BroadcastShare.controlMove(direction,"1");
-                                break;
-                            case RIGHT://向右
-                                BroadcastShare.controlMove(direction,"1");
-                                break;
-                            case STOP://停止
-                                BroadcastShare.controlMove(direction,"1");
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-
+                    BroadcastShare.controlMove(direction,"1");
                 }else{
                     if(!TextUtils.isEmpty(direction)){
                         String splite = "__";
