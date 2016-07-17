@@ -67,7 +67,20 @@ public class LocationService extends Service {
 				}else{
 					//没有定位成功继续定位
 					Logger.i("null != location 没有定位成功继续定位");
-					mLocation.start();
+//					mLocation.start();
+
+					sharedUtils.putString(SharedPreferencesKeys.CITY_KEY, "台州市");
+					sharedUtils.putString(SharedPreferencesKeys.AREA_KEY, "椒江区");
+					sharedUtils.commitValue();
+
+					//停止定位服务（百度地图在不断的定位）
+					mLocation.unregisterListener(mListener);
+					mLocation.stop();
+
+					Intent intent = new Intent();
+					intent.setAction(BroadcastAction.ACTION_GET_LOCATION);
+					sendBroadcast(intent);
+
 				}
 			}else{
 				//没有定位成功继续定位
