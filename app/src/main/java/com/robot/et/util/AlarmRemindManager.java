@@ -274,6 +274,7 @@ public class AlarmRemindManager {
 
 	//APP发来的提醒需求处理
 	public static void handleAppRemind(String result){
+		pushMsgToApp(result);
 		if(!TextUtils.isEmpty(result)){
 			String answer = getRequireAnswer();
 			if(!TextUtils.isEmpty(answer)){
@@ -313,6 +314,7 @@ public class AlarmRemindManager {
 				@Override
 				public void run() {
 					if(DataConfig.isStartTime){
+						pushMsgToApp("");
 						BroadcastShare.stopListenerOnly();
 						BroadcastShare.stopSpeakOnly();
 						doAppRemindNoResponse();

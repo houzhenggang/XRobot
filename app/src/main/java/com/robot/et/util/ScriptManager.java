@@ -171,6 +171,7 @@ public class ScriptManager {
             BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
         }
         if(DataConfig.isAppPushRemind){
+            DataConfig.isAppPushRemind = false;
             BroadcastShare.resumeChat();
         }
     }

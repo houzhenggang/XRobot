@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -106,6 +107,10 @@ public class IflyVoiceToTextService extends Service {
 				int i=new Random().nextInt(wakeUpSpeakContent.length);
 				String content=wakeUpSpeakContent[i];
 				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
+				BroadcastShare.controlWaving(ScriptConfig.HAND_UP,ScriptConfig.HAND_RIGHT,"0");
+				SystemClock.sleep(2000);
+				BroadcastShare.controlWaving(ScriptConfig.HAND_DOWN,ScriptConfig.HAND_RIGHT,"0");
+
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
 				Logger.i("音乐播放完成");
 
