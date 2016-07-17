@@ -108,7 +108,7 @@ public class IflyVoiceToTextService extends Service {
 				String content=wakeUpSpeakContent[i];
 				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
 				BroadcastShare.controlWaving(ScriptConfig.HAND_UP,ScriptConfig.HAND_RIGHT,"0");
-				SystemClock.sleep(2000);
+				SystemClock.sleep(1000);
 				BroadcastShare.controlWaving(ScriptConfig.HAND_DOWN,ScriptConfig.HAND_RIGHT,"0");
 
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
