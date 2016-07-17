@@ -85,7 +85,7 @@
     <!-- 唤醒后说的话 -->
     <string-array name="wake_up_speak_content">
         <item>小的在!</item>
-        <item>本宝宝在此!</item>
+        <item>本宝宝在!</item>
         <item>叫人家干嘛?</item>
         <item>干嘛呀!</item>
         <item>这呢?</item>
