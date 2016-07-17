@@ -44,8 +44,6 @@ public class MoveControler extends AbstractNodeMain implements MessageListener<n
     private volatile boolean isTurnLeft =false;
     //是否右转
     private volatile boolean isTurnRight =false;
-    //是否停止
-    private volatile boolean isStop =false;
 
     public double degree;
 

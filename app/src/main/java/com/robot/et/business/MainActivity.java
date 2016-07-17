@@ -64,7 +64,8 @@ public class MainActivity extends RosActivity {
 		mFilter.addAction(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_CONNECT);
 		mFilter.addAction(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_TRAFFIC_OPEN);
 		mFilter.addAction(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_DISCONNECT);
-		mFilter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
+		mFilter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_NETTY);
+		mFilter.addAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_VOICE);
 		mFilter.addAction(BroadcastAction.ACTION_WAKE_UP_AND_MOVE);
 		registerReceiver(mReceiver, mFilter);
 		
@@ -103,9 +104,6 @@ public class MainActivity extends RosActivity {
 	}
 
 	private BroadcastReceiver mReceiver = new BroadcastReceiver() {
-
-		private String direction;
-		private int data;//获取的Brocast传递的角度(int)
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
@@ -148,16 +146,42 @@ public class MainActivity extends RosActivity {
 				stopService(intent.setClass(context, IflyVoiceToTextService.class));
 				// 网络流量监控
 				stopService(intent.setClass(context, NetWorkTrafficService.class));
-			}else if (intent.getAction().equals(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE)) {
-				direction=intent.getStringExtra("direction");
+			}else if (intent.getAction().equals(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_NETTY)) {
+				String direction=intent.getStringExtra("direction");
 				Log.i("ROS_MOVE","手机控制时，得到的direction参数："+direction);
 				if (null==direction|| TextUtils.equals("", direction)) {
 					return;
 				}
 				doMoveAction(direction);
-			}else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)){
+			}else if (intent.getAction().equals(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_VOICE)){
+				//此部分代码暂时这样修改，待完善。（时间太赶）2016-07-16
+				String direction=intent.getStringExtra("direction");
+				Log.i("ROS_MOVE","语音控制时，得到的direction参数："+direction);
+				String digit=intent.getStringExtra("digit");
+				Log.i("ROS_MOVE","语音控制时，得到的digit参数："+digit);
+				if (null==direction|| TextUtils.equals("", direction)) {
+					return;
+				}
+				if (null == digit || TextUtils.equals("",digit)) {
+					return;
+				}
+				if (TextUtils.equals("1",direction)||TextUtils.equals("2",direction)){
+					doMoveAction(direction);
+					try {
+						Thread.sleep(1500);
+					}catch (InterruptedException e){
+						e.printStackTrace();
+					}finally {
+						doMoveAction("5");
+					}
+				}else if (TextUtils.equals("3",direction)){
+					doTrunAction(mover.getCurrentDegree(),270);
+				}else if (TextUtils.equals("4",direction)){
+					doTrunAction(mover.getCurrentDegree(),90);
+				}
+			} else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)){
 				Log.i("ROS_WAKE_UP","语音唤醒时，当前机器人的角度："+mover.getCurrentDegree());
-				data=intent.getIntExtra("degree",0);
+				int data=intent.getIntExtra("degree",0);//获取的Brocast传递的角度
 				Log.i("ROS_WAKE_UP_DEGREE","语音唤醒时，获取的角度："+data);
 				if (data == 0 || data == 360){
 					//原地不动

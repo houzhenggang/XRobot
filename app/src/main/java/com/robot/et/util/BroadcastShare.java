@@ -116,7 +116,7 @@ public class BroadcastShare {
 	//控制机器人走的广播带距离
 	public static void controlMove(String direction,String distance){
 		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_DISTANCE);
+		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_VOICE);
 		intent.putExtra("direction", direction);
 		if(TextUtils.isEmpty(distance)){
 			distance = "1";
@@ -128,7 +128,7 @@ public class BroadcastShare {
 	//控制机器人走的广播不带距离
 	public static void controlMove(String direction){
 		Intent intent = new Intent();
-		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE);
+		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_NETTY);
 		intent.putExtra("direction", direction);
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}

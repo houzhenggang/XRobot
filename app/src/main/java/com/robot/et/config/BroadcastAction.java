@@ -42,9 +42,9 @@ public class BroadcastAction {
 	//停止监听对话的广播
 	public static String ACTION_STOP_LISTENER = "com.robot.et.stop.listener";
 	//控制机器人移动(Netty指令)
-	public static String ACTION_CONTROL_ROBOT_MOVE = "action.control.robot.move.with.netty";
+	public static String ACTION_CONTROL_ROBOT_MOVE_WITH_NETTY = "action.control.robot.move.with.netty";
 	//控制机器人移动（语音控制）
-	public static String ACTION_CONTROL_ROBOT_MOVE_WITH_DISTANCE = "action.control.robot.move.with.voice";
+	public static String ACTION_CONTROL_ROBOT_MOVE_WITH_VOICE = "action.control.robot.move.with.voice";
 	//控制机器人转向
 	public static String ACTION_CONTROL_ROBOT_TURN ="action.control.robot.turn";
 	//串口数据接收

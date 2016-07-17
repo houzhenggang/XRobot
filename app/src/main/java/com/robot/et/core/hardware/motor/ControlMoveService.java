@@ -39,7 +39,7 @@ public class ControlMoveService extends Service {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (intent.getAction().equals(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE)) {
+			if (intent.getAction().equals(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_NETTY)) {
 				direction = intent.getStringExtra("direction");// 获取方向
 				if (null==direction||TextUtils.equals("", direction)) {
 					return;
