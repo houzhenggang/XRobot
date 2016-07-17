@@ -145,7 +145,11 @@ public class ScriptManager {
             SystemClock.sleep(delayTime);
 
             if(isResume){
-                doScriptAction(infos);
+                if(DataConfig.isPlayScript){
+                    doScriptAction(infos);
+                }else{
+                    Log.i("netty", "DataConfig.isPlayScript===false 剧本执行完毕");
+                }
             }
         }else{
             Log.i("netty", "setNewScriptInfos()剧本执行完毕");

@@ -112,6 +112,7 @@ public class NettyResultHandle {
                 case DataConfig.JPUSH_PAUSE:// 音乐暂停
                     Log.i("netty", "音乐暂停");
                     DataConfig.isJpushStop = true;
+                    DataConfig.isPlayScript = false;
                     BroadcastShare.stopMusicOnly();
                     BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
                     BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
