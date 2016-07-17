@@ -8,6 +8,7 @@ import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.ScriptConfig;
+import com.robot.et.core.software.agora.ChannelActivity;
 import com.robot.et.entity.JpushInfo;
 
 /**
@@ -90,6 +91,9 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_VOLUME_ADJUST:// 播放器音量控制
                     Log.i("netty", "播放器音量控制");
+                    if(ChannelActivity.instance != null){
+                        return;
+                    }
                     if(!TextUtils.isEmpty(musicContent)){
                         PlayerControl.setMusicVolue(Double.parseDouble(musicContent));
                     }
@@ -155,6 +159,9 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_PLAY_SCRIPT:// 表演剧本
                     Log.i("netty", "表演剧本");
+                    if(ChannelActivity.instance != null){
+                        return;
+                    }
                     ScriptManager.playScriptStart();
                     ScriptManager.playScript(musicContent);
 
@@ -180,6 +187,9 @@ public class NettyResultHandle {
                     break;
                 case DataConfig.JPUSH_SCENE_INTERACTION:// 场景互动
                     Log.i("netty", "场景互动");
+                    if(ChannelActivity.instance != null){
+                        return;
+                    }
                     ScriptManager.playScriptStart();
                     ScriptManager.playScript(musicContent);
 
@@ -187,8 +197,15 @@ public class NettyResultHandle {
                 case DataConfig.JPUSH_GRAPHIC_EDITOR:// 图形编辑
                     Log.i("netty", "图形编辑");
                     ScriptManager.addAppGraphicEdit(musicContent);
+
+                    break;
+                case DataConfig.JPUSH_FROLIC:// 嬉闹
+                    Log.i("netty", "嬉闹");
+                    if(ChannelActivity.instance != null){
+                        return;
+                    }
                     ScriptManager.playScriptStart();
-                    ScriptManager.playScript(ScriptManager.getScriptName());
+                    TouchControl.responseTouch(musicContent);
 
                     break;
 

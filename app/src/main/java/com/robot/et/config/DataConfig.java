@@ -94,6 +94,8 @@ public class DataConfig {
 	public final static int JPUSH_REPLY_REMIND = 40028;
 	//图形编辑
 	public final static int JPUSH_GRAPHIC_EDITOR = 40029;
+	//嬉闹
+	public final static int JPUSH_FROLIC = 40005;
 
 
 	// 声音提示默认发音人 在线合成
