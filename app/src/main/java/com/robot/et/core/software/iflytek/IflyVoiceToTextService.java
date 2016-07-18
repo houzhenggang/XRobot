@@ -6,8 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.IBinder;
-import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -83,7 +83,7 @@ public class IflyVoiceToTextService extends Service {
 				closeAnyDec();
 				DataManager.initBooleanValue();
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_WAKE_UP_AND_MOVE)) {// 唤醒或者中断的处理
-				Log.i("voiceresult", "唤醒或者中断的处理" );
+				Log.i("voiceresult", "唤醒或者中断的处理");
 				DataManager.initBooleanValue();
 
 				if(DataConfig.isAgoraVideo){
@@ -108,8 +108,12 @@ public class IflyVoiceToTextService extends Service {
 				String content=wakeUpSpeakContent[i];
 				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
 				BroadcastShare.controlWaving(ScriptConfig.HAND_UP,ScriptConfig.HAND_RIGHT,"0");
-				SystemClock.sleep(1000);
-				BroadcastShare.controlWaving(ScriptConfig.HAND_DOWN,ScriptConfig.HAND_RIGHT,"0");
+				new Handler().postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						BroadcastShare.controlWaving(ScriptConfig.HAND_DOWN,ScriptConfig.HAND_RIGHT,"0");
+					}
+				},2000);
 
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
 				Logger.i("音乐播放完成");
