@@ -119,10 +119,10 @@ public class BroadcastShare {
 		Intent intent = new Intent();
 		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_VOICE);
 		intent.putExtra("direction", direction);
-		if(TextUtils.isEmpty(distance)){
-			distance = "1";
-		}
-		intent.putExtra("digit", distance);
+//		if(TextUtils.isEmpty(distance)){
+//			distance = "1";
+//		}
+//		intent.putExtra("digit", distance);
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 
@@ -166,7 +166,7 @@ public class BroadcastShare {
 
 	//摆手
 	public static void controlWaving(String handDirection,String handCategory,String num){
-		if(!TextUtils.isEmpty(handDirection) && !TextUtils.isEmpty(handCategory)){
+		if(!TextUtils.isEmpty(handDirection)){
 			Intent intent = new Intent();
 			intent.setAction(BroadcastAction.ACTION_CONTROL_WAVING);
 			intent.putExtra("handDirection", handDirection);
@@ -195,6 +195,14 @@ public class BroadcastShare {
 		intent.setAction(BroadcastAction.ACTION_CONTROL_ROBOT_FOLLOW);
 		intent.putExtra("robotNum", robotNum);
 		intent.putExtra("toyCarNum", toyCarNum);
+		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+	}
+
+	//重新连接netty
+	public static void connectNettyArgin(){
+		Intent intent = new Intent();
+		intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);
+		intent.putExtra("robotNum", SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, ""));
 		CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 	}
 

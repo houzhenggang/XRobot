@@ -187,10 +187,7 @@ public class PlayerControl {
 				if(GsonParse.isChangeStatusSuccess(result)){
 					Log.i("json", "向APP发送媒体状态成功");
 				}
-				Intent intent = new Intent();
-				intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);
-				intent.putExtra("robotNum", share.getString(SharedPreferencesKeys.ROBOT_NUM, ""));
-				CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+				BroadcastShare.connectNettyArgin();
 			}
 
 		});
@@ -241,6 +238,7 @@ public class PlayerControl {
 		BroadcastShare.stopSpeakOnly();
 		BroadcastShare.stopMusicOnly();
 		BroadcastShare.stopListenerOnly();
+		DataConfig.isPlayScript = false;
 		BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 		if(DataConfig.isJpushStop){
 			DataConfig.isJpushStop = false;

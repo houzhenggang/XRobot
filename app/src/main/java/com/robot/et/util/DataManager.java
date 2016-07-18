@@ -217,10 +217,7 @@ public class DataManager {
 									SharedPreferencesUtils share = SharedPreferencesUtils.getInstance();
 									share.putString(SharedPreferencesKeys.ROBOT_NUM,robotNum);
 									share.commitValue();
-									Intent intent = new Intent();
-									intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);
-									intent.putExtra("robotNum", robotNum);
-									CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+									BroadcastShare.connectNettyArgin();
 								}
 							}else{
 								getRobotInfo(UrlConfig.GET_ROBOT_INFO_START,deviceId);

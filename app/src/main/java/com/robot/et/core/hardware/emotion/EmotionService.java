@@ -3,7 +3,9 @@ package com.robot.et.core.hardware.emotion;
 import java.util.Random;
 
 import com.robot.et.config.BroadcastAction;
+import com.robot.et.config.DataConfig;
 import com.robot.et.config.EmotionConfig;
+import com.robot.et.util.ScriptManager;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -44,6 +46,9 @@ public class EmotionService extends Service {
 				emotion = intent.getIntExtra("emotion",EmotionConfig.ROBOT_EMOTION_NORMAL);// 获取表情
 				Log.i("Emotion", "Emotion:"+emotion);
 				doEmotion(emotion);
+				if(DataConfig.isPlayScript){
+					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,2000);
+				}
 			}
 		}
 	};

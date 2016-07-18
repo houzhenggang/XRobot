@@ -11,10 +11,13 @@ import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
 import com.robot.et.config.BroadcastAction;
+import com.robot.et.config.DataConfig;
 import com.robot.et.config.ScriptConfig;
 import com.robot.et.entity.RobotAction;
+import com.robot.et.util.ScriptManager;
 
 public class ControlMoveService extends Service {
+	private int i;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -96,16 +99,34 @@ public class ControlMoveService extends Service {
 					}
 				}
 				int toyCarNum = intent.getIntExtra("toyCarNum",0);
+				Log.i("Move", "控制周围小车direction==="+ direction);
+				Log.i("Move", "toyCarNum==="+ toyCarNum);
 				contrlToyCarMove(directionType,toyCarNum);
+
+				if(DataConfig.isPlayScript){
+					int delayTime = 20;
+					i++;
+					if(i == 2){
+						i = 0;
+						delayTime = 150;
+					}
+
+					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,delayTime);
+				}
 
 			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_WAVING)){//举手摆手
 				Log.i("Move", "举手摆手");
 				String handDirection = intent.getStringExtra("handDirection");
 				String handCategory = intent.getStringExtra("handCategory");
 				String num = intent.getStringExtra("num");
+				Log.i("Move", "handCategory===" + handCategory);
 				if(!TextUtils.isEmpty(handDirection) && !TextUtils.isEmpty(handCategory)){
 					handAction(handDirection,handCategory);
 				}
+				if(DataConfig.isPlayScript){
+					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,1500);
+				}
+
 			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_MOUTH_LED)){//嘴的LED灯
 				Log.i("Move", "嘴的LED灯");
 				String LEDState = intent.getStringExtra("LEDState");

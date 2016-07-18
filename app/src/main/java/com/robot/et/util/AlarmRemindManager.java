@@ -360,10 +360,7 @@ public class AlarmRemindManager {
 				if(GsonParse.isChangeStatusSuccess(result)){
 					Log.i("json", "向APP推送消息成功");
 				}
-				Intent intent = new Intent();
-				intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);
-				intent.putExtra("robotNum", share.getString(SharedPreferencesKeys.ROBOT_NUM, ""));
-				CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+				BroadcastShare.connectNettyArgin();
 			}
 
 		});

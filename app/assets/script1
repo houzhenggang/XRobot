@@ -2,67 +2,592 @@
   "scriptContent" : "合唱共舞",
   "script" : [
     {
-      "content" : "随意表情",
-      "actionType" : "90001",
-      "spareContent" : " ",
+      "content" : "白龙马",
+      "actionType" : "90002",
+      "spareContent" : "",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+     {
+          "content" : "",
+          "actionType" : "90007",
+          "spareContent" : "摆手",
+          "spareContent2" : " ",
+          "spareType" : " "
+        },
+    {
+      "content" : "向前",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
       "spareContent2" : " ",
       "spareType" : " "
     },
     {
-      "content" : "1号小车",
-      "actionType" : "90003",
-      "spareContent" : "80000061",
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
       "spareContent2" : " ",
       "spareType" : " "
     },
     {
-      "content" : "逆时针",
-      "actionType" : "90004",
-      "spareContent" : "5",
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
       "spareContent2" : " ",
       "spareType" : " "
     },
     {
-      "content" : "二号机器人",
-      "actionType" : "90003",
-      "spareContent" : "80000060",
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
       "spareContent2" : " ",
       "spareType" : " "
     },
     {
-      "content" : "顺时针",
-      "actionType" : "90004",
-      "spareContent" : "1",
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
       "spareContent2" : " ",
       "spareType" : " "
     },
     {
-      "content" : "但愿明天见吧",
-      "actionType" : "90006",
-      "spareContent" : " ",
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
       "spareContent2" : " ",
       "spareType" : " "
     },
     {
-      "content" : "80",
-      "actionType" : "90007",
-      "spareContent" : "左手",
-      "spareContent2" : "举手",
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
       "spareType" : " "
     },
     {
-      "content" : "你好吗",
-      "actionType" : "90005",
-      "spareContent" : "很好",
-      "spareContent2" : "",
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
       "spareType" : " "
     },
-   {
-       "content" : "100",
-       "actionType" : "90008",
-       "spareContent" : "",
-       "spareContent2" : "",
-       "spareType" : " "
-   }
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "1号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "2号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    },
+    {
+      "content" : "向左",
+      "actionType" : "90008",
+      "spareContent" : "3号小车",
+      "spareContent2" : " ",
+      "spareType" : " "
+    }
   ]
 }

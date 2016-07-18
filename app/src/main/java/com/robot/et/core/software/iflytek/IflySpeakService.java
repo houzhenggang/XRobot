@@ -147,7 +147,6 @@ public class IflySpeakService extends Service {
 		IflyUtils.setTextToVoiceParam(mTts,isTypeCloud,speakMen,"50","50","50");
 
 		if(DataConfig.isBluetoothBox){
-			DataConfig.isBluetoothBox = false;
 			content = "小黄人开始   说" + content;
 		}
 
@@ -218,8 +217,14 @@ public class IflySpeakService extends Service {
 				Intent intent = new Intent();
 				switch (currentType) {
 				case DataConfig.TYPE_VOICE_CHAT:// 对话
+					if(DataConfig.isBluetoothBox){
+						DataConfig.isBluetoothBox = false;
+						return;
+					}
+
 					intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
 					sendBroadcast(intent);
+
 					break;
 				case DataConfig.TYPE_REMIND_TIPS:// 提醒
 					Logger.i("iflyspeakservice   提醒的话语说完了");

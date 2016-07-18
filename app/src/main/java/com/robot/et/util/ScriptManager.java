@@ -30,6 +30,7 @@ public class ScriptManager {
             Log.i("netty", "playScript() infos.size()====" + infos.size());
             if(infos != null && infos.size() > 0){
                 DataConfig.isPlayScript = true;
+
                 doScriptAction(infos);
             }
         }
@@ -46,8 +47,8 @@ public class ScriptManager {
                     Log.i("netty", "doScriptAction() 表情");
                     int emotionKey = EnumManager.getEmotionKey(content);
                     Log.i("netty", "doScriptAction() emotionKey====" + emotionKey);
+                    setScriptActionInfos(infos);
                     BroadcastShare.controlRobotEmotion(emotionKey);
-                    setNewScriptInfos(infos,true,2000);
 
                     break;
                 case ScriptConfig.SCRIPT_MUSIC://音乐
@@ -68,7 +69,7 @@ public class ScriptManager {
                     Log.i("netty", "doScriptAction() robotNum====" + robotNum);
                     Log.i("netty", "doScriptAction() toyCarNum====" + toyCarNum);
                     BroadcastShare.controlFollow(robotNum,toyCarNum);
-                    setNewScriptInfos(infos,true,2000);
+                    setNewScriptInfos(infos,true,getDealyTime(1500));
 
                     break;
                 case ScriptConfig.SCRIPT_TURN_AROUND://转圈
@@ -77,7 +78,7 @@ public class ScriptManager {
                     Log.i("netty", "doScriptAction() direction====" + direction);
                     Log.i("netty", "doScriptAction() num====" + info.getSpareContent());
                     BroadcastShare.controlTurnAround(direction,info.getSpareContent());
-                    setNewScriptInfos(infos,true,2000);
+                    setNewScriptInfos(infos,true,getDealyTime(2000));
 
                     break;
                 case ScriptConfig.SCRIPT_QUESTION_ANSWER://问答
@@ -99,29 +100,41 @@ public class ScriptManager {
                 case ScriptConfig.SCRIPT_HAND://手
                     Log.i("netty", "doScriptAction() 手");
                     String handDirection = ScriptConfig.getHandDirection(info.getSpareContent());
+                    String handCategory = ScriptConfig.getHandCategory(content);
                     Log.i("netty", "doScriptAction() handDirection===" + handDirection);
-                    BroadcastShare.controlWaving(handDirection,content,"1");
-                    setNewScriptInfos(infos,true,2000);
+                    setScriptActionInfos(infos);
+                    BroadcastShare.controlWaving(handDirection,handCategory,"1");
 
                     break;
                 case ScriptConfig.SCRIPT_MOVE://走
                     Log.i("netty", "doScriptAction() 走");
                     String moveDirection = EnumManager.getScriptMoveKey(content);
-                    BroadcastShare.controlMove(moveDirection);
-                    setNewScriptInfos(infos,true,2000);
+                    String spareContent = info.getSpareContent();
+                    Log.i("netty", "spareContent==" + spareContent);
+                    int num = 0;
+                    if(!TextUtils.isEmpty(spareContent)){
+                        if (spareContent.contains("小车")) {
+                            setScriptActionInfos(infos);
+                            num = MatchStringUtil.getToyCarNum(spareContent);
+                            BroadcastShare.controlToyCarMove(moveDirection,num);
+                        }else{
+                            BroadcastShare.controlMove(moveDirection);
+                            setNewScriptInfos(infos,true,getDealyTime(2000));
+                        }
+                    }
 
                     break;
                 case ScriptConfig.SCRIPT_TURN://左转右转
                     Log.i("netty", "doScriptAction() 左转右转");
                     String turnDirection = EnumManager.getScriptMoveKey(content);
                     BroadcastShare.controlMove(turnDirection);
-                    setNewScriptInfos(infos,true,2000);
+                    setNewScriptInfos(infos,true,getDealyTime(3000));
 
                     break;
                 case ScriptConfig.SCRIPT_STOP://停止
                     Log.i("netty", "doScriptAction() 停止");
                     BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
-                    setNewScriptInfos(infos,true,2000);
+                    setNewScriptInfos(infos,true,getDealyTime(2000));
 
                     break;
                 default:
@@ -132,6 +145,16 @@ public class ScriptManager {
             Log.i("netty", "doScriptAction()剧本执行完毕");
             playScriptEnd();
         }
+    }
+
+    private static long getDealyTime(long custormTime){
+        long time = 0;
+        if(DataConfig.isPlayMusic){
+            time = 4000;
+        }else{
+            time = custormTime;
+        }
+        return time;
     }
 
     //更新剧本的内容
@@ -166,9 +189,11 @@ public class ScriptManager {
 
     //剧本执行完毕
     public static void playScriptEnd(){
+        Log.i("netty", "playScriptEnd()");
         DataConfig.isPlayScript = false;
         DataConfig.isStartTime = false;
         if(!DataConfig.isPlayMusic){
+            SystemClock.sleep(2000);
             BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
             BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
         }
@@ -176,6 +201,10 @@ public class ScriptManager {
             DataConfig.isAppPushRemind = false;
             BroadcastShare.resumeChat();
         }
+
+        //重连netty
+        BroadcastShare.connectNettyArgin();
+
     }
 
     //插入剧本

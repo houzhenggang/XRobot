@@ -15,6 +15,7 @@ import com.robot.et.config.DataConfig;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.CommandMsg;
+import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.DataManager;
 import com.robot.et.util.DeviceUuidFactory;
 import com.robot.et.util.ScriptManager;
@@ -55,13 +56,10 @@ public class NettyService extends Service {
 			Log.i("netty", "deviceId===" + deviceId);
 			DataManager.getRobotInfo(UrlConfig.GET_ROBOT_INFO_BY_DEVICEID, deviceId);
 		} else {
-			Intent intent = new Intent();
-			intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);
-			intent.putExtra("robotNum", robotNum);
-			sendBroadcast(intent);
+			BroadcastShare.connectNettyArgin();
 		}
 
-		ScriptManager.addLocalScript("script1");
+		ScriptManager.addLocalScript("script2");
 
 	}
 
