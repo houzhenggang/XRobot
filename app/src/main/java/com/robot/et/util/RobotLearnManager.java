@@ -53,8 +53,9 @@ public class RobotLearnManager {
 				insertLeanInfo(question, "", String.valueOf(EmotionConfig.ROBOT_EMOTION_NORMAL),DataConfig.LEARN_BY_ROBOT);
 			}
 			
-			content = "记住了，如果你说 " + question + "，我应该卖个萌" ;
-			
+//			content = "记住了，如果你说 " + question + "，我应该卖个萌" ;
+			content = "好的，我记住了";
+
 		}else{
 			content = "我好像没学会，再教我一次吧 ";
 		}
@@ -71,7 +72,8 @@ public class RobotLearnManager {
 		String content = "";
 		if(!TextUtils.isEmpty(question) && !TextUtils.isEmpty(answer)){
 			RobotLearnManager.insertLeanInfo(question, answer,"",DataConfig.LEARN_BY_ROBOT);
-			content = "记住了，如果你说 " + question + "，我应该回答" + answer;
+//			content = "记住了，如果你说 " + question + "，我应该回答" + answer;
+			content = "好的，我记住了";
 		}else{
 			content = "我好像没学会，再教我一次吧 ";
 		}

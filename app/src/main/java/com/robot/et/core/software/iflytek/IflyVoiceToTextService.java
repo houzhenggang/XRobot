@@ -113,7 +113,7 @@ public class IflyVoiceToTextService extends Service {
 					public void run() {
 						BroadcastShare.controlWaving(ScriptConfig.HAND_DOWN,ScriptConfig.HAND_TWO,"0");
 					}
-				},2000);
+				},1500);
 
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_MUSIC_PLAY_END)) {// 音乐播放完成
 				Logger.i("音乐播放完成");
@@ -255,6 +255,11 @@ public class IflyVoiceToTextService extends Service {
 					
 					//命令功能
 					if(IflyUtils.doCommandAction(result)){
+						return;
+					}
+
+					//自定义问答
+					if(IflyUtils.isCustormQA(result)){
 						return;
 					}
 

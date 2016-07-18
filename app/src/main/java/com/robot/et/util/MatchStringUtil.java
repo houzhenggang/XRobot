@@ -25,13 +25,17 @@ public class MatchStringUtil {
 	//免打扰关
 	public static String disturbCloseRegex =  "^" + baseRegex + "*(((免打扰)+" + baseRegex + "*关+)|(关+" + baseRegex + "*(免打扰)+))" + baseRegex + "*$";
 	//闭嘴
-	public static String shutUpRegex =  "^" + baseRegex + "*((嘴+" + baseRegex + "*闭+)|(闭+" + baseRegex + "*嘴+))" + baseRegex + "*$";
+	public static String shutUpRegex =  "^" + baseRegex + "*((嘴+" + baseRegex + "*闭+)|(闭+" + baseRegex + "*嘴+)|((休息)+))" + baseRegex + "*$";
 	//做动作
 	public static String doActionRegex = "^" + baseRegex + "*我+"   + baseRegex + "*((问)|(说))+"  + baseRegex + "*你+"  + baseRegex + "+(萌|(卖个萌))+" + baseRegex + "*$";
 	//语言切换
 	public static String languageSwitchRegex = "^" + baseRegex + "*((切换)|说|用)+" + baseRegex + "*((英语)|(外语))+" + baseRegex + "*$";
 	//控制机器人周围的玩具车走
 	public static String controlToyCarRegex = "^" + baseRegex + "+号+"  + baseRegex + "*((小车)|(玩具车)|(汽车))+" + baseRegex + "*$";
+	// 抬手举手
+	public static String raiseHandRegex = "^" + baseRegex + "*(抬|举)+" + baseRegex + "*手+" + baseRegex + "*$";
+	// 摆手
+	public static String wavingRegex = "^" + baseRegex + "*摆+" + baseRegex + "*手+" + baseRegex + "*$";
 
 	//匹配场景字符串
 	public static boolean matchString(String str,String strRegex) {
