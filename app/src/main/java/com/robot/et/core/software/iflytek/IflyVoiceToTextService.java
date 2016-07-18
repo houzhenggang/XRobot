@@ -107,11 +107,11 @@ public class IflyVoiceToTextService extends Service {
 				int i=new Random().nextInt(wakeUpSpeakContent.length);
 				String content=wakeUpSpeakContent[i];
 				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
-				BroadcastShare.controlWaving(ScriptConfig.HAND_UP,ScriptConfig.HAND_RIGHT,"0");
+				BroadcastShare.controlWaving(ScriptConfig.HAND_UP,ScriptConfig.HAND_TWO,"0");
 				new Handler().postDelayed(new Runnable() {
 					@Override
 					public void run() {
-						BroadcastShare.controlWaving(ScriptConfig.HAND_DOWN,ScriptConfig.HAND_RIGHT,"0");
+						BroadcastShare.controlWaving(ScriptConfig.HAND_DOWN,ScriptConfig.HAND_TWO,"0");
 					}
 				},2000);
 
