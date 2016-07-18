@@ -98,11 +98,9 @@ public class ScriptManager {
                     break;
                 case ScriptConfig.SCRIPT_HAND://手
                     Log.i("netty", "doScriptAction() 手");
-                    String handDirection = ScriptConfig.getHandDirection(info.getRemarks());
-                    String handCategory = ScriptConfig.getHandCategory(info.getSpareContent());
+                    String handDirection = ScriptConfig.getHandDirection(info.getSpareContent());
                     Log.i("netty", "doScriptAction() handDirection===" + handDirection);
-                    Log.i("netty", "doScriptAction() handCategory===" + handCategory);
-                    BroadcastShare.controlWaving(handDirection,handCategory,content);
+                    BroadcastShare.controlWaving(handDirection,content,"1");
                     setNewScriptInfos(infos,true,2000);
 
                     break;

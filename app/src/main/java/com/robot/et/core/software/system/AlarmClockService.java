@@ -102,6 +102,7 @@ public class AlarmClockService extends Service{
 				 AlarmRemindManager.setSpareType(info.getSpareType());
 				 AlarmRemindManager.setSpareContent(info.getSpareContent());
 				 AlarmRemindManager.setRemindMen(remindMen);
+				 AlarmRemindManager.setOriginalAlarmTime(info.getOriginalAlarmTime());
 			 }else{
 				 //闹铃
 				 DataConfig.isAppPushRemind = false;

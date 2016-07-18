@@ -229,8 +229,15 @@ public class IflySpeakService extends Service {
 						AlarmRemindManager.doMoreAlarm();
 					}else{
 						if(DataConfig.isAppPushRemind){
-							String content = AlarmRemindManager.getRemindMen() + ",请回答：" + AlarmRemindManager.getRequireAnswer();
-							BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
+							String requireAnswer = AlarmRemindManager.getRequireAnswer();
+							if(!TextUtils.isEmpty(requireAnswer)){
+								String content = AlarmRemindManager.getRemindMen() + ",请回答：" + AlarmRemindManager.getRequireAnswer();
+								BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
+							}else{
+								DataConfig.isAppPushRemind = false;
+								intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
+								sendBroadcast(intent);
+							}
 							return;
 						}
 
@@ -289,6 +296,13 @@ public class IflySpeakService extends Service {
 				case DataConfig.TYPE_SCRIPT:// 剧本的表演
 					Logger.i("iflyspeakservice  剧本的表演");
 					if(DataConfig.isScriptQA){
+						intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
+						sendBroadcast(intent);
+						return;
+					}
+
+					if(DataConfig.isAppPushRemind){
+						DataConfig.isAppPushRemind = false;
 						intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
 						sendBroadcast(intent);
 						return;

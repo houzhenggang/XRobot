@@ -1,9 +1,13 @@
 package com.robot.et.util;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
+import com.robot.et.app.CustomApplication;
+import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
@@ -11,6 +15,7 @@ import com.robot.et.core.software.system.AlarmClockManager;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.entity.RemindInfo;
+import com.robot.et.entity.ResponseAppRemindInfo;
 import com.robot.et.entity.ScriptActionInfo;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
@@ -188,7 +193,6 @@ public class AlarmRemindManager {
 				info.setTime(time);
 				info.setRemindInt(DataConfig.REMIND_NO_ID);
 				DBUtils.addAlarm(info);
-				pushMsgToApp("success");
 			}
 		}
 	}
@@ -274,7 +278,11 @@ public class AlarmRemindManager {
 
 	//APP发来的提醒需求处理
 	public static void handleAppRemind(String result){
-		pushMsgToApp(result);
+		ResponseAppRemindInfo mInfo = new ResponseAppRemindInfo();
+		mInfo.setAnswer(result);
+		mInfo.setOriginalTime(AlarmRemindManager.getOriginalAlarmTime());
+		pushMsgToApp(JSON.toJSONString(mInfo));
+
 		if(!TextUtils.isEmpty(result)){
 			String answer = getRequireAnswer();
 			if(!TextUtils.isEmpty(answer)){
@@ -314,7 +322,11 @@ public class AlarmRemindManager {
 				@Override
 				public void run() {
 					if(DataConfig.isStartTime){
-						pushMsgToApp("");
+						ResponseAppRemindInfo mInfo = new ResponseAppRemindInfo();
+						mInfo.setAnswer("");
+						mInfo.setOriginalTime(AlarmRemindManager.getOriginalAlarmTime());
+						pushMsgToApp(JSON.toJSONString(mInfo));
+
 						BroadcastShare.stopListenerOnly();
 						BroadcastShare.stopSpeakOnly();
 						doAppRemindNoResponse();
@@ -348,6 +360,10 @@ public class AlarmRemindManager {
 				if(GsonParse.isChangeStatusSuccess(result)){
 					Log.i("json", "向APP推送消息成功");
 				}
+				Intent intent = new Intent();
+				intent.setAction(BroadcastAction.ACTION_OPEN_NETTY);
+				intent.putExtra("robotNum", share.getString(SharedPreferencesKeys.ROBOT_NUM, ""));
+				CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
 			}
 
 		});
@@ -361,6 +377,8 @@ public class AlarmRemindManager {
 	private static String spareContent;
 	//提醒的人
 	private static String remindMen;
+	//原始的时间
+	private static String originalAlarmTime;
 
 	public static String getRequireAnswer() {
 		return requireAnswer;
@@ -392,6 +410,14 @@ public class AlarmRemindManager {
 
 	public static void setRemindMen(String remindMen) {
 		AlarmRemindManager.remindMen = remindMen;
+	}
+
+	public static String getOriginalAlarmTime() {
+		return originalAlarmTime;
+	}
+
+	public static void setOriginalAlarmTime(String originalAlarmTime) {
+		AlarmRemindManager.originalAlarmTime = originalAlarmTime;
 	}
 
 }

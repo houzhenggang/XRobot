@@ -113,6 +113,8 @@
         <item>乐一个</item>
         <item>快乐</item>
         <item>睡觉</item>
+        <item>向左看</item>
+        <item>向右看</item>
     </string-array>
     <!-- 执行命令的  回答 -->
      <string-array name="command_answer">
@@ -132,6 +134,8 @@
         <item>呜呜呜</item>
         <item>哈哈</item>
         <item>哈哈</item>
+        <item>好的</item>
+        <item>好的</item>
         <item>好的</item>
     </string-array>
     <!-- 执行命令的  动作 -->
@@ -154,6 +158,8 @@
           <item>6004</item>
           <item>6004</item>
           <item>6005</item>
+          <item>6005</item>
+          <item>6006</item>
     </string-array>
     
     
