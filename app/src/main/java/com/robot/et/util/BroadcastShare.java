@@ -8,6 +8,7 @@ import android.util.Log;
 import com.robot.et.app.CustomApplication;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
+import com.robot.et.config.ScriptConfig;
 import com.robot.et.debug.Logger;
 
 public class BroadcastShare {
@@ -169,6 +170,9 @@ public class BroadcastShare {
 			Intent intent = new Intent();
 			intent.setAction(BroadcastAction.ACTION_CONTROL_WAVING);
 			intent.putExtra("handDirection", handDirection);
+			if(TextUtils.isEmpty(handCategory)){
+				handCategory = ScriptConfig.HAND_TWO;
+			}
 			intent.putExtra("handCategory", handCategory);
 			intent.putExtra("num", num);
 			CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
