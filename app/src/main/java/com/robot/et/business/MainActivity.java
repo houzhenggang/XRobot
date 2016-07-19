@@ -168,9 +168,9 @@ public class MainActivity extends RosActivity {
 				if (null==direction|| TextUtils.equals("", direction)) {
 					return;
 				}
-				if (null == digit || TextUtils.equals("",digit)) {
-					return;
-				}
+//				if (null == digit || TextUtils.equals("",digit)) {
+//					return;
+//				}
 				if (TextUtils.equals("1",direction)||TextUtils.equals("2",direction)){
 					doMoveAction(direction);
 					try {
