@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -14,10 +15,12 @@ import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.ScriptConfig;
 import com.robot.et.entity.RobotAction;
+import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.ScriptManager;
 
 public class ControlMoveService extends Service {
 	private int i;
+	private int controlNumAways;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -32,6 +35,7 @@ public class ControlMoveService extends Service {
 		filter.addAction(BroadcastAction.ACTION_CONTROL_AROUND_TOYCAR);
 		filter.addAction(BroadcastAction.ACTION_CONTROL_WAVING);
 		filter.addAction(BroadcastAction.ACTION_CONTROL_MOUTH_LED);
+		filter.addAction(BroadcastAction.ACTION_CONTROL_TOYCAR_AWAYS);
 		registerReceiver(receiver, filter);
 	}
 
@@ -103,12 +107,32 @@ public class ControlMoveService extends Service {
 				Log.i("Move", "toyCarNum==="+ toyCarNum);
 				contrlToyCarMove(directionType,toyCarNum);
 
+				if(DataConfig.isControlToyCar){
+					if(directionType == 1 || directionType == 2){
+						controlNumAways = 10;
+					}else if(directionType == 3 || directionType == 4){
+						controlNumAways = 100;
+					}
+
+					if(directionType != 5){
+						SystemClock.sleep(200);
+						intent.setAction(BroadcastAction.ACTION_CONTROL_TOYCAR_AWAYS);
+						intent.putExtra("directionType",directionType);
+						intent.putExtra("toyCarNum",toyCarNum);
+						sendBroadcast(intent);
+					}else{
+						Log.i("Move", "directionType 停止==="+ directionType);
+						DataConfig.controlNum = controlNumAways;
+						contrlToyCarMove(5,toyCarNum);
+					}
+				}
+
 				if(DataConfig.isPlayScript){
 					int delayTime = 20;
 					i++;
 					if(i == 2){
 						i = 0;
-						delayTime = 150;
+						delayTime = 200;
 					}
 
 					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,delayTime);
@@ -133,6 +157,15 @@ public class ControlMoveService extends Service {
 				if(!TextUtils.isEmpty(LEDState)){
 					controlMouthLED(LEDState);
 				}
+			}else if(intent.getAction().equals(BroadcastAction.ACTION_CONTROL_TOYCAR_AWAYS)){//语音不停的控制小车
+				Log.i("Move", "语音不停的控制小车");
+				int directionType = intent.getIntExtra("directionType",0);
+				int toyCarNum = intent.getIntExtra("toyCarNum",0);
+				DataConfig.controlNum ++ ;
+				if(DataConfig.controlNum < controlNumAways){
+					BroadcastShare.controlToyCarMove(String.valueOf(directionType), toyCarNum);
+				}
+
 			}
 
 		}

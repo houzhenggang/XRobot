@@ -237,6 +237,7 @@ public class DataManager {
 		DataConfig.isControlToyCar = false;
 		DataConfig.isStartTime = false;
 		DataConfig.isScriptQA = false;
+		DataConfig.isBluetoothBox = false;
 	}
 
 	//机器人周围的小车的编号

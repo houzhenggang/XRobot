@@ -144,7 +144,7 @@ public class IflySpeakService extends Service {
 		}else {
 			speakMen = DataConfig.VOICER_TIPS_LOCAL;
 		}
-		IflyUtils.setTextToVoiceParam(mTts,isTypeCloud,speakMen,"50","50","50");
+		IflyUtils.setTextToVoiceParam(mTts,isTypeCloud,speakMen,"60","50","50");
 
 		if(DataConfig.isBluetoothBox){
 			content = "小黄人开始   说" + content;

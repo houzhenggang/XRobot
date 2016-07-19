@@ -69,7 +69,7 @@ public class ScriptManager {
                     Log.i("netty", "doScriptAction() robotNum====" + robotNum);
                     Log.i("netty", "doScriptAction() toyCarNum====" + toyCarNum);
                     BroadcastShare.controlFollow(robotNum,toyCarNum);
-                    setNewScriptInfos(infos,true,getDealyTime(1500));
+                    setNewScriptInfos(infos,true,getDealyTime(2000));
 
                     break;
                 case ScriptConfig.SCRIPT_TURN_AROUND://转圈
@@ -112,14 +112,13 @@ public class ScriptManager {
                     String spareContent = info.getSpareContent();
                     Log.i("netty", "spareContent==" + spareContent);
                     int num = 0;
+                    setScriptActionInfos(infos);
                     if(!TextUtils.isEmpty(spareContent)){
                         if (spareContent.contains("小车")) {
-                            setScriptActionInfos(infos);
                             num = MatchStringUtil.getToyCarNum(spareContent);
                             BroadcastShare.controlToyCarMove(moveDirection,num);
                         }else{
                             BroadcastShare.controlMove(moveDirection);
-                            setNewScriptInfos(infos,true,getDealyTime(2000));
                         }
                     }
 
@@ -127,8 +126,8 @@ public class ScriptManager {
                 case ScriptConfig.SCRIPT_TURN://左转右转
                     Log.i("netty", "doScriptAction() 左转右转");
                     String turnDirection = EnumManager.getScriptMoveKey(content);
+                    setScriptActionInfos(infos);
                     BroadcastShare.controlMove(turnDirection);
-                    setNewScriptInfos(infos,true,getDealyTime(3000));
 
                     break;
                 case ScriptConfig.SCRIPT_STOP://停止

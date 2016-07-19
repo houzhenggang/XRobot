@@ -33,6 +33,7 @@ import com.robot.et.core.software.system.network.NetWorkTrafficService;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
 import com.robot.et.util.BluetoothKeyManager;
 import com.robot.et.util.BroadcastShare;
+import com.robot.et.util.ScriptManager;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 
@@ -155,6 +156,9 @@ public class MainActivity extends RosActivity {
 					return;
 				}
 				doMoveAction(direction);
+				if(DataConfig.isPlayScript){
+					ScriptManager.setNewScriptInfos(ScriptManager.getScriptActionInfos(),true,2000);
+				}
 			}else if (intent.getAction().equals(BroadcastAction.ACTION_CONTROL_ROBOT_MOVE_WITH_VOICE)){
 				//此部分代码暂时这样修改，待完善。（时间太赶）2016-07-16
 				String direction=intent.getStringExtra("direction");

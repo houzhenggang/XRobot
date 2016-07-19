@@ -95,5 +95,7 @@ public class BroadcastAction {
 	public static String ACTION_CONTROL_MOUTH_LED = "action.control.mouth.led";
 	//跟随的广播
 	public static String ACTION_CONTROL_ROBOT_FOLLOW = "action.control.robot.follow";
+	//控制小车不停车的广播
+	public static String ACTION_CONTROL_TOYCAR_AWAYS = "action.control.toycar.aways";
 
 }

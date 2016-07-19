@@ -233,4 +233,7 @@ public class DataConfig {
 	//是剧本中的问答
 	public static boolean isScriptQA = false;
 
+	//语音控制小车连续发的次数
+	public static int controlNum = 0;
+
 }

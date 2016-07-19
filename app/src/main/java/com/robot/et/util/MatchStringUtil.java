@@ -31,7 +31,7 @@ public class MatchStringUtil {
 	//语言切换
 	public static String languageSwitchRegex = "^" + baseRegex + "*((切换)|说|用)+" + baseRegex + "*((英语)|(外语))+" + baseRegex + "*$";
 	//控制机器人周围的玩具车走
-	public static String controlToyCarRegex = "^" + baseRegex + "+号+"  + baseRegex + "*((小车)|(玩具车)|(汽车))+" + baseRegex + "*$";
+	public static String controlToyCarRegex = "^" + baseRegex + "+号+"  + baseRegex + "*(车|(小车)|(玩具车)|(汽车))+" + baseRegex + "*$";
 	// 抬手举手
 	public static String raiseHandRegex = "^" + baseRegex + "*(抬|举)+" + baseRegex + "*手+" + baseRegex + "*$";
 	// 摆手

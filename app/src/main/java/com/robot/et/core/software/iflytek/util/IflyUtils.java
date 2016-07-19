@@ -277,6 +277,7 @@ public class IflyUtils {
 				}
 				Log.i("voiceresult","digit===" + digit);
 				if(DataConfig.isControlToyCar){//控制玩具车走
+					DataConfig.controlNum = 0;
 					BroadcastShare.controlToyCarMove(moveKey,DataManager.getToyCarNum());
 					BroadcastShare.resumeChat();
 				}else{

@@ -13,7 +13,8 @@ public enum ControlMoveEnum {
 	LEFT2("3","向左"),
 	RIGHT("4","右转"),
 	RIGHT2("4","向右"),
-	STOP("5","停止");
+	STOP("5","停止"),
+	STOP2("5","停");
 
 	private String moveKey;
 	private String moveName;

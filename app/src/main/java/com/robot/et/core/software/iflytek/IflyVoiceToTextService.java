@@ -200,6 +200,10 @@ public class IflyVoiceToTextService extends Service {
 			if(mIat.isListening()){
 				mIat.cancel();
 			}
+			if(DataConfig.isBluetoothBox){
+				DataConfig.isBluetoothBox = false;
+				return;
+			}
 			listenBegin();
 		}
 
@@ -228,7 +232,9 @@ public class IflyVoiceToTextService extends Service {
 					//如果只有一个字的话，直接继续听
 					char[] datas = result.toCharArray();
 					if(datas.length == 1){
-						listenBegin();
+						if(!DataConfig.isBluetoothBox){
+							listenBegin();
+						}
 						return;
 					}
 					//APP提醒必须要说的话
@@ -267,6 +273,10 @@ public class IflyVoiceToTextService extends Service {
 					BroadcastShare.askIfly(result);
 
 				}else {
+					if(DataConfig.isBluetoothBox){
+						DataConfig.isBluetoothBox = false;
+						return;
+					}
 					listenBegin();
 				}
 				
