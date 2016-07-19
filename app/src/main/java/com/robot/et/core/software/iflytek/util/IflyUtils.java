@@ -8,6 +8,7 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.alibaba.fastjson.JSON;
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.iflytek.cloud.SpeechSynthesizer;
@@ -242,6 +243,18 @@ public class IflyUtils {
 						BroadcastShare.resumeChat();
 					}
 				},1500);
+
+				break;
+			case OPEN_HOUSEHOLD_SCENE:// 打开家电
+				flag = true;
+				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, "好的");
+				AlarmRemindManager.pushMsgToApp("开", DataConfig.TO_APP_BLUETOOTH_CONTROLLER);
+
+				break;
+			case CLOSE_HOUSEHOLD_SCENE:// 关闭家电
+				flag = true;
+				BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, "好的");
+				AlarmRemindManager.pushMsgToApp("关", DataConfig.TO_APP_BLUETOOTH_CONTROLLER);
 
 				break;
 

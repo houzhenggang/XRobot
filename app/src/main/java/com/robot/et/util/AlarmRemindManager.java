@@ -281,7 +281,7 @@ public class AlarmRemindManager {
 		ResponseAppRemindInfo mInfo = new ResponseAppRemindInfo();
 		mInfo.setAnswer(result);
 		mInfo.setOriginalTime(AlarmRemindManager.getOriginalAlarmTime());
-		pushMsgToApp(JSON.toJSONString(mInfo));
+		pushMsgToApp(JSON.toJSONString(mInfo), DataConfig.TO_APP_REMIND);
 
 		if(!TextUtils.isEmpty(result)){
 			String answer = getRequireAnswer();
@@ -325,7 +325,7 @@ public class AlarmRemindManager {
 						ResponseAppRemindInfo mInfo = new ResponseAppRemindInfo();
 						mInfo.setAnswer("");
 						mInfo.setOriginalTime(AlarmRemindManager.getOriginalAlarmTime());
-						pushMsgToApp(JSON.toJSONString(mInfo));
+						pushMsgToApp(JSON.toJSONString(mInfo), DataConfig.TO_APP_REMIND);
 
 						BroadcastShare.stopListenerOnly();
 						BroadcastShare.stopSpeakOnly();
@@ -337,12 +337,12 @@ public class AlarmRemindManager {
 	}
 
 	//向APP推送消息
-	public static void pushMsgToApp(String sendContent){
+	public static void pushMsgToApp(String sendContent, String remindCode){
 		final SharedPreferencesUtils share = SharedPreferencesUtils.getInstance();
 		HttpEngine.Param[] params = new HttpEngine.Param[]{
 				new HttpEngine.Param("robotNumber", share.getString(SharedPreferencesKeys.ROBOT_NUM, "")),
 				new HttpEngine.Param("mobile", share.getString(SharedPreferencesKeys.AGORA_CALL_PHONENUM, "")),
-				new HttpEngine.Param("msgType", "REPLY_REMIND"),
+				new HttpEngine.Param("msgType", remindCode),
 				new HttpEngine.Param("msgContent", sendContent)
 		};
 		HttpEngine httpEngine = HttpEngine.getInstance();

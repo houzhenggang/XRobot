@@ -75,6 +75,16 @@ public enum MatchSceneEnum {
 			return MatchStringUtil.matchString(str, MatchStringUtil.wavingRegex);
 		}
 	},
+	OPEN_HOUSEHOLD_SCENE {// 打开家电
+		public boolean isScene(String str) {
+			return MatchStringUtil.matchString(str, MatchStringUtil.openHouseholdRegex);
+		}
+	},
+	CLOSE_HOUSEHOLD_SCENE {// 关闭家电
+		public boolean isScene(String str) {
+			return MatchStringUtil.matchString(str, MatchStringUtil.closeHouseholdRegex);
+		}
+	},
 	LANGUAGE_SWITCH_SCENE {// 语言切换
 		public boolean isScene(String str) {
 			return MatchStringUtil.matchString(str, MatchStringUtil.languageSwitchRegex);
