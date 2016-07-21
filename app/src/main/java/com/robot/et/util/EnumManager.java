@@ -75,4 +75,16 @@ public class EnumManager {
 		return null;
 	}
 
+	//获取表情的枚举值
+	public static EmotionEnum getEmotionEnum(String str){
+		if(!TextUtils.isEmpty(str)){
+			for(EmotionEnum emotionEnum : EmotionEnum.values()){
+				if(CharactorTool.getFullSpell(str).contains(CharactorTool.getFullSpell(emotionEnum.getEmotionName()))){
+					return emotionEnum;
+				}
+			}
+		}
+		return null;
+	}
+
 }

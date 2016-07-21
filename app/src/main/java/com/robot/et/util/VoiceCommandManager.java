@@ -1,6 +1,5 @@
 package com.robot.et.util;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -12,6 +11,7 @@ import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.ScriptConfig;
 import com.robot.et.core.software.system.MediaManager;
+import com.robot.et.enums.EmotionEnum;
 import com.robot.et.enums.MatchSceneEnum;
 
 import java.util.Random;
@@ -196,28 +196,22 @@ public class VoiceCommandManager {
 	//做制定命令的动作与回答
 	public static boolean doCommandAction(String result){
 		if(!TextUtils.isEmpty(result)){
-			Context context = CustomApplication.getInstance().getApplicationContext();
-			String[] questions = context.getResources().getStringArray(R.array.command_question);
-			if(questions != null && questions.length > 0){
-				for(int i=0;i<questions.length;i++){
-					if(result.contains(questions[i])){
-						String[] answers = context.getResources().getStringArray(R.array.command_answer);
-						String[] actions = context.getResources().getStringArray(R.array.command_action);
-						String answer = answers[i];
-						String action = actions[i];
-						//说命令的回答
-						if(!TextUtils.isEmpty(answer)){
-							BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
-						}
-						//执行命令的动作
-						if(!TextUtils.isEmpty(action)){
-							Log.i("voiceresult", "执行萌的动作action====" + action);
-							BroadcastShare.controlRobotEmotion(Integer.parseInt(action));
-							BroadcastShare.resumeChat();
-						}
-						return true;
-					}
+			EmotionEnum emotionEnum = EnumManager.getEmotionEnum(result);
+			if(emotionEnum != null){
+				int emotionKey = emotionEnum.getEmotionKey();
+				if(emotionKey != 0){
+					BroadcastShare.controlRobotEmotion(emotionKey);
 				}
+
+				//说表情命令的回答
+				String requireAnswer = emotionEnum.getRequireAnswer();
+				if(!TextUtils.isEmpty(requireAnswer)){
+					BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, requireAnswer);
+				}else{
+					BroadcastShare.resumeChat();
+				}
+
+				return true;
 			}
 		}
 		return false;

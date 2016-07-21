@@ -1,15 +1,12 @@
 package com.robot.et.util;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.robot.et.R;
-import com.robot.et.app.CustomApplication;
 import com.robot.et.config.DataConfig;
-import com.robot.et.config.EmotionConfig;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.entity.LearnAnswerInfo;
+import com.robot.et.enums.EmotionEnum;
 
 import java.util.List;
 import java.util.Random;
@@ -34,23 +31,18 @@ public class RobotLearnManager {
 		String content = "";
 		if(!TextUtils.isEmpty(question)){
 			boolean isExistence = false;
-			Context context = CustomApplication.getInstance().getApplicationContext();
-			String[] actionNames = context.getResources().getStringArray(R.array.command_question);
-			for(int i = 0;i < actionNames.length;i++){
-				if(CharactorTool.getFullSpell(question).contains(CharactorTool.getFullSpell(actionNames[i]))){
-					isExistence = true;
-					String[] answers = context.getResources().getStringArray(R.array.command_answer);
-					String[] actions = context.getResources().getStringArray(R.array.command_action);
-					String answer = answers[i];
-					String action = actions[i];
-					Log.i("voiceresult", "action====" + action);
-					insertLeanInfo(question, answer, action,DataConfig.LEARN_BY_ROBOT);
-				}
+			EmotionEnum emotionEnum = EnumManager.getEmotionEnum(question);
+			if(emotionEnum != null){
+				isExistence = true;
+				int emotionKey = emotionEnum.getEmotionKey();
+				String requireAnswer = emotionEnum.getRequireAnswer();
+				insertLeanInfo(question, requireAnswer, String.valueOf(emotionKey),DataConfig.LEARN_BY_ROBOT);
 			}
-			
+
 			if(!isExistence){
-				Log.i("voiceresult", "action====" + EmotionConfig.ROBOT_EMOTION_NORMAL);
-				insertLeanInfo(question, "", String.valueOf(EmotionConfig.ROBOT_EMOTION_NORMAL),DataConfig.LEARN_BY_ROBOT);
+				int emotionKey = EmotionEnum.EMOTION_NORMAL.getEmotionKey();
+				Log.i("voiceresult", "action====" + emotionKey);
+				insertLeanInfo(question, "", String.valueOf(emotionKey),DataConfig.LEARN_BY_ROBOT);
 			}
 			
 //			content = "记住了，如果你说 " + question + "，我应该卖个萌" ;
