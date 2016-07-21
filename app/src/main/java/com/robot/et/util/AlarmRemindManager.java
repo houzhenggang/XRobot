@@ -1,13 +1,10 @@
 package com.robot.et.util;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.robot.et.app.CustomApplication;
-import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
@@ -29,87 +26,9 @@ import java.util.List;
 
 public class AlarmRemindManager {
 
-	// 得到提醒的广播时间 data:2016-05-08 time:09:05:00
-	public static Calendar getCalendar(String data, String time) {
-		Calendar calendar = Calendar.getInstance();
-		String datas[] = getDatas(data);
-		String times[] = getTimes(time);
-
-		if (datas != null && datas.length > 0) {
-			// 当前年
-			calendar.set(Calendar.YEAR, Integer.parseInt(datas[0]));
-			// 当前月，从0开始 【0-11】
-			calendar.set(Calendar.MONTH, Integer.parseInt(datas[1]) - 1);
-			// 当前日
-			calendar.set(Calendar.DAY_OF_MONTH, Integer.parseInt(datas[2]));
-		}
-
-		if (times != null && times.length > 0) {
-			// 当前小时
-			calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(times[0]));
-			// 当前分钟
-			calendar.set(Calendar.MINUTE, Integer.parseInt(times[1]));
-			// 当前秒
-			calendar.set(Calendar.SECOND, 0);
-		}
-		return calendar;
-	}
-
-	// 得到提醒的广播日期 data:2016-05-08
-	private static String[] getDatas(String data) {
-		String[] datas = null;
-		if (!TextUtils.isEmpty(data)) {
-			datas = data.split("-");
-			if (datas != null && datas.length > 0) {
-				if (datas[1].startsWith("0")) {// 月
-					datas[1] = datas[1].substring(1, datas[1].length());
-				}
-
-				if (datas[2].startsWith("0")) {// 日
-					datas[2] = datas[2].substring(1, datas[2].length());
-				}
-
-			}
-		}
-		return datas;
-	}
-
-	// 得到提醒的广播时间 time:09:05:00
-	private static String[] getTimes(String time) {
-		String[] times = null;
-		if (!TextUtils.isEmpty(time)) {
-			times = time.split("\\:");
-			if (time != null && times.length > 0) {
-				if (times[0].startsWith("0")) {// 时
-					times[0] = times[0].substring(1, times[0].length());
-				}
-
-				if (times[1].startsWith("0")) {// 分
-					times[1] = times[1].substring(1, times[1].length());
-				}
-
-			}
-		}
-		return times;
-	}
-
-	// 得到提醒的分钟
-	public static String getRemindMinute(long minute) {
-		String minuteTwo = "";
-		// currentMinute====6 当10分钟之内时，系统默认读的是一位数字
-		int currentMinute = DateTools.getCurrentMinute(minute);
-		String tempMinute = String.valueOf(currentMinute);
-		if (tempMinute.length() == 1) {
-			minuteTwo = "0" + tempMinute;
-		} else {
-			minuteTwo = tempMinute;
-		}
-		return minuteTwo;
-	}
-	
 	//设置闹铃
 	public static void setAlarmClock(String date,String time){
-		Calendar calendar = getCalendar(date,time);
+		Calendar calendar = DateTools.getCalendar(date,time);
 		long currentMinute = System.currentTimeMillis();
 		String action = DateTools.getCurrentDate(currentMinute)+ DataConfig.ACTION_REMIND_SIGN+DateTools.getCurrentTime(currentMinute);
 		AlarmClockManager.getInstance().setOneAlarm(action, calendar);
@@ -162,14 +81,9 @@ public class AlarmRemindManager {
 					mInfo.setRemindInt(DataConfig.REMIND_NO_ID);
 					mInfo.setFrequency(frequency);
 					mInfo.setOriginalAlarmTime(originalTime);
-					DBUtils.addAlarm(mInfo);
+					DBManager.addAlarm(mInfo);
 				}
 			}
-		}
-	}
-
-	private void setAlarmDateAndTime(String alarmTime){
-		if(!TextUtils.isEmpty(alarmTime)){
 		}
 	}
 
@@ -192,7 +106,7 @@ public class AlarmRemindManager {
 				info.setDate(date);
 				info.setTime(time);
 				info.setRemindInt(DataConfig.REMIND_NO_ID);
-				DBUtils.addAlarm(info);
+				DBManager.addAlarm(info);
 			}
 		}
 	}
@@ -210,23 +124,23 @@ public class AlarmRemindManager {
 	
 	// 获取提醒的内容
 	public static List<RemindInfo> getRemindTips(long minute) {
-		return DBUtils.getRemindTips(minute);
+		return DBManager.getRemindTips(minute);
 	}
 
 	// 更新已经提醒的条目
 	public static void updateRemindInfo(RemindInfo info,long minute,int frequency) {
-		DBUtils.updateRemindInfo(info,minute,frequency);
+		DBManager.updateRemindInfo(info,minute,frequency);
 	}
 
 	// 删除已经提醒的条目
 	public static void deleteCurrentRemindTips(long minute) {
-		DBUtils.deleteCurrentRemindTips(minute);
+		DBManager.deleteCurrentRemindTips(minute);
 	}
 
 	// 删除app传来的提醒
 	public static void deleteAppRemindTips(String originalTime) {
 		if(!TextUtils.isEmpty(originalTime)){
-			DBUtils.deleteAppAlarmRemind(originalTime);
+			DBManager.deleteAppAlarmRemind(originalTime);
 		}
 	}
 
@@ -243,7 +157,7 @@ public class AlarmRemindManager {
 			info.setRemindInt(DataConfig.REMIND_NO_ID);
 			info.setFrequency(1);
 
-			return DBUtils.addAlarm(info);
+			return DBManager.addAlarm(info);
 		}
 		return false;
 	}

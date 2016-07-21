@@ -15,7 +15,7 @@ import com.robot.et.entity.UserInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBUtils {
+public class DBManager {
 
 	//删除所有用户的信息
 	public static void deleteAllUserInfos(){
@@ -102,7 +102,7 @@ public class DBUtils {
 	public static List<RemindInfo> getRemindTips(long minute) {
 		String date = DateTools.getCurrentDate(minute);
 		int currentHour = DateTools.getCurrentHour(minute);
-		String minuteTwo = AlarmRemindManager.getRemindMinute(minute);
+		String minuteTwo = DateTools.get2DigitMinute(minute);
 		String time = currentHour + ":" + minuteTwo + ":" + "00";
 		RobotDB mDao = RobotDB.getInstance();
 		List<RemindInfo> infos = null;
@@ -126,7 +126,7 @@ public class DBUtils {
 	public static void deleteCurrentRemindTips(long minute) {
 		String date = DateTools.getCurrentDate(minute);
 		int currentHour = DateTools.getCurrentHour(minute);
-		String currentMinute = AlarmRemindManager.getRemindMinute(minute);
+		String currentMinute = DateTools.get2DigitMinute(minute);
 		String time = currentHour + ":" + currentMinute + ":" + "00";
 		RobotDB mDao = RobotDB.getInstance();
 		mDao.deleteRemindInfo(date, time, DataConfig.REMIND_NO_ID);

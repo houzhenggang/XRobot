@@ -16,12 +16,12 @@ public class RobotLearnManager {
 	// 增加智能学习的问题与答案
 	public static void insertLeanInfo(String question,String answer, String action, int learnType) {
 		String robotNum = SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "");
-		DBUtils.insertLeanInfo(robotNum, question, answer, action,learnType);
+		DBManager.insertLeanInfo(robotNum, question, answer, action,learnType);
 	}
 	
 	//获取智能学习的答案
 	public static List<LearnAnswerInfo> getLearnAnswerInfos(int questionId){
-		return DBUtils.getLearnAnswerInfos(questionId);
+		return DBManager.getLearnAnswerInfos(questionId);
 	}
 	
 	//机器人通过人说固定的话来学习要执行的动作
@@ -74,7 +74,7 @@ public class RobotLearnManager {
 	
 	//机器人做自己学习的内容
 	public static boolean doRobotLearnContent(String result){
-		int quetionId = DBUtils.getQuesstionId(result);
+		int quetionId = DBManager.getQuesstionId(result);
 		Log.i("voiceresult", "学习库里面问题quetionId====" + quetionId);
 		if(quetionId != -1){
 			List<LearnAnswerInfo> mInfos = getLearnAnswerInfos(quetionId);

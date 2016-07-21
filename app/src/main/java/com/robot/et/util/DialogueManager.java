@@ -11,16 +11,6 @@ import com.robot.et.enums.SceneServiceEnum;
 
 public class DialogueManager {
 
-	//说什么话的处理
-	private static void speakContent(String question,String answer){
-		if (!TextUtils.isEmpty(answer)) {
-			BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
-		} else {
-			//科大讯飞不能理解的话继续监听
-			BroadcastShare.resumeChat();
-		}
-	}
-
 	//自定义回答
 	public static boolean isCustormQA(String result){
 		if(!TextUtils.isEmpty(result)){
@@ -43,6 +33,15 @@ public class DialogueManager {
 		return false;
 	}
 
+	//说什么话的处理
+	private static void speakContent(String question,String answer){
+		if (!TextUtils.isEmpty(answer)) {
+			BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, answer);
+		} else {
+			//科大讯飞不能理解的话继续监听
+			BroadcastShare.resumeChat();
+		}
+	}
 	
 	/*
 	 * 科大讯飞文本理解返回的结果

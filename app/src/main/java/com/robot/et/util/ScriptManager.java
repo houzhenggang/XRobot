@@ -26,7 +26,7 @@ public class ScriptManager {
             }
             BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 
-            List<ScriptActionInfo> infos = DBUtils.getScriptActions(content);
+            List<ScriptActionInfo> infos = DBManager.getScriptActions(content);
             Log.i("netty", "playScript() infos.size()====" + infos.size());
             if(infos != null && infos.size() > 0){
                 DataConfig.isPlayScript = true;
@@ -215,7 +215,7 @@ public class ScriptManager {
                 if(info != null){
                     Log.i("netty", "addScript  size==" + infos.size());
                     if(infos != null && infos.size() > 0){
-                        DBUtils.addScript(info,infos);
+                        DBManager.addScript(info,infos);
                     }
                 }
             }
@@ -233,7 +233,7 @@ public class ScriptManager {
                         Log.i("netty", "addScript  size==" + infos.size());
                         setScriptName(info.getScriptContent());
                         if(infos != null && infos.size() > 0){
-                            DBUtils.addScript(info,infos);
+                            DBManager.addScript(info,infos);
                         }
                     }
                 }
@@ -250,7 +250,7 @@ public class ScriptManager {
                     if(info != null){
                         Log.i("netty", "addScript  size==" + infos.size());
                         if(infos != null && infos.size() > 0){
-                            DBUtils.addScript(info,infos);
+                            DBManager.addScript(info,infos);
                         }
                     }
                 }
@@ -267,7 +267,7 @@ public class ScriptManager {
                     if(info != null){
                         Log.i("netty", "addScript  size==" + infos.size());
                         if(infos != null && infos.size() > 0){
-                            DBUtils.addScript(info,infos);
+                            DBManager.addScript(info,infos);
                         }
                     }
                 }
