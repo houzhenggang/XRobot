@@ -4,8 +4,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.robot.et.config.DataConfig;
+import com.robot.et.db.RobotDB;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.entity.LearnAnswerInfo;
+import com.robot.et.entity.LearnQuestionInfo;
 import com.robot.et.enums.EmotionEnum;
 
 import java.util.List;
@@ -16,12 +18,37 @@ public class RobotLearnManager {
 	// 增加智能学习的问题与答案
 	public static void insertLeanInfo(String question,String answer, String action, int learnType) {
 		String robotNum = SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "");
-		DBManager.insertLeanInfo(robotNum, question, answer, action,learnType);
+		RobotDB mDb = RobotDB.getInstance();
+		LearnQuestionInfo info = new LearnQuestionInfo();
+		info.setRobotNum(robotNum);
+		info.setQuestion(question);
+		info.setLearnType(learnType);
+		LearnAnswerInfo aInfo = new LearnAnswerInfo();
+		aInfo.setRobotNum(robotNum);
+		aInfo.setLearnType(learnType);
+		if (!TextUtils.isEmpty(answer)) {
+			aInfo.setAnswer(answer);
+		}
+		if (!TextUtils.isEmpty(action)) {
+			aInfo.setAction(action);
+		}
+		int questionId = mDb.getQuesstionId(question);
+		if(questionId != -1){//已存在
+			info.setId(questionId);
+			mDb.updateLearnQuestion(info);
+			aInfo.setQuestionId(questionId);
+			mDb.updateLearnAnswer(aInfo);
+		}else{//不存在
+			mDb.addLearnQuestion(info);
+			aInfo.setQuestionId(mDb.getQuesstionId(question));
+
+			mDb.addLearnAnswer(aInfo);
+		}
 	}
 	
 	//获取智能学习的答案
 	public static List<LearnAnswerInfo> getLearnAnswerInfos(int questionId){
-		return DBManager.getLearnAnswerInfos(questionId);
+		return RobotDB.getInstance().getLearnAnswers(questionId);
 	}
 	
 	//机器人通过人说固定的话来学习要执行的动作
@@ -74,7 +101,7 @@ public class RobotLearnManager {
 	
 	//机器人做自己学习的内容
 	public static boolean doRobotLearnContent(String result){
-		int quetionId = DBManager.getQuesstionId(result);
+		int quetionId = RobotDB.getInstance().getQuesstionId(result);
 		Log.i("voiceresult", "学习库里面问题quetionId====" + quetionId);
 		if(quetionId != -1){
 			List<LearnAnswerInfo> mInfos = getLearnAnswerInfos(quetionId);

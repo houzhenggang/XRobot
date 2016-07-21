@@ -9,6 +9,7 @@ import com.robot.et.config.DataConfig;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.core.software.system.AlarmClockManager;
+import com.robot.et.db.RobotDB;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.entity.RemindInfo;
@@ -81,7 +82,7 @@ public class AlarmRemindManager {
 					mInfo.setRemindInt(DataConfig.REMIND_NO_ID);
 					mInfo.setFrequency(frequency);
 					mInfo.setOriginalAlarmTime(originalTime);
-					DBManager.addAlarm(mInfo);
+					addAlarm(mInfo);
 				}
 			}
 		}
@@ -106,7 +107,7 @@ public class AlarmRemindManager {
 				info.setDate(date);
 				info.setTime(time);
 				info.setRemindInt(DataConfig.REMIND_NO_ID);
-				DBManager.addAlarm(info);
+				addAlarm(info);
 			}
 		}
 	}
@@ -124,23 +125,44 @@ public class AlarmRemindManager {
 	
 	// 获取提醒的内容
 	public static List<RemindInfo> getRemindTips(long minute) {
-		return DBManager.getRemindTips(minute);
+		String date = DateTools.getCurrentDate(minute);
+		int currentHour = DateTools.getCurrentHour(minute);
+		String minuteTwo = DateTools.get2DigitMinute(minute);
+		String time = currentHour + ":" + minuteTwo + ":" + "00";
+		RobotDB mDao = RobotDB.getInstance();
+		List<RemindInfo> infos = null;
+		try{
+			infos = mDao.getRemindInfos(date,time,DataConfig.REMIND_NO_ID);
+		}catch (Exception e){
+			Log.i("netty", "dbutils  getRemindTips() Exception===" + e.getMessage());
+			infos = new ArrayList<RemindInfo>();
+		}
+		return infos;
 	}
 
 	// 更新已经提醒的条目
 	public static void updateRemindInfo(RemindInfo info,long minute,int frequency) {
-		DBManager.updateRemindInfo(info,minute,frequency);
+		String date = DateTools.getCurrentDate(minute);
+		RobotDB mDao = RobotDB.getInstance();
+		mDao.updateRemindInfo(info,date, frequency);
 	}
 
 	// 删除已经提醒的条目
 	public static void deleteCurrentRemindTips(long minute) {
-		DBManager.deleteCurrentRemindTips(minute);
+		String date = DateTools.getCurrentDate(minute);
+		int currentHour = DateTools.getCurrentHour(minute);
+		String currentMinute = DateTools.get2DigitMinute(minute);
+		String time = currentHour + ":" + currentMinute + ":" + "00";
+		RobotDB mDao = RobotDB.getInstance();
+		mDao.deleteRemindInfo(date, time, DataConfig.REMIND_NO_ID);
 	}
 
 	// 删除app传来的提醒
 	public static void deleteAppRemindTips(String originalTime) {
 		if(!TextUtils.isEmpty(originalTime)){
-			DBManager.deleteAppAlarmRemind(originalTime);
+			if(!TextUtils.isEmpty(originalTime)){
+				RobotDB.getInstance().deleteAppRemindInfo(originalTime);
+			}
 		}
 	}
 
@@ -157,7 +179,7 @@ public class AlarmRemindManager {
 			info.setRemindInt(DataConfig.REMIND_NO_ID);
 			info.setFrequency(1);
 
-			return DBManager.addAlarm(info);
+			return addAlarm(info);
 		}
 		return false;
 	}
@@ -278,6 +300,19 @@ public class AlarmRemindManager {
 			}
 
 		});
+	}
+
+	//增加闹铃
+	private static boolean addAlarm(RemindInfo info){
+		RobotDB mDb = RobotDB.getInstance();
+		RemindInfo mInfo = mDb.getRemindInfo(info);
+		if(mInfo != null){
+			Log.i("alarm", "闹铃已存在");
+			return false;
+		}
+		mDb.addRemindInfo(info);
+		Log.i("alarm", "增加闹铃成功");
+		return true;
 	}
 
 	//要求回答的内容

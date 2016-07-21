@@ -7,6 +7,7 @@ import android.util.Log;
 import com.robot.et.config.DataConfig;
 import com.robot.et.config.ScriptConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
+import com.robot.et.db.RobotDB;
 import com.robot.et.entity.ScriptActionInfo;
 import com.robot.et.entity.ScriptInfo;
 
@@ -26,7 +27,7 @@ public class ScriptManager {
             }
             BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 
-            List<ScriptActionInfo> infos = DBManager.getScriptActions(content);
+            List<ScriptActionInfo> infos = getScriptActions(content);
             Log.i("netty", "playScript() infos.size()====" + infos.size());
             if(infos != null && infos.size() > 0){
                 DataConfig.isPlayScript = true;
@@ -215,7 +216,7 @@ public class ScriptManager {
                 if(info != null){
                     Log.i("netty", "addScript  size==" + infos.size());
                     if(infos != null && infos.size() > 0){
-                        DBManager.addScript(info,infos);
+                        addScript(info,infos);
                     }
                 }
             }
@@ -233,7 +234,7 @@ public class ScriptManager {
                         Log.i("netty", "addScript  size==" + infos.size());
                         setScriptName(info.getScriptContent());
                         if(infos != null && infos.size() > 0){
-                            DBManager.addScript(info,infos);
+                            addScript(info,infos);
                         }
                     }
                 }
@@ -250,7 +251,7 @@ public class ScriptManager {
                     if(info != null){
                         Log.i("netty", "addScript  size==" + infos.size());
                         if(infos != null && infos.size() > 0){
-                            DBManager.addScript(info,infos);
+                            addScript(info,infos);
                         }
                     }
                 }
@@ -267,7 +268,7 @@ public class ScriptManager {
                     if(info != null){
                         Log.i("netty", "addScript  size==" + infos.size());
                         if(infos != null && infos.size() > 0){
-                            DBManager.addScript(info,infos);
+                            addScript(info,infos);
                         }
                     }
                 }
@@ -308,6 +309,45 @@ public class ScriptManager {
                 }
             }
         }
+    }
+
+    //增加剧本
+    public static void addScript(ScriptInfo info, List<ScriptActionInfo> infos){
+        RobotDB mDao = RobotDB.getInstance();
+        String scriptName = info.getScriptContent();
+        int scriptId = mDao.getScriptId(scriptName);
+        Log.i("netty", "addScript temId===" + scriptId);
+        if(scriptId != -1){//已经存在
+            Log.i("netty", "addScript 数据内容已存在");
+            mDao.deleteScriptAction(scriptId);
+        }else{//没有存在
+            Log.i("netty", "addScript 无数据内容");
+            mDao.addScript(info);
+            scriptId = mDao.getScriptId(scriptName);
+            Log.i("netty", "addScript scriptId===" + scriptId);
+        }
+
+        if(infos != null && infos.size() > 0){
+            for(ScriptActionInfo actionInfo : infos){
+                actionInfo.setScriptId(scriptId);
+                mDao.addScriptAction(actionInfo);
+            }
+            Log.i("netty", "addScript 加入数据库成功");
+        }
+    }
+
+    //获取剧本执行的动作
+    public static List<ScriptActionInfo> getScriptActions(String scriptContent){
+        List<ScriptActionInfo> infos = new ArrayList<ScriptActionInfo>();
+        if(!TextUtils.isEmpty(scriptContent)){
+            RobotDB mDao = RobotDB.getInstance();
+            int scriptId = mDao.getScriptId(scriptContent);
+            Log.i("netty", "getScriptActions()  scriptId====" + scriptId);
+            if(scriptId != -1){
+                infos = mDao.getScriptActionInfos(scriptId);
+            }
+        }
+        return infos;
     }
 
 }
