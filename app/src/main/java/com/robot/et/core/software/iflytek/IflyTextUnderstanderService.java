@@ -19,9 +19,9 @@ import com.iflytek.cloud.TextUnderstanderListener;
 import com.iflytek.cloud.UnderstanderResult;
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
-import com.robot.et.core.software.iflytek.util.IflyUtils;
 import com.robot.et.debug.Logger;
 import com.robot.et.util.BroadcastShare;
+import com.robot.et.util.DialogueManager;
 
 //科大讯飞文本理解
 public class IflyTextUnderstanderService extends Service {
@@ -120,7 +120,7 @@ public class IflyTextUnderstanderService extends Service {
 				String text = result.getResultString();
 				Log.i("voiceresult", "文本理解text===" + text);
 				if (!TextUtils.isEmpty(text)) {
-					IflyUtils.speakUnderstanderContent(text);
+					DialogueManager.speakUnderstanderContent(text);
 				} else {
 					BroadcastShare.resumeChat();
 				}

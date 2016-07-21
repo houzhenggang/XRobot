@@ -147,7 +147,7 @@ public class IflySpeakService extends Service {
 		IflyUtils.setTextToVoiceParam(mTts,isTypeCloud,speakMen,"60","50","50");
 
 		if(DataConfig.isBluetoothBox){
-			content = "小黄人开始   说" + content;
+			content = "welcome  robot  " + content;
 		}
 
 		int code = mTts.startSpeaking(content, mTtsListener);

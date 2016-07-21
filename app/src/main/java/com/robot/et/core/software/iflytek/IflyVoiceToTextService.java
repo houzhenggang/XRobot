@@ -30,10 +30,12 @@ import com.robot.et.debug.Logger;
 import com.robot.et.util.AlarmRemindManager;
 import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.DataManager;
+import com.robot.et.util.DialogueManager;
 import com.robot.et.util.GsonParse;
 import com.robot.et.util.PlayerControl;
 import com.robot.et.util.ScriptManager;
 import com.robot.et.util.Utilities;
+import com.robot.et.util.VoiceCommandManager;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -250,22 +252,22 @@ public class IflyVoiceToTextService extends Service {
 					}
 
 					//做自定义的事情
-					if(IflyUtils.doCustomAction(result)){
+					if(VoiceCommandManager.doCustomAction(result)){
 						return;
 					}
 					
 					//控制走
-					if(IflyUtils.isCustormAction(result)){
+					if(VoiceCommandManager.isCustormAction(result)){
 						return;
 					}
 					
 					//命令功能
-					if(IflyUtils.doCommandAction(result)){
+					if(VoiceCommandManager.doCommandAction(result)){
 						return;
 					}
 
 					//自定义问答
-					if(IflyUtils.isCustormQA(result)){
+					if(DialogueManager.isCustormQA(result)){
 						return;
 					}
 

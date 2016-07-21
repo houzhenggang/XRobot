@@ -37,9 +37,9 @@ public class MatchStringUtil {
 	// 摆手
 	public static String wavingRegex = "^" + baseRegex + "*摆+" + baseRegex + "*手+" + baseRegex + "*$";
 	// 打开家电
-	public static String openHouseholdRegex = "^" + baseRegex + "*(打开)+" + baseRegex + "*((台灯)|(插座))+" + baseRegex + "*$";
+	public static String openHouseholdRegex = "^" + baseRegex + "*开+" + baseRegex + "*(灯|(插座))+" + baseRegex + "*$";
 	// 关闭家电
-	public static String closeHouseholdRegex = "^" + baseRegex + "*(关闭)+" + baseRegex + "*((台灯)|(插座))+" + baseRegex + "*$";
+	public static String closeHouseholdRegex = "^" + baseRegex + "*关+" + baseRegex + "*(灯|(插座))+" + baseRegex + "*$";
 
 
 
