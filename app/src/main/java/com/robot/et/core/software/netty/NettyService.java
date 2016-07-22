@@ -15,6 +15,8 @@ import com.robot.et.config.DataConfig;
 import com.robot.et.config.UrlConfig;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.CommandMsg;
+import com.robot.et.entity.RobotInfo;
+import com.robot.et.impl.RobotInfoImpl;
 import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.DataManager;
 import com.robot.et.util.DeviceUuidFactory;
@@ -30,11 +32,12 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 
-public class NettyService extends Service {
+public class NettyService extends Service implements RobotInfoImpl {
 	
 	private NioEventLoopGroup group;
 	private CommandMsg commandMsg;
 	private SocketChannel socketChannel;
+	private String deviceId;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -52,9 +55,9 @@ public class NettyService extends Service {
 
 		String robotNum = SharedPreferencesUtils.getInstance().getString(SharedPreferencesKeys.ROBOT_NUM, "");
 		if (TextUtils.isEmpty(robotNum)) {
-			String deviceId = new DeviceUuidFactory(this).getDeviceUuid();
+			deviceId = new DeviceUuidFactory(this).getDeviceUuid();
 			Log.i("netty", "deviceId===" + deviceId);
-			DataManager.getRobotInfo(UrlConfig.GET_ROBOT_INFO_BY_DEVICEID, deviceId);
+			DataManager.getRobotInfo(UrlConfig.GET_ROBOT_INFO_BY_DEVICEID, deviceId, this);
 		} else {
 			BroadcastShare.connectNettyArgin();
 		}
@@ -124,5 +127,21 @@ public class NettyService extends Service {
 			group.shutdownGracefully();
 		}
 	}
-	
+
+	@Override
+	public void getRobotInfo(RobotInfo info) {
+		Log.i("netty", "NettyService RobotInfoImpl  getRobotInfo()");
+		if (info != null) {//当前设备不存在机器编号，第一次获取
+			String robotNum = info.getRobotNum();
+			if (!TextUtils.isEmpty(robotNum)) {
+				SharedPreferencesUtils share = SharedPreferencesUtils.getInstance();
+				share.putString(SharedPreferencesKeys.ROBOT_NUM,robotNum);
+				share.commitValue();
+				BroadcastShare.connectNettyArgin();
+			}
+		}else{//当前设备已经存在机器编号，开始初始化
+			DataManager.getRobotInfo(UrlConfig.GET_ROBOT_INFO_START, deviceId, NettyService.this);
+		}
+	}
+
 }

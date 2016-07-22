@@ -10,8 +10,8 @@ import com.robot.et.entity.RemindInfo;
 import com.robot.et.entity.RobotInfo;
 import com.robot.et.entity.ScriptActionInfo;
 import com.robot.et.entity.ScriptInfo;
-import com.robot.et.entity.UserInfo;
 import com.robot.et.enums.SceneServiceEnum;
+import com.robot.et.impl.ScriptImpl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +26,7 @@ import java.util.Random;
 public class GsonParse {
 	private final static String TAG = "jsonparse";
 
-	public static RobotInfo getRobotInfo(String json,RobotInfoCallBack callBack){
+	public static RobotInfo getRobotInfo(String json){
 		RobotInfo info = null;
 		if(!TextUtils.isEmpty(json)){
 			try {
@@ -40,41 +40,12 @@ public class GsonParse {
 					info.setRobotId(jObject.getInt("id"));
 					info.setRobotNum(jObject.getString("robotNumber"));
 				}
-				callBack.setRobotInfo(message, info);
 			} catch (JSONException e) {
 				Log.i(TAG, "getRobotInfo JSONException");
 				info = null;
 			}
 		}
 		return info;
-	}
-	
-	public static List<UserInfo> getUserPhoneInfos(String json,UserInfoCallBack callBack){
-		List<UserInfo> infos = null;
-		try {
-			JSONTokener tokener = new JSONTokener(json);
-			JSONObject object = new JSONObject(tokener);
-			String message = object.getString("message");
-			String resultCode = object.getString("resultCode");
-			if(TextUtils.equals(resultCode, "00")){
-				JSONArray array = object.getJSONArray("users");
-				infos = new ArrayList<UserInfo>();
-				for(int i =0;i<array.length();i++){
-					JSONObject jObject = array.getJSONObject(i);
-					UserInfo info = new UserInfo();
-					info.setUserId(jObject.getInt("id"));
-					info.setUserName(jObject.getString("username"));
-					info.setUserPhone(jObject.getString("mobile"));
-					infos.add(info);
-				}
-			}
-			callBack.getUserInfo(message, infos);
-		} catch (JSONException e) {
-			Log.i(TAG, "getUserPhoneInfos JSONException");
-			infos = null;
-		}
-		
-		return infos;
 	}
 	
 	public static JpushInfo getJpushInfo(String jsonData) {
@@ -666,7 +637,7 @@ public class GsonParse {
 	}
 
 	//获取剧本
-	public static void parseScript(String jsonContent,ScriptCallBack callBack) {
+	public static void parseScript(String jsonContent,ScriptImpl callBack) {
 		if(!TextUtils.isEmpty(jsonContent)){
 			try {
 				JSONTokener tokener = new JSONTokener(jsonContent);
@@ -688,7 +659,7 @@ public class GsonParse {
 	}
 
 	//增加APP发过来的录制动作
-	public static void parseAppRecordAction(String jsonContent,ScriptCallBack callBack) {
+	public static void parseAppRecordAction(String jsonContent,ScriptImpl callBack) {
 		if(!TextUtils.isEmpty(jsonContent)){
 			try {
 				JSONTokener tokener = new JSONTokener(jsonContent);
@@ -710,7 +681,7 @@ public class GsonParse {
 	}
 
 	//增加APP发过来的音乐编舞
-	public static void parseAppRecordMusic(String jsonContent,ScriptCallBack callBack) {
+	public static void parseAppRecordMusic(String jsonContent,ScriptImpl callBack) {
 		if(!TextUtils.isEmpty(jsonContent)){
 			try {
 				JSONTokener tokener = new JSONTokener(jsonContent);
@@ -813,16 +784,4 @@ public class GsonParse {
 		return info;
 	}
 
-	public interface ScriptCallBack{
-		public void getScribt(ScriptInfo info, List<ScriptActionInfo> infos);
-	}
-	
-	public interface RobotInfoCallBack{
-		public void setRobotInfo(String message, RobotInfo info);
-	}
-
-	public interface UserInfoCallBack{
-		public void getUserInfo(String message, List<UserInfo> infos);
-	}
-	
 }

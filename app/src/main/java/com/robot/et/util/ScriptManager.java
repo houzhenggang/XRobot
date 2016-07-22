@@ -10,6 +10,7 @@ import com.robot.et.core.software.agora.ChannelActivity;
 import com.robot.et.db.RobotDB;
 import com.robot.et.entity.ScriptActionInfo;
 import com.robot.et.entity.ScriptInfo;
+import com.robot.et.impl.ScriptImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -210,7 +211,7 @@ public class ScriptManager {
     //插入剧本
     public static void addLocalScript(String scriptName){
         String content = Utilities.readFile(scriptName,"utf-8");
-        GsonParse.parseScript(content, new GsonParse.ScriptCallBack() {
+        GsonParse.parseScript(content, new ScriptImpl() {
             @Override
             public void getScribt(ScriptInfo info, List<ScriptActionInfo> infos) {
                 if(info != null){
@@ -227,7 +228,7 @@ public class ScriptManager {
     //增加APP发来的图形编辑
     public static void addAppGraphicEdit(String content){
         if(!TextUtils.isEmpty(content)){
-            GsonParse.parseScript(content, new GsonParse.ScriptCallBack() {
+            GsonParse.parseScript(content, new ScriptImpl() {
                 @Override
                 public void getScribt(ScriptInfo info, List<ScriptActionInfo> infos) {
                     if(info != null){
@@ -245,7 +246,7 @@ public class ScriptManager {
     //增加APP发过来的录制动作
     public static void addAppRecordAction(String content){
         if(!TextUtils.isEmpty(content)){
-            GsonParse.parseAppRecordAction(content, new GsonParse.ScriptCallBack() {
+            GsonParse.parseAppRecordAction(content, new ScriptImpl() {
                 @Override
                 public void getScribt(ScriptInfo info, List<ScriptActionInfo> infos) {
                     if(info != null){
@@ -262,7 +263,7 @@ public class ScriptManager {
     //增加APP发过来的音乐编舞
     public static void addAppRecordMusic(String content){
         if(!TextUtils.isEmpty(content)){
-            GsonParse.parseAppRecordMusic(content, new GsonParse.ScriptCallBack() {
+            GsonParse.parseAppRecordMusic(content, new ScriptImpl() {
                 @Override
                 public void getScribt(ScriptInfo info, List<ScriptActionInfo> infos) {
                     if(info != null){
