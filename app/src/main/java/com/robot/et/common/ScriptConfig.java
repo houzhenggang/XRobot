@@ -1,8 +1,6 @@
-package com.robot.et.config;
+package com.robot.et.common;
 
 import android.text.TextUtils;
-
-import javax.jmdns.impl.DNSRecord;
 
 //剧本的控制
 public class ScriptConfig {

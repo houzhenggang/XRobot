@@ -4,8 +4,9 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.ScriptConfig;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.ScriptConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
 import com.robot.et.db.RobotDB;
 import com.robot.et.entity.ScriptActionInfo;

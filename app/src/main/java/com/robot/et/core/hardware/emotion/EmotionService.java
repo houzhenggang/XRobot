@@ -1,10 +1,8 @@
 package com.robot.et.core.hardware.emotion;
 
-import java.util.Random;
-
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.EmotionConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.EmotionConfig;
 import com.robot.et.util.ScriptManager;
 
 import android.app.Service;

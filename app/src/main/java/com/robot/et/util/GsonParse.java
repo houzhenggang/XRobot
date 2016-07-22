@@ -4,7 +4,8 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.iflytek.cloud.RecognizerResult;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.entity.RemindInfo;
 import com.robot.et.entity.RobotInfo;

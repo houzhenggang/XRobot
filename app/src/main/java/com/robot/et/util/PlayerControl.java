@@ -6,10 +6,11 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.robot.et.app.CustomApplication;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.ScriptConfig;
-import com.robot.et.config.UrlConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.ScriptConfig;
+import com.robot.et.common.UrlConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.core.software.system.MediaManager;

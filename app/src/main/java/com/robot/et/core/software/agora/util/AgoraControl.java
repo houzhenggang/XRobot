@@ -6,12 +6,12 @@ import android.os.SystemClock;
 import android.util.Log;
 
 import com.robot.et.app.CustomApplication;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.ScriptConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.ScriptConfig;
 import com.robot.et.core.software.agora.ChannelActivity;
 import com.robot.et.entity.JpushInfo;
-import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 

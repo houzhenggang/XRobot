@@ -15,14 +15,14 @@ import com.iflytek.cloud.InitListener;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechSynthesizer;
 import com.iflytek.cloud.SynthesizerListener;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.ScriptConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.ScriptConfig;
 import com.robot.et.core.software.iflytek.util.IflyUtils;
 import com.robot.et.core.software.zxing.ScanCodeActivity;
 import com.robot.et.debug.Logger;
 import com.robot.et.util.AlarmRemindManager;
-import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.CharactorTool;
 import com.robot.et.util.DataManager;
 import com.robot.et.util.PlayerControl;
@@ -117,6 +117,7 @@ public class IflySpeakService extends Service {
 				Logger.i("把正在说话的动作停止掉");
 				if(mTts.isSpeaking()){
 					mTts.stopSpeaking();
+					DataConfig.isSpeaking = false;
 				}
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_GET_LOCATION)) {// 百度地图定位到位置
 				SharedPreferencesUtils sharedUtils = SharedPreferencesUtils.getInstance();

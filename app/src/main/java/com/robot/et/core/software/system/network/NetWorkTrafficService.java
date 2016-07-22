@@ -11,7 +11,7 @@ import java.text.DecimalFormat;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.robot.et.config.BroadcastAction;
+import com.robot.et.common.BroadcastAction;
 
 public class NetWorkTrafficService extends Service {
 

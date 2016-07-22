@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechUtility;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.DataConfig;
 
 public class CustomApplication extends Application {
 	private static CustomApplication instance;

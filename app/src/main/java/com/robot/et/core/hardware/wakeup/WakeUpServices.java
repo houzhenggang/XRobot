@@ -11,8 +11,8 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.EmotionConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.EmotionConfig;
 import com.robot.et.util.ShellUtils;
 import com.robot.et.util.ShellUtils.CommandResult;
 

@@ -6,7 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.robot.et.config.UrlConfig;
+import com.robot.et.common.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.entity.ImageInfo;
 import com.squareup.okhttp.Call;

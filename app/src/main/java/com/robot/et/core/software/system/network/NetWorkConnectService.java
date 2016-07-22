@@ -1,7 +1,7 @@
 package com.robot.et.core.software.system.network;
 
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.DataConfig;
 import com.robot.et.core.software.system.network.util.NetWorkConnect;
 import com.robot.et.core.software.system.network.util.NetWorkConnect.WifiCipherType;
 import com.robot.et.util.Utilities;
@@ -14,7 +14,6 @@ import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.wifi.WifiManager;
 import android.os.IBinder;
-import android.text.TextUtils;
 import android.util.Log;
 
 public class NetWorkConnectService extends Service {

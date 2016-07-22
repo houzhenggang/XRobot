@@ -11,11 +11,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.ScriptConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.ScriptConfig;
 import com.robot.et.entity.RobotAction;
-import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.ScriptManager;
 
 public class ControlMoveService extends Service {

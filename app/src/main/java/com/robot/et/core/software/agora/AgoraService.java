@@ -8,8 +8,8 @@ import android.content.IntentFilter;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.DataConfig;
 import com.robot.et.core.software.agora.util.AgoraControl;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.JpushInfo;

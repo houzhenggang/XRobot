@@ -4,8 +4,9 @@ import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.UrlConfig;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;

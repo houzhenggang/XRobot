@@ -1,8 +1,5 @@
 package com.robot.et.core.software.system;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.Service;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -12,13 +9,16 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.RemindInfo;
 import com.robot.et.util.AlarmRemindManager;
 import com.robot.et.util.DataManager;
-import com.robot.et.util.BroadcastShare;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //闹铃提醒
 public class AlarmClockService extends Service{

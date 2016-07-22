@@ -10,14 +10,14 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.UrlConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.UrlConfig;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.CommandMsg;
 import com.robot.et.entity.RobotInfo;
 import com.robot.et.impl.RobotInfoImpl;
-import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.DataManager;
 import com.robot.et.util.DeviceUuidFactory;
 import com.robot.et.util.ScriptManager;

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.text.TextUtils;
 
 import com.robot.et.app.CustomApplication;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.DataConfig;
 import com.robot.et.core.software.system.AlarmClockManager;
 import com.robot.et.debug.Logger;
 //闹铃接受器

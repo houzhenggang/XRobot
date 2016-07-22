@@ -12,11 +12,11 @@ import android.os.IBinder;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.ScriptConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.ScriptConfig;
 import com.robot.et.debug.Logger;
-import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.PlayerControl;
 import com.robot.et.util.ScriptManager;
 
@@ -64,7 +64,9 @@ public class MusicPlayerService extends Service{
 		public void onReceive(Context context, Intent intent) {
 			if(intent.getAction().equals(BroadcastAction.ACTION_STOP_MUSIC_ONLY)){// 仅仅把音乐停止掉
 				if(mediaPlayer.isPlaying()){
-					mediaPlayer.stop(); // 音乐停止播放  
+					mediaPlayer.stop(); // 音乐停止播放
+					DataConfig.isPlayMusic = false;
+					DataConfig.isJpushStop = false;
 				}
 			}else if(intent.getAction().equals(BroadcastAction.ACTION_PLAY_LOWER)){//是推送来的音乐时，自动播放下一首
 				Log.i("netty", "MusicPlayerService currentMediaType===" + PlayerControl.getCurrentMediaType());

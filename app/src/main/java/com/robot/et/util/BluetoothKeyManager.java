@@ -1,12 +1,10 @@
 package com.robot.et.util;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.KeyEvent;
 
-import com.robot.et.app.CustomApplication;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
 
 /*
 蓝牙按键控制机器人
@@ -35,13 +33,8 @@ public class BluetoothKeyManager {
     }
 
     private static void handleResponse(){
-        BroadcastShare.stopSpeakOnly();
-        BroadcastShare.stopListenerOnly();
-        BroadcastShare.stopMusicOnly();
         DataConfig.isBluetoothBox = true;
-        Intent intent = new Intent();
-        intent.setAction(BroadcastAction.ACTION_RESUME_MONITOR_CHAT);
-        CustomApplication.getInstance().getApplicationContext().sendBroadcast(intent);
+        BroadcastShare.resumeChat();
     }
 
 }

@@ -1,6 +1,6 @@
 package com.robot.et.core.hardware.serialport;
 
-import com.robot.et.config.BroadcastAction;
+import com.robot.et.common.BroadcastAction;
 import com.robot.et.core.hardware.serialport.SerialPortUtil.OnDataReceiveListener;
 
 import android.app.Service;

@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.mapapi.SDKInitializer;
-import com.robot.et.config.BroadcastAction;
+import com.robot.et.common.BroadcastAction;
 import com.robot.et.debug.Logger;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;

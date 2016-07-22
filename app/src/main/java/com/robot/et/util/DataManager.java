@@ -6,10 +6,9 @@ import android.util.Log;
 
 import com.robot.et.R;
 import com.robot.et.app.CustomApplication;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.DataConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.debug.Logger;
-import com.robot.et.entity.RobotInfo;
 import com.robot.et.impl.RobotInfoImpl;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;

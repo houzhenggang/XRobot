@@ -6,7 +6,8 @@ import android.util.Log;
 
 import com.robot.et.R;
 import com.robot.et.app.CustomApplication;
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
 import com.robot.et.enums.SceneServiceEnum;
 
 public class DialogueManager {
@@ -107,7 +108,8 @@ public class DialogueManager {
 				case SCHEDULE://提醒
 					// 日期 + 时间 + 做什么事
 					if (!TextUtils.isEmpty(answer)) {
-						AlarmRemindManager.setIflyRemind(answer);
+						String content = AlarmRemindManager.setIflyRemind(answer);
+						BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
 					} else {
 						speakContent(question, answer);
 					}

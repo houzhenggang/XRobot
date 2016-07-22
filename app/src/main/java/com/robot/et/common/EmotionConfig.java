@@ -1,4 +1,4 @@
-package com.robot.et.config;
+package com.robot.et.common;
 
 public class EmotionConfig {
 

@@ -23,7 +23,7 @@ import android.view.Window;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.robot.et.R;
-import com.robot.et.config.BroadcastAction;
+import com.robot.et.common.BroadcastAction;
 import com.robot.et.core.software.zxing.camera.CameraManager;
 import com.robot.et.core.software.zxing.decoding.CaptureActivityHandler;
 import com.robot.et.core.software.zxing.decoding.InactivityTimer;

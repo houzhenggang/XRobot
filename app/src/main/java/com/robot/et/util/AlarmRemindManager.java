@@ -5,8 +5,9 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.alibaba.fastjson.JSON;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.UrlConfig;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.core.software.system.AlarmClockManager;
 import com.robot.et.db.RobotDB;
@@ -185,7 +186,7 @@ public class AlarmRemindManager {
 	}
 	
 	//讯飞提醒提示
-	public static void setIflyRemind(String result) {
+	public static String setIflyRemind(String result) {
 		boolean flag = addRemindInfo(result);
 		String content = "";
 		if (flag) {
@@ -195,8 +196,7 @@ public class AlarmRemindManager {
 		} else {
 			content = "主人，我是一个聪明的小黄人，不用重复提醒哦";
 		}
-
-		BroadcastShare.textToSpeak(DataConfig.TYPE_VOICE_CHAT, content);
+		return content;
 	}
 
 	//多个闹铃提示
@@ -263,8 +263,6 @@ public class AlarmRemindManager {
 						mInfo.setOriginalTime(AlarmRemindManager.getOriginalAlarmTime());
 						pushMsgToApp(JSON.toJSONString(mInfo), DataConfig.TO_APP_REMIND);
 
-						BroadcastShare.stopListenerOnly();
-						BroadcastShare.stopSpeakOnly();
 						doAppRemindNoResponse();
 					}
 				}

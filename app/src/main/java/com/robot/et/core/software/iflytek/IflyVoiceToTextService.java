@@ -21,14 +21,14 @@ import com.iflytek.cloud.SpeechConstant;
 import com.iflytek.cloud.SpeechError;
 import com.iflytek.cloud.SpeechRecognizer;
 import com.robot.et.R;
-import com.robot.et.config.BroadcastAction;
-import com.robot.et.config.DataConfig;
-import com.robot.et.config.ScriptConfig;
+import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
+import com.robot.et.common.ScriptConfig;
 import com.robot.et.core.software.iflytek.util.IflyUtils;
 import com.robot.et.core.software.system.MusicPlayerService;
 import com.robot.et.debug.Logger;
 import com.robot.et.util.AlarmRemindManager;
-import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.DataManager;
 import com.robot.et.util.DialogueManager;
 import com.robot.et.util.GsonParse;
@@ -79,6 +79,11 @@ public class IflyVoiceToTextService extends Service {
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(BroadcastAction.ACTION_RESUME_MONITOR_CHAT)) {// 对话监听
 				Log.i("voice", "开始监听" );
+				if(DataConfig.isBluetoothBox){
+					BroadcastShare.stopSpeakOnly();
+					stopListen();
+					BroadcastShare.stopMusicOnly();
+				}
 				listenBegin();
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_PHONE_COMEIN)) {// 电话或者视频进来停掉监听
 				Logger.i("电话进来");
@@ -143,18 +148,14 @@ public class IflyVoiceToTextService extends Service {
 				startService(intent);
 			} else if (intent.getAction().equals(BroadcastAction.ACTION_STOP_LISTENER)) {// 停止监听对话
 				Logger.i("停止监听对话");
-				if(mIat.isListening()){
-					mIat.cancel();
-				}
+				stopListen();
 			}
 		}
 	};
 	
 	//关闭掉说话，唱歌，听等操作
 	private void closeAnyDec(){
-		if(mIat.isListening()){
-			mIat.cancel();
-		}
+		stopListen();
 		BroadcastShare.stopSpeakOnly();
 		BroadcastShare.stopMusicOnly();
 		BroadcastShare.controlMouthLED(ScriptConfig.LED_OFF);
@@ -164,10 +165,18 @@ public class IflyVoiceToTextService extends Service {
 	//开启听
 	private void listenBegin(){
 		if(DataConfig.isAppPushRemind){
+			stopListen();
+			BroadcastShare.stopSpeakOnly();
 			AlarmRemindManager.noResponseAppRemind();
 		}
 	
 		listen(true,DataConfig.VOICER_TIPS_DEFAULT);
+	}
+
+	private void stopListen(){
+		if(mIat.isListening()){
+			mIat.cancel();
+		}
 	}
 	
 	private void listen(boolean isTypeCloud,String language) {

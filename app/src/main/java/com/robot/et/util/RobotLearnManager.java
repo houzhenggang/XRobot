@@ -3,7 +3,8 @@ package com.robot.et.util;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.robot.et.config.DataConfig;
+import com.robot.et.common.BroadcastShare;
+import com.robot.et.common.DataConfig;
 import com.robot.et.db.RobotDB;
 import com.robot.et.entity.JpushInfo;
 import com.robot.et.entity.LearnAnswerInfo;
