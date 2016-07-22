@@ -1,27 +1,25 @@
 package com.robot.et.util;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
 
 import com.robot.et.R;
 import com.robot.et.app.CustomApplication;
-import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
-import com.robot.et.config.UrlConfig;
 import com.robot.et.core.software.okhttp.HttpEngine;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.RobotInfo;
+import com.robot.et.impl.RobotInfoImpl;
 import com.squareup.okhttp.Call;
 import com.squareup.okhttp.Callback;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class DataManager {
 
@@ -188,13 +186,13 @@ public class DataManager {
 	}
 
 	//初始化获取机器人的信息
-	public static void getRobotInfo(String url,final String deviceId) {
+	public static void getRobotInfo(String url, final String deviceId, final RobotInfoImpl callBack) {
 		HttpEngine.Param[] params = new HttpEngine.Param[]{
 				new HttpEngine.Param("deviceId", deviceId),
 		};
 		HttpEngine httpEngine = HttpEngine.getInstance();
 		Request request = httpEngine.createRequest(url,params);
-		Call call = httpEngine.createRequestCall(request);
+		final Call call = httpEngine.createRequestCall(request);
 		call.enqueue(new Callback() {
 
 			@Override
@@ -207,23 +205,7 @@ public class DataManager {
 				String json = request.body().string();
 				Log.i("json", "getRobotInfo()  json==" + json);
 				if (!TextUtils.isEmpty(json)) {
-					GsonParse.getRobotInfo(json, new GsonParse.RobotInfoCallBack() {
-
-						@Override
-						public void setRobotInfo(String message, RobotInfo info) {
-							if (info != null) {
-								String robotNum = info.getRobotNum();
-								if (!TextUtils.isEmpty(robotNum)) {
-									SharedPreferencesUtils share = SharedPreferencesUtils.getInstance();
-									share.putString(SharedPreferencesKeys.ROBOT_NUM,robotNum);
-									share.commitValue();
-									BroadcastShare.connectNettyArgin();
-								}
-							}else{
-								getRobotInfo(UrlConfig.GET_ROBOT_INFO_START,deviceId);
-							}
-						}
-					});
+					callBack.getRobotInfo(GsonParse.getRobotInfo(json));
 				}
 			}
 
