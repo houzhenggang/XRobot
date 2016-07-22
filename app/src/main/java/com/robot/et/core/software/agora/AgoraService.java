@@ -10,7 +10,7 @@ import android.util.Log;
 
 import com.robot.et.config.BroadcastAction;
 import com.robot.et.config.DataConfig;
-import com.robot.et.core.software.agora.util.AgoraUtils;
+import com.robot.et.core.software.agora.util.AgoraControl;
 import com.robot.et.debug.Logger;
 import com.robot.et.entity.JpushInfo;
 import com.xsj.crasheye.Crasheye;
@@ -42,7 +42,7 @@ public class AgoraService extends Service {
 		public void onReceive(Context context, Intent intent) {
 			if(intent.getAction().equals(BroadcastAction.ACTION_CONNECT_AGORA)){//连接进入agora界面
 				Log.i("agoravideo", "type===" + intent.getIntExtra("type", 0));
-				AgoraUtils.testAgora(intent.getIntExtra("type", 0));
+				AgoraControl.openChannelActivity(intent.getIntExtra("type", 0));
 				intent.setAction(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_TRAFFIC_OPEN);
 				sendBroadcast(intent);
 				
@@ -52,11 +52,11 @@ public class AgoraService extends Service {
 
 				if(info != null){
 					Log.i("agoravideo", "AgoraService   joinAgoraRoom");
-					AgoraUtils.joinAgoraRoom(info);
+					AgoraControl.joinAgoraRoom(info);
 				}
 				
 			}else if(intent.getAction().equals(BroadcastAction.ACTION_CLOSE_AGORA_ACTIVITY)){//关闭agora界面
-				AgoraUtils.closeChannel();
+				AgoraControl.closeChannel();
 				
 			}
 		}

@@ -19,7 +19,7 @@ import com.robot.et.core.hardware.motor.ControlMoveService;
 import com.robot.et.core.hardware.serialport.SerialPortService;
 import com.robot.et.core.hardware.wakeup.WakeUpServices;
 import com.robot.et.core.software.agora.AgoraService;
-import com.robot.et.core.software.agora.util.AgoraUtils;
+import com.robot.et.core.software.agora.util.AgoraControl;
 import com.robot.et.core.software.baidumap.LocationService;
 import com.robot.et.core.software.iflytek.IflySpeakService;
 import com.robot.et.core.software.iflytek.IflyTextUnderstanderService;
@@ -134,7 +134,7 @@ public class MainActivity extends RosActivity {
 				startService(intent.setClass(context, NetWorkTrafficService.class));
 			}else if (intent.getAction().equals(BroadcastAction.ACTION_MONITOR_WATCH_NETWORK_DISCONNECT)) {
 				//如果视频通话界面还在的话，关闭界面
-				AgoraUtils.closeChannel();
+				AgoraControl.closeChannel();
 				// 百度定位
 				stopService(intent.setClass(context, LocationService.class));
 				// Netty服务

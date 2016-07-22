@@ -15,10 +15,10 @@ import com.robot.et.util.BroadcastShare;
 import com.robot.et.util.SharedPreferencesKeys;
 import com.robot.et.util.SharedPreferencesUtils;
 
-public class AgoraUtils {
+public class AgoraControl {
 
 	//进入声网
-	public static void testAgora(int type) {
+	public static void openChannelActivity (int type) {
 		Context context = CustomApplication.getInstance().getApplicationContext();
 		Intent intent = new Intent(context, ChannelActivity.class);
 		intent.putExtra(DataConfig.AGORA_EXTRA_CALLING_TYPE, type);
@@ -41,8 +41,8 @@ public class AgoraUtils {
 		int extra = info.getExtra();
 		String roomNum = info.getRoomNum();
 		int agoraType = SharedPreferencesUtils.getInstance().getInt(SharedPreferencesKeys.AGORA_CALL_PATTERN, 0);
-		Log.i("agoravideo", "AgoraUtils extra===" + extra);
-		Log.i("agoravideo", "AgoraUtils agoraType===" + agoraType);
+		Log.i("agoravideo", "AgoraControl extra===" + extra);
+		Log.i("agoravideo", "AgoraControl agoraType===" + agoraType);
 		BroadcastShare.controlWaving(ScriptConfig.HAND_STOP,ScriptConfig.HAND_TWO,"0");
 
 		switch (extra) {
@@ -52,7 +52,7 @@ public class AgoraUtils {
 				SystemClock.sleep(500);
 				DataConfig.isAgoraVideo = true;
 				BroadcastShare.textToSpeak(DataConfig.JPUSH_CALL_VIDEO, info.getContent());
-				Log.i("agoravideo", "AgoraUtils 发出提示广播请求");
+				Log.i("agoravideo", "AgoraControl 发出提示广播请求");
 			}
 			
 			break;
@@ -68,7 +68,7 @@ public class AgoraUtils {
 		case DataConfig.JPUSH_CALL_LOOK:// agora查看
 			if(agoraType == DataConfig.AGORA_CALL_NORMAL_PATTERN){//正常模式
 				joinRoomerBegin(roomNum);
-				testAgora(DataConfig.JPUSH_CALL_LOOK);
+				openChannelActivity(DataConfig.JPUSH_CALL_LOOK);
 			}
 			
 			break;
