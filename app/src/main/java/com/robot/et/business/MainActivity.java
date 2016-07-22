@@ -12,6 +12,7 @@ import android.view.WindowManager;
 
 import com.robot.et.R;
 import com.robot.et.common.BroadcastAction;
+import com.robot.et.common.BroadcastShare;
 import com.robot.et.common.DataConfig;
 import com.robot.et.common.ScriptConfig;
 import com.robot.et.core.hardware.emotion.EmotionService;
